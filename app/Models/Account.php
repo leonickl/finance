@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property bool $archived
  * @property bool $recurring
  * @property float|null $interest_rate
- * @property-read AccountType $type
+ * @property AccountType $type
  * @property-read BankAccount $bankAccount
  */
 final class Account extends Model

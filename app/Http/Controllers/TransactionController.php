@@ -26,9 +26,9 @@ class TransactionController extends Controller
         $transaction->credit_id = $request->integer('credit_id');
         $transaction->value = $request->float('value');
         $transaction->text = $request->get('text');
-        $transaction->claim_id = $request->integer('claim_id', null);
+        $transaction->claim_id = $request->integer('claim_id') ?: null;
         $transaction->group_uid = $request->get('group_uid');
-        $transaction->person_id = $request->integer('person_id', null);
+        $transaction->person_id = $request->integer('person_id') ?: null;
 
         return $transaction;
     }

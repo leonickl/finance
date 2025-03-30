@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Types\AccountType;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -24,7 +25,7 @@ class AccountController extends Controller
 
         $account->name = $request->get('name');
         $account->archived = $request->boolean('archived');
-        $account->type = AccountTyp;
+        $account->type = AccountType::make($request->integer('type'));
         ($request->integer('group_id'));
         $account->recurring = $request->boolean('recurring');
         $account->interest_rate = $request->float('interest_rate');
