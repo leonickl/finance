@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use RuntimeException;
 
 class RegisteredUserController extends Controller
 {
@@ -20,6 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
+        throw new RuntimeException('Multiple users are not supported by now.');
+        
         return Inertia::render('Auth/Register');
     }
 
@@ -30,6 +33,8 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        throw new RuntimeException('Multiple users are not supported by now.');
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
