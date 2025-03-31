@@ -1,4 +1,5 @@
-import { DataRecord } from "@/types";
+import { DataRecord } from '@/types';
+import { Currency } from '../Transactions/Transaction';
 
 export type Account = DataRecord & {
     name: string;
@@ -24,3 +25,8 @@ export enum AccountType {
     FUTURE_INCOME = 14,
     FUTURE_EXPENSES = 15,
 }
+
+export type Money = {
+    value: number;
+    currency: Currency;
+};

@@ -43,8 +43,11 @@ class AccountController extends Controller
      */
     public function show(int $id)
     {
+        $account = Account::findOrFail($id);
+
         return Inertia::render('Accounts/Show', [
-            'account' => Account::findOrFail($id),
+            'account' => $account,
+            'balance' => $account->balance()->toArray(),
         ]);
     }
 

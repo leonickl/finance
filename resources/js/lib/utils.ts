@@ -1,3 +1,4 @@
+import { Money } from '@/Pages/Accounts/Account';
 import { Currency } from '@/Pages/Transactions/Transaction';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -42,6 +43,11 @@ export function date(d: string) {
     return new Date(d).toDateString();
 }
 
-export function money(value: number, currency: Currency) {
-    return `${value} ${currency.code}`;
+export function money(
+    value: number | Money,
+    currency: Currency | null = null,
+): string {
+    return typeof value === 'number'
+        ? `${value} ${currency?.code}`
+        : money(value.value, value.currency);
 }

@@ -125,4 +125,12 @@ final readonly class Money implements Floatable
     {
         return new self((int) ($this->int / $divisor), $this->currency);
     }
+
+    public function toArray(): array
+    {
+        return [
+            'value' => $this->float(),
+            'currency' => $this->currency()->toArray(),
+        ];
+    }
 }
