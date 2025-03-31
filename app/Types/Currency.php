@@ -41,4 +41,11 @@ final readonly class Currency implements Htmlable
     {
         return $this->code === $other->code;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+        ];
+    }
 }

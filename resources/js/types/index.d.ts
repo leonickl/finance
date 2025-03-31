@@ -12,3 +12,7 @@ export type PageProps<
         user: User;
     };
 };
+
+export type DataRecord = {
+    id:number
+}

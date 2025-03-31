@@ -16,6 +16,8 @@ export default function Authenticated({
 
     const nav = {
         dashboard: 'Dashboard',
+        accounts: 'Accounts',
+        transactions: 'Transactions',
     };
 
     return (

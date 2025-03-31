@@ -24,6 +24,7 @@ final class Account extends Model
     protected function casts(): array
     {
         return [
+            'interest_rate' => 'float',
             'archived' => 'boolean',
             'recurring' => 'boolean',
         ];
@@ -37,6 +38,15 @@ final class Account extends Model
                 'group_id' => $type->value,
             ],
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            ...parent::toArray(),
+            'type' => $this->type->name,
+            'bankAccount' => $this->bankAccount,
+        ];
     }
 
     public static function splitAccount(): Account

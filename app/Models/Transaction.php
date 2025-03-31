@@ -77,6 +77,18 @@ final class Transaction extends Model
         return $transaction;
     }
 
+    public function toArray(): array
+    {
+        return [
+            ...parent::toArray(),
+            'debit' => $this->debit,
+            'credit' => $this->credit,
+            'claim' => $this->claim,
+            'person' => $this->person,
+            'currency' => $this->currency->toArray(),
+        ];
+    }
+
     protected function text(): Attribute
     {
         $callback = fn (string $text) => trim(str_replace(['<br>', '<br/>', '<br />'], [' ', ' ', ' '], $text));
