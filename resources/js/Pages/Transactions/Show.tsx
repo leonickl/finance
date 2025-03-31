@@ -35,7 +35,7 @@ export default function Show({
                     />
                 ),
                 person: record.person?.name,
-                claim: (
+                claim: record.claim && (
                     <RecordLink
                         auth={auth}
                         dest="transaction"
