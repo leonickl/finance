@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Laravel\Scout\Searchable;
 use Override;
 
 /**
@@ -35,12 +36,18 @@ use Override;
 final class Transaction extends Model
 {
     use CurrencyAttribute;
+    use Searchable;
 
     protected function casts(): array
     {
         return [
+            'id' => 'int',
+            'debit_id' => 'int',
+            'credit_id' => 'int',
             'value' => 'float',
             'timestamp' => 'datetime',
+            'claim_id' => 'int',
+            'person_id' => 'int',
         ];
     }
 
@@ -86,6 +93,24 @@ final class Transaction extends Model
             'claim' => $this->claim,
             'person' => $this->person,
             'currency' => $this->currency->toArray(),
+        ];
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => (int) $this->id,
+            'debit_id' => (int) $this->debit_id,
+            'credit_id' => (int) $this->credit_id,
+            'debit' => $this->debit->name,
+            'credit' => $this->credit->name,
+            'value' => (float) $this->value,
+            'text' => $this->text,
+            'date' => $this->timestamp,
+            'claim_id' => (int) $this->claim_id,
+            'group_uid' => $this->group_uid,
+            'person' => $this->person?->name,
+            'currency' => $this->currency->code(),
         ];
     }
 

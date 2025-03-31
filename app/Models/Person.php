@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Laravel\Scout\Searchable;
 
 /**
  * @property int $id
@@ -15,6 +16,8 @@ use Illuminate\Support\Collection;
  */
 final class Person extends Model
 {
+    use Searchable;
+    
     public static function default(): Person
     {
         return new Person(['name' => '---']);
