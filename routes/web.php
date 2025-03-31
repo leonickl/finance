@@ -26,7 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
     Route::get('/transaction/{id}', [TransactionController::class, 'show'])->name('transaction');
 
-
     Route::get('/statement', [StatementController::class, 'index'])->name('statement');
 });
 

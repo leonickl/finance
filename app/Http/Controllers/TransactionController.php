@@ -14,7 +14,10 @@ class TransactionController extends Controller
     public function index()
     {
         return Inertia::render('Transactions/List', [
-            'transactions' => (request('search') ? Transaction::search(request('search')) : Transaction::query())->orderByDesc('timestamp')->paginate(20),
+            'transactions' => (request('search') ? Transaction::search(request('search')) : Transaction::query())
+                ->orderByDesc('timestamp')
+                ->paginate(20)
+                ->appends(request()->input()),
         ]);
     }
 

@@ -152,6 +152,7 @@ return [
                     'value',
                     'text',
                     'date',
+                    'timestamp',
                     'claim_id',
                     'group_uid',
                     'person',
@@ -160,6 +161,7 @@ return [
                 'sortableAttributes' => [
                     'id',
                     'date',
+                    'timestamp',
                 ],
             ],
         ],

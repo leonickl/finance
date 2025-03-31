@@ -1,14 +1,22 @@
-import { PageProps } from '@/types';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export function SearchField({}: PageProps<{}>) {
-    const [searchTerm, setSearchTerm] = useState('');
+export function SearchField() {
+    const { url } = usePage();
+
+    const urlObj = new URL(url, window.location.origin);
+
+    const [searchTerm, setSearchTerm] = useState(
+        urlObj.searchParams.get('search') ?? '',
+    );
+
+    const searchParams = Object.fromEntries([...urlObj.searchParams.entries()]);
 
     useEffect(() => {
         router.get(
-            window.location.pathname,
+            urlObj.pathname,
             {
+                ...searchParams,
                 search: searchTerm,
             },
             {
@@ -20,8 +28,11 @@ export function SearchField({}: PageProps<{}>) {
 
     function resetSearch() {
         router.get(
-            window.location.pathname,
-            {},
+            urlObj.pathname,
+            {
+                ...searchParams,
+                search: undefined,
+            },
             {
                 preserveState: true,
                 replace: true,
@@ -40,7 +51,7 @@ export function SearchField({}: PageProps<{}>) {
 
             <button
                 onClick={resetSearch}
-                className="font-lg h-6 w-6 rounded-xl dark:bg-red-700 bg-red-500 font-bold text-gray-900 shadow hover:text-white"
+                className="font-lg h-6 w-6 rounded-xl bg-red-500 font-bold text-gray-900 shadow hover:text-white dark:bg-red-700"
             >
                 &times;
             </button>

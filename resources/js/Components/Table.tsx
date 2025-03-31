@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { __, log } from '@/lib/utils';
+import { __ } from '@/lib/utils';
 import { DataRecord, PageProps, Pagination } from '@/types';
 import { Head } from '@inertiajs/react';
 import PaginationLinks from './PaginationLinks';
@@ -39,8 +39,6 @@ export default function Table<T extends DataRecord>({
 
     const paginated = !Array.isArray(list);
 
-    paginated && log(list.links);
-
     return (
         <AuthenticatedLayout
             header={
@@ -53,10 +51,10 @@ export default function Table<T extends DataRecord>({
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             {(search || paginated) && (
-                                <div className='flex flex-row sm:flex-col sm:items-center justify-evenly'>
+                                <div className="flex flex-row justify-evenly sm:flex-col sm:items-center">
                                     {search && <SearchField auth={auth} />}
 
                                     {paginated && (
@@ -73,10 +71,10 @@ export default function Table<T extends DataRecord>({
                             <div
                                 className={`grid ${cols(header.length + 1)} p-4`}
                             >
-                                <div className="border-b dark:border-gray-600 border-gray-300 p-3 text-center font-bold"></div>
+                                <div className="border-b border-gray-300 p-3 text-center font-bold dark:border-gray-600"></div>
 
                                 {header.map((key) => (
-                                    <div className="border-b dark:border-gray-600 border-gray-300 p-3 text-center font-bold">
+                                    <div className="border-b border-gray-300 p-3 text-center font-bold dark:border-gray-600">
                                         {__(key)}
                                     </div>
                                 ))}
@@ -84,7 +82,7 @@ export default function Table<T extends DataRecord>({
                                 {(paginated ? list.data : list)
                                     .flatMap(withLink(row))
                                     .map((cell) => (
-                                        <div className="border-b dark:border-gray-600 border-gray-300 p-3 text-center">
+                                        <div className="border-b border-gray-300 p-3 text-center dark:border-gray-600">
                                             {cell}
                                         </div>
                                     ))}

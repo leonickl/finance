@@ -1,9 +1,11 @@
 import { PageProps, Pagination } from '@/types';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 export default function PaginationLinks<T>({
     pagination,
 }: PageProps<{ pagination: Pagination<T> }>) {
+    const { url } = usePage();
+
     return (
         <nav
             role="navigation"
