@@ -27,7 +27,7 @@ export default function Statement({
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                        <div className="flex flex-row justify-between p-6 text-gray-900 dark:text-gray-100 gap-10">
+                        <div className="flex flex-row justify-between p-6 text-gray-900 dark:text-gray-200 gap-10">
                             <div className='flex-1'>
                                 <SubStatement auth={auth} statement={assets} />
                             </div>

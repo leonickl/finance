@@ -35,12 +35,12 @@ export function SearchField({}: PageProps<{}>) {
                 type="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="rounded shadow"
+                className="rounded shadow dark:bg-gray-700"
             />
 
             <button
                 onClick={resetSearch}
-                className="font-lg h-6 w-6 rounded-xl bg-red-500 font-bold text-gray-900 shadow hover:text-white"
+                className="font-lg h-6 w-6 rounded-xl dark:bg-red-700 bg-red-500 font-bold text-gray-900 shadow hover:text-white"
             >
                 &times;
             </button>

@@ -8,7 +8,7 @@ export default function SubStatement({
 }: PageProps<{ statement: StatementType }>) {
     return (
         <div className="ml-5 flex flex-col gap-6">
-            <div className="font-extrabold underline flex flex-row justify-between">
+            <div className="flex flex-row justify-between font-extrabold underline">
                 <div className="font-bold"> {__(statement.name)}</div>
                 <div className="text-right">{money(statement.balance)}</div>
             </div>
@@ -18,8 +18,10 @@ export default function SubStatement({
                     .filter((account) => account.balance.value)
                     .map((account) => (
                         <>
-                            <div className="font-bold">{account.name}</div>
-                            <div className="text-right">
+                            <div className="font-bold text-gray-400">
+                                {account.name}
+                            </div>
+                            <div className="text-right text-gray-400">
                                 {money(account.balance)}
                             </div>
                         </>

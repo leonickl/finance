@@ -56,7 +56,7 @@ export default function Table<T extends DataRecord>({
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             {(search || paginated) && (
-                                <div className='flex flex-row justify-evenly'>
+                                <div className='flex flex-row sm:flex-col sm:items-center justify-evenly'>
                                     {search && <SearchField auth={auth} />}
 
                                     {paginated && (
@@ -73,10 +73,10 @@ export default function Table<T extends DataRecord>({
                             <div
                                 className={`grid ${cols(header.length + 1)} p-4`}
                             >
-                                <div className="border-b border-gray-300 p-3 text-center font-bold"></div>
+                                <div className="border-b dark:border-gray-600 border-gray-300 p-3 text-center font-bold"></div>
 
                                 {header.map((key) => (
-                                    <div className="border-b border-gray-300 p-3 text-center font-bold">
+                                    <div className="border-b dark:border-gray-600 border-gray-300 p-3 text-center font-bold">
                                         {__(key)}
                                     </div>
                                 ))}
@@ -84,7 +84,7 @@ export default function Table<T extends DataRecord>({
                                 {(paginated ? list.data : list)
                                     .flatMap(withLink(row))
                                     .map((cell) => (
-                                        <div className="border-b border-gray-300 p-3 text-center">
+                                        <div className="border-b dark:border-gray-600 border-gray-300 p-3 text-center">
                                             {cell}
                                         </div>
                                     ))}
