@@ -14,7 +14,7 @@ class TransactionController extends Controller
     public function index()
     {
         return Inertia::render('Transactions/List', [
-            'transactions' => Transaction::paginate(20),
+            'transactions' => Transaction::search(request('search'))->paginate(20),
         ]);
     }
 

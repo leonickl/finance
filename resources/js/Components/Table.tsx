@@ -3,6 +3,7 @@ import { __, log } from '@/lib/utils';
 import { DataRecord, PageProps, Pagination } from '@/types';
 import { Head } from '@inertiajs/react';
 import PaginationLinks from './PaginationLinks';
+import { SearchField } from './SearchField';
 
 export default function Table<T extends DataRecord>({
     title,
@@ -11,12 +12,14 @@ export default function Table<T extends DataRecord>({
     header,
     row,
     auth,
+    search = false,
 }: PageProps<{
     title: string;
     showRoute: string;
     list: T[] | Pagination<T>;
     header: string[];
     row: (arg: T) => string[];
+    search?: boolean;
 }>) {
     function withLink(f: (arg: T) => string[]) {
         return (x: T) => [<a href={route(showRoute, x.id)}>{x.id}</a>, ...f(x)];
@@ -52,8 +55,10 @@ export default function Table<T extends DataRecord>({
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
+                            {search && <SearchField auth={auth} />}
+
                             {paginated && (
-                                <div className='my-5'>
+                                <div className="my-5">
                                     <PaginationLinks
                                         auth={auth}
                                         pagination={list}

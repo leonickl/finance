@@ -21,6 +21,7 @@ export default function List({
                 transaction.value + ' ' + transaction.currency.code,
                 date(transaction.timestamp),
             ]}
+            search={true}
         />
     );
 }
