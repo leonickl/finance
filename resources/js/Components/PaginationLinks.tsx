@@ -54,7 +54,7 @@ export default function PaginationLinks<T>({
                         {pagination.prev_page_url ? (
                             <Link
                                 href={pagination.prev_page_url}
-                                className="relative inline-flex items-center rounded-l-md border border-gray-300 dark:border-gray-600 bg-white px-2 py-2 text-sm font-medium leading-5 text-gray-500 ring-gray-300 transition duration-150 ease-in-out hover:bg-gray-200 hover:text-gray-400 focus:z-10 focus:border-blue-300 focus:outline-none focus:ring active:bg-gray-100 active:text-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:border-blue-800 dark:active:bg-gray-700"
+                                className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium leading-5 text-gray-500 ring-gray-300 transition duration-150 ease-in-out hover:bg-gray-200 hover:text-gray-400 focus:z-10 focus:border-blue-300 focus:outline-none focus:ring active:bg-gray-100 active:text-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:border-blue-800 dark:active:bg-gray-700"
                                 aria-label="Previous"
                             >
                                 <svg
@@ -72,7 +72,7 @@ export default function PaginationLinks<T>({
                         ) : (
                             <span
                                 aria-disabled="true"
-                                className="relative inline-flex cursor-default items-center rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-2 text-sm font-medium leading-5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600"
+                                className="relative inline-flex cursor-default items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium leading-5 text-gray-500 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-600"
                                 aria-hidden="true"
                             >
                                 <svg
