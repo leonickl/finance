@@ -18,6 +18,7 @@ export default function Authenticated({
         dashboard: 'Dashboard',
         accounts: 'Accounts',
         transactions: 'Transactions',
+        statement: 'Statement',
     };
 
     return (

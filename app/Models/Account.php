@@ -60,6 +60,14 @@ final class Account extends Model
         ]);
     }
 
+    public function withBalance(): array
+    {
+        return [
+            ...$this->toArray(),
+            'balance' => $this->balance()->toArray(),
+        ];
+    }
+
     public function transactions(): TransactionCollection
     {
         return TransactionCollection::allWithAccount($this->id);

@@ -59,7 +59,8 @@ enum AccountType: int
     public function children(): Collection
     {
         return collect(self::cases())
-            ->filter(fn (self $case) => $case->parent() !== null && $case->parent()->equals($this));
+            ->filter(fn (self $case) => $case->parent() !== null && $case->parent()->equals($this))
+            ->values();
     }
 
     public function parent(): ?self
@@ -76,9 +77,22 @@ enum AccountType: int
     public function balance(): Money
     {
         return once(function () {
-            $balances = $this->accounts()->map(fn (Account $account) => $account->balance());
+            $accounts = $this->accounts()->map->balance();
+            $children = $this->children()->map->balance();
 
-            return Money::zero()->plusAll(...$balances);
+            return Money::zero()
+                ->plusAll(...$accounts)
+                ->plusAll(...$children);
         });
+    }
+
+    public function statement(): array
+    {
+        return [
+            'name' => $this->name,
+            'balance' => $this->balance()->toArray(),
+            'children' => $this->children()->map->statement(),
+            'accounts' => $this->accounts()->map->withBalance(),
+        ];
     }
 }

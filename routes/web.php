@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatementController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
     Route::get('/transaction/{id}', [TransactionController::class, 'show'])->name('transaction');
+
+
+    Route::get('/statement', [StatementController::class, 'index'])->name('statement');
 });
 
 require __DIR__.'/auth.php';
