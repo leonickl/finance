@@ -133,4 +133,16 @@ final readonly class Money implements Floatable
             'currency' => $this->currency()->toArray(),
         ];
     }
+
+    public function dd(): never
+    {
+        dd($this->int, $this->currency()->code());
+    }
+
+    public function dump(): self
+    {
+        dump($this->int, $this->currency()->code());
+
+        return $this;
+    }
 }
