@@ -26,7 +26,7 @@ use Override;
  * @property int|null $claim_id
  * @property string|null $group_uid
  * @property int|null $person_id
- * @property-read Date $date
+ * @property Date $date
  * @property-read Account $debit
  * @property-read Account $credit
  * @property-read Person $person

@@ -23,7 +23,7 @@ final readonly class Date
     }
 
     /**
-     * @param  string  $string  : four digit year dd.mm.yyyy
+     * @param string $string dd.mm.yyyy
      */
     public static function fromGermanDate(string $string): self
     {

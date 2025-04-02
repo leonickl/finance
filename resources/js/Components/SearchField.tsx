@@ -47,7 +47,7 @@ export function SearchField({}: PageProps<{}>) {
                 type="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="rounded shadow dark:bg-gray-700"
+                className="rounded shadow dark:bg-gray-800"
             />
 
             <button

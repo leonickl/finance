@@ -24,7 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/account/{id}', [AccountController::class, 'show'])->name('account');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
-    Route::get('/transaction/{id}', [TransactionController::class, 'show'])->name('transaction');
+    Route::get('/transactions/create', [TransactionController::class, 'create'])->name('create-transaction');
+    Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transaction');
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('store-transaction');
+    // Route::post('/transactions/{id}', [TransactionController::class, 'update'])->name('update-transaction');
 
     Route::get('/statement', [StatementController::class, 'index'])->name('statement');
 });

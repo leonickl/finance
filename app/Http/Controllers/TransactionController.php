@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Transaction;
+use App\Types\Currency;
+use App\Types\Date\Date;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return Inertia::render('Transactions/List', [
@@ -21,27 +21,25 @@ class TransactionController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $transaction = new Transaction;
 
-        $transaction->debit_id = $request->integer('debit_id');
-        $transaction->credit_id = $request->integer('credit_id');
+        $transaction->debit_id = $request->integer('debitId');
+        $transaction->credit_id = $request->integer('creditId');
+        $transaction->date = Date::of($request->date('date', 'Y-m-d'));
         $transaction->value = $request->float('value');
+        $transaction->currency = Currency::new($request->get('currency'));
         $transaction->text = $request->get('text');
-        $transaction->claim_id = $request->integer('claim_id') ?: null;
-        $transaction->group_uid = $request->get('group_uid');
-        $transaction->person_id = $request->integer('person_id') ?: null;
+        $transaction->claim_id = $request->integer('claimId') ?: null;
+        $transaction->group_uid = $request->get('groupUid');
+        $transaction->person_id = $request->integer('personId') ?: null;
 
-        return $transaction;
+        $transaction->save();
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         return Inertia::render('Transactions/Show', [
@@ -49,9 +47,13 @@ class TransactionController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function create(Request $request)
+    {
+        return Inertia::render('Transactions/Create', [
+            'accounts' => Account::all(),
+        ]);
+    }
+
     public function update(Request $request, string $id)
     {
         $transaction = Transaction::findOrFail($id);
@@ -67,9 +69,6 @@ class TransactionController extends Controller
         return $transaction;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         Transaction::destroy($id);
