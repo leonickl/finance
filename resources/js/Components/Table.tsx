@@ -1,13 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
 import { DataRecord, PageProps, Pagination } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import PaginationLinks from './PaginationLinks';
 import { SearchField } from './SearchField';
 
 export default function Table<T extends DataRecord>({
     title,
     showRoute,
+    createRoute,
     list,
     header,
     row,
@@ -16,6 +17,7 @@ export default function Table<T extends DataRecord>({
 }: PageProps<{
     title: string;
     showRoute: string;
+    createRoute: string;
     list: T[] | Pagination<T>;
     header: string[];
     row: (arg: T) => string[];
@@ -53,6 +55,15 @@ export default function Table<T extends DataRecord>({
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
+                            {createRoute && (
+                                <Link
+                                    href={route(createRoute)}
+                                    className="rounded border px-5 py-3 shadow"
+                                >
+                                    {__('new')}
+                                </Link>
+                            )}
+
                             {(search || paginated) && (
                                 <div className="flex flex-row justify-evenly sm:flex-col sm:items-center">
                                     {search && <SearchField auth={auth} />}

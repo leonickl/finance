@@ -11,6 +11,7 @@ export default function List({
         <Table
             title="transactions"
             showRoute="transaction"
+            createRoute="create-transaction"
             auth={auth}
             list={log(transactions)}
             header={['debit', 'credit', 'text', 'value', 'date']}
