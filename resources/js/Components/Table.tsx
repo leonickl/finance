@@ -8,7 +8,7 @@ import { SearchField } from './SearchField';
 export default function Table<T extends DataRecord>({
     title,
     showRoute,
-    createRoute,
+    createRoute = undefined,
     list,
     header,
     row,
@@ -17,7 +17,7 @@ export default function Table<T extends DataRecord>({
 }: PageProps<{
     title: string;
     showRoute: string;
-    createRoute: string;
+    createRoute?: string | undefined;
     list: T[] | Pagination<T>;
     header: string[];
     row: (arg: T) => string[];
