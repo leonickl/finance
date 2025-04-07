@@ -19,10 +19,14 @@ export default function Create({
         new Date().toISOString().split('T')[0],
     );
 
+    function valueToFloat() {
+        setValue(parseFloat(value.replace(',', '.')).toFixed(2));
+    }
+
     function submitHandler(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        console.log(fetch);
+        valueToFloat();
 
         router.post(route('store-transaction'), {
             debitId,
@@ -81,13 +85,7 @@ export default function Create({
                                             onChange={(e) =>
                                                 setValue(e.target.value)
                                             }
-                                            onBlur={() =>
-                                                setValue(
-                                                    parseFloat(
-                                                        value.replace(',', '.'),
-                                                    ).toFixed(2),
-                                                )
-                                            }
+                                            onBlur={valueToFloat}
                                             className={classes}
                                             placeholder="0.00"
                                         />
