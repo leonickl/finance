@@ -36,10 +36,6 @@ export default function Create({
             text,
             date,
         });
-
-        // fetch(route()
-        //     .then(console.log)
-        //     .catch(console.error);
     }
 
     const classes =
