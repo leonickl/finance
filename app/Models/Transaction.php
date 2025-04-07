@@ -116,7 +116,7 @@ final class Transaction extends Model
 
     protected function text(): Attribute
     {
-        $callback = fn (string $text) => trim(str_replace(['<br>', '<br/>', '<br />'], [' ', ' ', ' '], $text));
+        $callback = fn (?string $text) => trim(str_replace(['<br>', '<br/>', '<br />'], [' ', ' ', ' '], $text ?? ''));
 
         return Attribute::make(get: $callback, set: $callback);
     }
