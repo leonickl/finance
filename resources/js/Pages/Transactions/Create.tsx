@@ -12,7 +12,7 @@ export default function Create({
 }: PageProps<{ accounts: Account[] }>) {
     const [debitId, setDebitId] = useState<string>();
     const [creditId, setCreditId] = useState<string>();
-    const [value, setValue] = useState<string>('0.0');
+    const [value, setValue] = useState<number>(0.0);
     const [currency, setCurrency] = useState<string>('EUR');
     const [text, setText] = useState<string>('');
     const [date, setDate] = useState<string>(
@@ -79,7 +79,14 @@ export default function Create({
                                             type="float"
                                             value={value}
                                             onChange={(e) =>
-                                                setValue(e.target.value)
+                                                setValue(
+                                                    parseFloat(
+                                                        e.target.value.replace(
+                                                            ',',
+                                                            '.',
+                                                        ),
+                                                    ),
+                                                )
                                             }
                                             className={classes}
                                         />
