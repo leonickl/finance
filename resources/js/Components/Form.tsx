@@ -10,7 +10,7 @@ export default function Form({
     save,
 }: PageProps<{
     title: string;
-    fields: string[];
+    fields: { name: string; type?: string }[];
     save: (input: { [key: string]: string }) => void;
 }>) {
     const [input, setInput] = useState<{ [key: string]: string }>({});
@@ -49,8 +49,9 @@ export default function Form({
                             >
                                 {fields.map((field) => (
                                     <input
-                                        value={input[field] ?? ''}
-                                        onChange={changeHandler(field)}
+                                        type={field.type ?? 'text'}
+                                        value={input[field.name] ?? ''}
+                                        onChange={changeHandler(field.name)}
                                         className={classes}
                                     />
                                 ))}

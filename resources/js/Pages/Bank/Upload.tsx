@@ -14,5 +14,12 @@ export default function Upload({
         });
     }
 
-    return <Form auth={auth} title="upload" fields={['value']} save={save} />;
+    return (
+        <Form
+            auth={auth}
+            title="upload"
+            fields={[{ name: 'value' }, { name: 'file', type: 'file' }]}
+            save={save}
+        />
+    );
 }
