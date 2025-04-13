@@ -45,7 +45,6 @@ final class Account extends Model
         return [
             ...parent::toArray(),
             'type' => $this->type->name,
-            'bankAccount' => $this->bankAccount,
         ];
     }
 

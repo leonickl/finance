@@ -19,6 +19,7 @@ export default function Authenticated({
         accounts: 'Accounts',
         transactions: 'Transactions',
         statement: 'Statement',
+        bank: 'Bank',
     };
 
     return (

@@ -1,5 +1,5 @@
 import Record from '@/Components/Record';
-import { __, log, money, yesno } from '@/lib/utils';
+import { __, money, yesno } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { Account, Money } from './Account';
 
@@ -8,8 +8,6 @@ export default function Show({
     balance,
     auth,
 }: PageProps<{ account: Account; balance: Money }>) {
-    log(balance);
-
     return (
         <Record
             auth={auth}

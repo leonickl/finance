@@ -44,9 +44,13 @@ export function date(d: string) {
 }
 
 export function money(
-    value: number | Money,
+    value: number | Money | undefined,
     currency: Currency | null = null,
 ): string {
+    if (!value) {
+        return '---';
+    }
+
     return typeof value === 'number'
         ? `${value} ${currency?.code}`
         : money(value.value, value.currency);

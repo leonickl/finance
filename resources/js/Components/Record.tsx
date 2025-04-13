@@ -2,15 +2,18 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __, obj } from '@/lib/utils';
 import { DataRecord, PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
+import React from 'react';
 
 export default function Record<T extends DataRecord>({
     title,
     record,
     map,
+    children,
 }: PageProps<{
     title: string;
     record: T;
     map: (arg0: T) => object;
+    children?: React.ReactNode;
 }>) {
     return (
         <AuthenticatedLayout
@@ -24,8 +27,10 @@ export default function Record<T extends DataRecord>({
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
+                            {children}
+
                             <div className="grid grid-cols-2 p-4">
                                 {obj(map(record)).export(([key, value]) => (
                                     <>

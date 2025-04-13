@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatementController;
 use App\Http\Controllers\TransactionController;
@@ -30,6 +31,12 @@ Route::middleware('auth')->group(function () {
     // Route::post('/transactions/{id}', [TransactionController::class, 'update'])->name('update-transaction');
 
     Route::get('/statement', [StatementController::class, 'index'])->name('statement');
-});
+
+    Route::get('/bank', [BankController::class, 'index'])->name('bank');
+    Route::get('/bank/{bankAccount}', [BankController::class, 'show'])->name('bank.show');
+    Route::get('/bank/{bankAccount}/upload', [BankController::class, 'upload'])->name('bank.upload');
+    Route::post('/bank/{bankAccount}/upload', [BankController::class, 'uploadAction'])->name('bank.upload.action');
+    Route::get('/bank/{bankAccount}/compare', [BankController::class, 'compare'])->name('bank.compare');
+   });
 
 require __DIR__.'/auth.php';
