@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Bank\UploadHandler;
 use App\Models\BankAccount;
-use Illuminate\Http\Request;
 
 class BankController extends Controller
 {
@@ -30,6 +30,9 @@ class BankController extends Controller
 
     public function uploadAction(BankAccount $bankAccount)
     {
+        (new UploadHandler($bankAccount))
+            ->uploadText(request('value'));
+            
         return redirect()->route('bank.compare', $bankAccount->id);
     }
 
