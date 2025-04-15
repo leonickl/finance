@@ -43,7 +43,11 @@ final class Account extends Model
     public function toArray(): array
     {
         return [
-            ...parent::toArray(),
+            'id' => $this->id,
+            'name' => $this->name,
+            'archived' => $this->archived,
+            'recurring' => $this->recurring,
+            'interestRate' => $this->interest_rate,
             'type' => $this->type->name,
         ];
     }
@@ -96,7 +100,7 @@ final class Account extends Model
         });
     }
 
-    protected function bankAccount(): HasOne
+    public function bankAccount(): HasOne
     {
         return $this->hasOne(BankAccount::class, 'account_id');
     }

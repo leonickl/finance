@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Transaction;
-use App\Types\AccountType;
 use App\Types\Currency;
 use App\Types\Date\Date;
 use Illuminate\Http\Request;
@@ -55,6 +54,7 @@ class TransactionController extends Controller
     {
         return Inertia::render('Transactions/Create', [
             'accounts' => Account::all(),
+            'claims' => Transaction::allClaims(),
         ]);
     }
 

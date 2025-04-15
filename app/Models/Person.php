@@ -28,7 +28,7 @@ final class Person extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    protected function ibans(): HasMany
+    public function ibans(): HasMany
     {
         return $this->hasMany(Iban::class);
     }

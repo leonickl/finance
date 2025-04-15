@@ -35,7 +35,7 @@ final class BankProposal extends Model
         return $this->text_proposal;
     }
 
-    protected function accountProposal(): BelongsTo
+    public function accountProposal(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_proposal');
     }

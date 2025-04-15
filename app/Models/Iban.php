@@ -37,12 +37,12 @@ final class Iban extends Model
         return null;
     }
 
-    protected function bankTransactions(): HasMany
+    public function bankTransactions(): HasMany
     {
         return $this->hasMany(BankTransaction::class);
     }
 
-    protected function person(): BelongsTo
+    public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class);
     }

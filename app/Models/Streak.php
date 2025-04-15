@@ -89,12 +89,12 @@ final class Streak extends Model
         );
     }
 
-    protected function debit(): BelongsTo
+    public function debit(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'debit_id');
     }
 
-    protected function credit(): BelongsTo
+    public function credit(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'credit_id');
     }

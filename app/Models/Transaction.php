@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Helpers\CurrencyAttribute;
+use App\Types\AccountType;
 use App\Types\Date\Date;
 use App\Types\Money;
 use App\Types\TransactionCollection;
@@ -57,7 +58,16 @@ final class Transaction extends Model
     #[Override]
     public static function all($columns = ['*']): TransactionCollection
     {
-        return TransactionCollection::make([...parent::all()]);
+        return TransactionCollection::make([...parent::all($columns)]);
+    }
+
+    public static function allClaims($columns = ['*']): TransactionCollection
+    {
+        $claims = Transaction::whereHas('debit', function ($query) {
+            $query->where('group_id', AccountType::CLAIM->value);
+        })->get($columns);
+
+        return TransactionCollection::make([...$claims]);
     }
 
     public static function create(
@@ -159,12 +169,12 @@ final class Transaction extends Model
 
     public function repaid(): Attribute
     {
-        return Attribute::get(fn() => $this->hasRepayments() ? $this->repayments->transactions()->sumValues() : null);
+        return Attribute::get(fn () => $this->hasRepayments() ? $this->repayments->transactions()->sumValues() : null);
     }
 
     public function rest(): Attribute
     {
-        return Attribute::get(fn() => $this->hasRepayments() ? $this->value()->minus($this->repaid) : null);
+        return Attribute::get(fn () => $this->hasRepayments() ? $this->value()->minus($this->repaid) : null);
     }
 
     public function value(): Money
@@ -172,32 +182,32 @@ final class Transaction extends Model
         return Money::new($this->value, $this->currency);
     }
 
-    protected function debit(): BelongsTo
+    public function debit(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'debit_id');
     }
 
-    protected function credit(): BelongsTo
+    public function credit(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'credit_id');
     }
 
-    protected function claim(): BelongsTo
+    public function claim(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'claim_id');
     }
 
-    protected function repayments(): HasMany
+    public function repayments(): HasMany
     {
         return $this->hasMany(Transaction::class, 'claim_id', 'id');
     }
 
-    protected function person(): BelongsTo
+    public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class);
     }
 
-    protected function bankTransactions(): HasMany
+    public function bankTransactions(): HasMany
     {
         return $this->hasMany(BankTransaction::class);
     }
