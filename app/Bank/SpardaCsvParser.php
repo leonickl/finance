@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Bank;
 
-use App\Bank\BankTransactionDto;
-use App\Bank\CsvParserOptions;
 use App\Models\Iban;
 use App\Types\Currency;
 use App\Types\Date\Date;
@@ -44,17 +42,16 @@ final readonly class SpardaCsvParser extends CsvParser
         if (Date::fromGermanDate($transaction[4])->carbon()->lessThan(Carbon::create(2024, 03, 20))) {
             return null;
         }
-
         // TODO: how to skip unbooked here?
 
         return new BankTransactionDto(
             date: Date::fromGermanDate($transaction[4]),
-            text: $transaction[6] . '-' . $transaction[10],
+            text: $transaction[6].'-'.$transaction[10],
             value: Money::new(
                 Number::floatFromGerman($transaction[11]),
                 Currency::new($transaction[12]),
             ),
-            iban: Iban::extractFromText($transaction[11]),
+            iban: Iban::extract($transaction[11]),
             bankAccountId: $this->bankAccountId,
         );
     }

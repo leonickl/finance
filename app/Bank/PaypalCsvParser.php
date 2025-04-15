@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Bank;
 
-use App\Bank\BankTransactionDto;
-use App\Bank\CsvParserOptions;
 use App\Models\Iban;
 use App\Types\Currency;
 use App\Types\Date\Date;
@@ -48,12 +46,12 @@ final readonly class PaypalCsvParser extends CsvParser
 
         return new BankTransactionDto(
             date: Date::fromGermanDate($transaction[0]),
-            text: $transaction[3] . '-' . $transaction[4] . '-' . $transaction[12],
+            text: $transaction[3].'-'.$transaction[4].'-'.$transaction[12],
             value: Money::new(
                 Number::floatFromGerman($transaction[9]),
                 Currency::new($transaction[6]),
             ),
-            iban: Iban::extractFromText($transaction[2]),
+            iban: Iban::extract($transaction[2]),
             bankAccountId: $this->bankAccountId,
         );
     }

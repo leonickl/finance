@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
 import { DataRecord, PageProps, Pagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
+import React from 'react';
 import PaginationLinks from './PaginationLinks';
 import { SearchField } from './SearchField';
 
@@ -14,20 +15,24 @@ export default function Table<T extends DataRecord>({
     row,
     auth,
     search = false,
+    cols,
 }: PageProps<{
     title: string;
     showRoute: string;
     createRoute?: string | undefined;
     list: T[] | Pagination<T>;
     header: string[];
-    row: (arg: T) => string[];
+    row: (arg: T) => React.ReactNode[];
     search?: boolean;
+    cols?: string;
 }>) {
     function withLink(f: (arg: T) => string[]) {
         return (x: T) => [<a href={route(showRoute, x.id)}>{x.id}</a>, ...f(x)];
     }
 
-    function cols(len: number) {
+    function colsClass(len: number) {
+        if (cols) return cols;
+
         if (len === 1) return `grid-cols-1`;
         if (len === 2) return `grid-cols-2`;
         if (len === 3) return `grid-cols-3`;
@@ -80,7 +85,7 @@ export default function Table<T extends DataRecord>({
                             )}
 
                             <div
-                                className={`grid ${cols(header.length + 1)} p-4`}
+                                className={`grid ${colsClass(header.length + 1)} p-4`}
                             >
                                 <div className="border-b border-gray-300 p-3 text-center font-bold dark:border-gray-600"></div>
 

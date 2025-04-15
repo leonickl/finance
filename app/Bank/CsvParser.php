@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Bank;
 
-use App\Bank\BankTransactionDto;
-use App\Bank\CsvParserOptions;
-use App\Bank\ParserResult;
 use App\Types\Currency;
 use App\Types\Money;
 use App\Types\Number;

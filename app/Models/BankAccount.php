@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Exceptions\CurrencyMismatchException;
 use App\Models\Helpers\CurrencyAttribute;
 use App\Types\Currency;
 use App\Types\Money;
@@ -40,6 +41,16 @@ final class BankAccount extends Model
         return $this->bank.' - '.$this->account->name;
     }
 
+        public function updateBalance(?Money $balance): void
+    {
+        if ($balance !== null && $balance->currency() !== $this->currency) {
+            throw new CurrencyMismatchException(found: $balance->currency(), expected: $this->currency);
+        }
+
+        $this->balance = $balance?->float();
+        $this->save();
+    }
+
     public function toArray()
     {
         return [
@@ -50,12 +61,12 @@ final class BankAccount extends Model
         ];
     }
 
-    protected function account(): BelongsTo
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
 
-    protected function bankTransactions(): HasMany
+    public function bankTransactions(): HasMany
     {
         return $this->hasMany(BankTransaction::class, 'bank_account_id');
     }

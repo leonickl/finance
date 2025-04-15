@@ -12,6 +12,7 @@ use App\Types\Money;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -20,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string $text
  * @property float $value
  * @property Currency $currency
+ * @property Money $money
  * @property int|null $transaction_id
  * @property bool $skipped
  * @property Carbon $created_at
@@ -38,6 +40,52 @@ final class BankTransaction extends Model
             'value' => 'float',
             'skipped' => 'boolean',
             'created_at' => 'datetime',
+        ];
+    }
+
+    public function possibleTransactions()
+    {
+        $accountId = $this->bankAccount->account_id;
+
+        $builder = Transaction::query()
+            ->where('value', $this->value);
+
+        // FIXME: what do i actually want and how to code it???
+
+        if ($this->value > 0) {
+            // Debit side
+            $builder->where('debit_id', $accountId)
+                ->whereNotIn('id', function ($query) {
+                    $query->select('transaction_id')
+                        ->from('bank_transactions')
+                        ->join('transactions', 'bank_transactions.transaction_id', '=', 'transactions.id')
+                        ->whereColumn('transactions.debit_id', '!=', DB::raw('NULL'));
+                });
+        } else {
+            // Credit side
+            $builder->where('credit_id', $accountId)
+                ->whereNotIn('id', function ($query) {
+                    $query->select('transaction_id')
+                        ->from('bank_transactions')
+                        ->join('transactions', 'bank_transactions.transaction_id', '=', 'transactions.id')
+                        ->whereColumn('transactions.credit_id', '!=', DB::raw('NULL'));
+                });
+        }
+
+        return $builder->get();
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'date' => $this->date,
+            'text' => $this->text,
+            'money' => $this->money->toArray(),
+            'skipped' => $this->skipped,
+            'src' => $this->src,
+            'proposal' => BankProposal::findFor($this),
+            'possibleTransactions' => $this->possibleTransactions()->map->toArray(),
         ];
     }
 
@@ -73,12 +121,12 @@ final class BankTransaction extends Model
         );
     }
 
-    protected function bankAccount(): BelongsTo
+    public function bankAccount(): BelongsTo
     {
         return $this->belongsTo(BankAccount::class, 'bank_account_id');
     }
 
-    protected function transaction(): BelongsTo
+    public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }

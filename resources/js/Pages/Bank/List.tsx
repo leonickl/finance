@@ -6,7 +6,7 @@ import { Bank } from './Bank';
 export default function List({
     bankAccounts,
     auth,
-}: PageProps<{ bankAccounts: [Bank] }>) {
+}: PageProps<{ bankAccounts: Bank[] }>) {
     return (
         <Table
             title="bank_accounts"

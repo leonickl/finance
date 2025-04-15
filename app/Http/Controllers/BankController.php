@@ -30,16 +30,35 @@ class BankController extends Controller
 
     public function uploadAction(BankAccount $bankAccount)
     {
-        (new UploadHandler($bankAccount))
-            ->uploadText(request('value'));
-            
+        if (request()->hasFile('file')) {
+            request()->validate([
+                'file' => 'file|mimes:txt,csv|max:10240', // 10MB max, plain text or CSV only
+            ]);
+
+            $file = request()->file('file');
+            $content = file_get_contents($file->getRealPath());
+        } else {
+            request()->validate([
+                'value' => 'required|string',
+            ]);
+
+            $content = request()->input('value');
+        }
+
+        (new UploadHandler($bankAccount))->uploadText($content);
+
         return redirect()->route('bank.compare', $bankAccount->id);
     }
 
     public function compare(BankAccount $bankAccount)
     {
-        return inertia('Bank/Show', [
+        return inertia('Bank/Compare', [
             'bankAccount' => $bankAccount,
+            'bankTransactions' => $bankAccount
+                ->bankTransactions()
+                ->whereNull('transaction_id')
+                ->where('skipped', 0)
+                ->get(),
         ]);
     }
 }

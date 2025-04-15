@@ -52,13 +52,19 @@ final readonly class TradeRepublicParser implements Parser
         return new ParserResult(
             balance: null,
             transactions: $transactions
-                ->map(fn (stdClass $object) => $this->objectToTransaction($object)),
+                ->map(fn (stdClass $object) => $this->objectToTransaction($object))
+                ->filter(),
         );
     }
 
-    public function objectToTransaction(stdClass $object): BankTransactionDto
+    private function objectToTransaction(stdClass $object): ?BankTransactionDto
     {
-        if (! isset($object->value, $object->date, $object->text)) {
+        if (!isset($object->value)) {
+            // e. g., credit card verification
+            return null;
+        }
+
+        if (! isset($object->date, $object->text)) {
             throw new RuntimeException('Invalid data object');
         }
 

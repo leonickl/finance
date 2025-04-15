@@ -24,6 +24,10 @@ export default function Show({
             <Link href={route('bank.upload', bankAccount.id)}>
                 {__('upload')}
             </Link>
+
+            <Link href={route('bank.compare', bankAccount.id)}>
+                {__('compare')}
+            </Link>
         </Record>
     );
 }

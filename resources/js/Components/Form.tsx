@@ -8,21 +8,27 @@ export default function Form({
     title,
     fields,
     save,
+    children,
 }: PageProps<{
     title: string;
     fields: { name: string; type?: string }[];
-    save: (input: { [key: string]: string }) => void;
+    save: (input: { [key: string]: any }) => void;
+    children?: React.ReactNode;
 }>) {
-    const [input, setInput] = useState<{ [key: string]: string }>({});
+    const [input, setInput] = useState<{ [key: string]: any }>({});
 
-    function changeHandler(field: string) {
-        return (e: React.ChangeEvent<HTMLInputElement>) =>
-            setInput((old) => ({ ...old, [field]: e.target.value }));
+    function changeHandler(field: string, type?: string) {
+        return (e: React.ChangeEvent<HTMLInputElement>) => {
+            const value =
+                type === 'file'
+                    ? (e.target.files?.[0] ?? null)
+                    : e.target.value;
+            setInput((old) => ({ ...old, [field]: value }));
+        };
     }
 
     function handlesubmit(e: React.FormEvent) {
         e.preventDefault();
-
         save(input);
     }
 
@@ -43,16 +49,31 @@ export default function Form({
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="flex flex-col items-center p-6 text-gray-900 dark:text-gray-100">
+                            {children}
+
                             <form
                                 className="flex w-max min-w-96 flex-col gap-5"
                                 onSubmit={handlesubmit}
                             >
                                 {fields.map((field) => (
                                     <input
+                                        key={field.name}
                                         type={field.type ?? 'text'}
-                                        value={input[field.name] ?? ''}
-                                        onChange={changeHandler(field.name)}
+                                        value={
+                                            field.type === 'file'
+                                                ? undefined
+                                                : (input[field.name] ?? '')
+                                        }
+                                        onChange={changeHandler(
+                                            field.name,
+                                            field.type,
+                                        )}
                                         className={classes}
+                                        accept={
+                                            field.name === 'file'
+                                                ? '.csv,text/plain'
+                                                : undefined
+                                        }
                                     />
                                 ))}
 
