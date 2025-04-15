@@ -1,5 +1,5 @@
 import { DataRecord } from '@/types';
-import { Account } from '../Accounts/Account';
+import { Account, Money } from '../Accounts/Account';
 import { Person } from '../People/Person';
 
 export type Transaction = DataRecord & {
@@ -18,6 +18,9 @@ export type Transaction = DataRecord & {
     person: Person;
     claim: Transaction;
     currency: Currency;
+    money: Money;
+    repaid: Money |null;
+    rest: Money |null;
 };
 
 export type Currency = {

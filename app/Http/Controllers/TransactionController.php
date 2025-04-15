@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Transaction;
+use App\Types\AccountType;
 use App\Types\Currency;
 use App\Types\Date\Date;
 use Illuminate\Http\Request;
@@ -40,10 +41,13 @@ class TransactionController extends Controller
         return back();
     }
 
-    public function show(string $id)
+    public function show(int $id)
     {
+        $transaction = Transaction::findOrFail($id);
+
         return Inertia::render('Transactions/Show', [
-            'transaction' => Transaction::findOrFail($id),
+            'transaction' => $transaction,
+            'repayments' => $transaction->repayments,
         ]);
     }
 

@@ -29,8 +29,6 @@ export default function Record<T extends DataRecord>({
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            {children}
-
                             <div className="grid grid-cols-2 p-4">
                                 {obj(map(record)).export(([key, value]) => (
                                     <>
@@ -43,6 +41,8 @@ export default function Record<T extends DataRecord>({
                                     </>
                                 ))}
                             </div>
+
+                            {children}
                         </div>
                     </div>
                 </div>

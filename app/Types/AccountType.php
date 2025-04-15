@@ -95,4 +95,9 @@ enum AccountType: int
             'accounts' => $this->accounts()->map->withBalance(),
         ];
     }
+
+    public function isClaimType(): bool
+    {
+        return $this === self::CLAIM_INTEREST || $this == self::CLAIM;
+    }
 }

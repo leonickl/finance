@@ -26,7 +26,7 @@ export default function Table<T extends DataRecord>({
     search?: boolean;
     cols?: string;
 }>) {
-    function withLink(f: (arg: T) => string[]) {
+    function withLink(f: (arg: T) => React.ReactNode[]) {
         return (x: T) => [<a href={route(showRoute, x.id)}>{x.id}</a>, ...f(x)];
     }
 

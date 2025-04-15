@@ -32,6 +32,9 @@ use Override;
  * @property-read Person $person
  * @property-read Transaction $claim
  * @property-read Collection<int, BankTransaction> $bankTransactions
+ * @property-read Collection<int, Transaction> $repayments
+ * @property-read ?Money $repaid
+ * @property-read ?Money $rest
  */
 final class Transaction extends Model
 {
@@ -87,12 +90,24 @@ final class Transaction extends Model
     public function toArray(): array
     {
         return [
-            ...parent::toArray(),
+            'id' => $this->id,
+            'debit_id' => $this->debit_id,
+            'credit_id' => $this->credit_id,
+            'value' => $this->value,
+            'text' => $this->text,
+            'timestamp' => $this->timestamp,
+            'claim_id' => $this->claim_id,
+            'group_uid' => $this->group_uid,
+            'person_id' => $this->person_id,
+            'date' => $this->date,
             'debit' => $this->debit,
             'credit' => $this->credit,
-            'claim' => $this->claim,
             'person' => $this->person,
+            'claim' => $this->claim,
             'currency' => $this->currency->toArray(),
+            'money' => $this->value()->toArray(),
+            'repaid' => $this->repaid?->toArray(),
+            'rest' => $this->rest?->toArray(),
         ];
     }
 
@@ -137,6 +152,21 @@ final class Transaction extends Model
             || $this->credit_id === Account::splitTransactions()->id;
     }
 
+    public function hasRepayments(): bool
+    {
+        return $this->debit->type->isClaimType();
+    }
+
+    public function repaid(): Attribute
+    {
+        return Attribute::get(fn() => $this->hasRepayments() ? $this->repayments->transactions()->sumValues() : null);
+    }
+
+    public function rest(): Attribute
+    {
+        return Attribute::get(fn() => $this->hasRepayments() ? $this->value()->minus($this->repaid) : null);
+    }
+
     public function value(): Money
     {
         return Money::new($this->value, $this->currency);
@@ -155,6 +185,11 @@ final class Transaction extends Model
     protected function claim(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'claim_id');
+    }
+
+    protected function repayments(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'claim_id', 'id');
     }
 
     protected function person(): BelongsTo

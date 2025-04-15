@@ -43,9 +43,13 @@ export function date(d: string) {
     return new Date(d).toDateString();
 }
 
+export function dateShort(d: string) {
+    return new Date(d).toLocaleDateString();
+}
+
 export function money(
-    value: number | Money | undefined,
-    currency: Currency | null = null,
+    value: number | Money | undefined | null,
+    currency: Currency | undefined | null = null,
 ): string {
     if (!value) {
         return '---';
@@ -54,4 +58,17 @@ export function money(
     return typeof value === 'number'
         ? `${value} ${currency?.code}`
         : money(value.value, value.currency);
+}
+
+export function moneyInverted(
+    value: number | Money | undefined,
+    currency: Currency | null = null,
+): string {
+    if (!value) {
+        return '---';
+    }
+
+    return typeof value === 'number'
+        ? `${-value} ${currency?.code}`
+        : money(-value.value, value.currency);
 }

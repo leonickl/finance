@@ -5,13 +5,14 @@ export default function RecordLink({
     dest,
     id,
     label,
-}: PageProps<{ dest: string; id: number; label: string }>) {
+    short = false,
+}: PageProps<{ dest: string; id: number; label?: string; short?: boolean }>) {
     return (
         <Link
             href={route(dest, id)}
             className="underline hover:text-gray-400 hover:no-underline"
         >
-            {`(${id}) ${label}`}
+            {short ? `(${id})` :`(${id}) ${label ?? '---'}`}
         </Link>
     );
 }

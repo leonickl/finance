@@ -67,9 +67,9 @@ final class Account extends Model
         ];
     }
 
-    public function transactions(): TransactionCollection
+    public function transactions(bool $desc = false): TransactionCollection
     {
-        return TransactionCollection::allWithAccount($this->id);
+        return TransactionCollection::allWithAccount($this->id, $desc);
     }
 
     public function debitTransactions(): TransactionCollection

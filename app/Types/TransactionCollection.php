@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Types;
 
-use App\Types\AccountType;
 use App\Models\Account;
 use App\Models\Transaction;
 use App\Models\Virtual\Claim;
@@ -37,11 +36,16 @@ final class TransactionCollection extends Collection
         return $transactions->toBase()->map(fn (Transaction $transaction) => $transaction->value());
     }
 
-    public static function allWithAccount(int $accountId): self
+    public static function allWithAccount(int $accountId, bool $desc = false): self
     {
-        return Transaction::where('debit_id', $accountId)
-            ->orWhere('credit_id', $accountId)
-            ->get()
+        $builder = Transaction::where('debit_id', $accountId)
+            ->orWhere('credit_id', $accountId);
+
+        if ($desc) {
+            $builder->orderByDesc('timestamp');
+        }
+
+        return $builder->get()
             ->transactions();
     }
 

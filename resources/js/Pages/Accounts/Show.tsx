@@ -1,13 +1,24 @@
 import Record from '@/Components/Record';
-import { __, money, yesno } from '@/lib/utils';
+import RecordLink from '@/Components/RecordLink';
+import { __, date, dateShort, money, moneyInverted, yesno } from '@/lib/utils';
 import { PageProps } from '@/types';
+import { Transaction } from '../Transactions/Transaction';
 import { Account, Money } from './Account';
 
 export default function Show({
     account,
     balance,
     auth,
-}: PageProps<{ account: Account; balance: Money }>) {
+    transactions,
+}: PageProps<{
+    account: Account;
+    balance: Money;
+    transactions: Transaction[];
+}>) {
+    const isClaimAccount =
+        account.type.toString() === 'CLAIM' ||
+        account.type.toString() === 'CLAIM_INTEREST';
+
     return (
         <Record
             auth={auth}
@@ -22,6 +33,62 @@ export default function Show({
                 type: __(record.type.toString()),
                 balance: money(balance),
             })}
-        />
+        >
+            <div className="mt-10 flex w-full flex-col items-center">
+                <div className="grid w-[80%] grid-cols-[50px_80px_100px_200px_200px_200px] gap-10">
+                    {transactions.map((transaction) => (
+                        <>
+                            <div>
+                                <a href={route('transaction', transaction.id)}>
+                                    {transaction.id}
+                                </a>
+                            </div>
+
+                            <div className='text-center'>{dateShort(transaction.timestamp)}</div>
+
+                            <div className="text-right">
+                                {transaction.debit_id === account.id
+                                    ? money(transaction.money)
+                                    : moneyInverted(transaction.money)}
+                            </div>
+
+                            <div>
+                                {transaction.debit_id === account.id ? (
+                                    <RecordLink
+                                        auth={auth}
+                                        dest="account"
+                                        id={transaction.credit.id}
+                                        label={transaction.credit.name}
+                                    />
+                                ) : (
+                                    <RecordLink
+                                        auth={auth}
+                                        dest="account"
+                                        id={transaction.debit.id}
+                                        label={transaction.debit.name}
+                                    />
+                                )}
+                            </div>
+
+                            <div>{transaction.text}</div>
+
+                            <div className="text-center">
+                                {isClaimAccount && transaction.claim && (
+                                    <RecordLink
+                                        auth={auth}
+                                        dest="transaction"
+                                        id={transaction.claim.id}
+                                        short
+                                    />
+                                )}
+                                {isClaimAccount &&
+                                    transaction.debit_id === account.id &&
+                                    `${money(transaction.rest)} / ${money(transaction.money)}`}
+                            </div>
+                        </>
+                    ))}
+                </div>
+            </div>
+        </Record>
     );
 }

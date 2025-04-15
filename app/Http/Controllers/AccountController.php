@@ -48,6 +48,7 @@ class AccountController extends Controller
         return Inertia::render('Accounts/Show', [
             'account' => $account,
             'balance' => $account->balance()->toArray(),
+            'transactions' => $account->transactions(desc: true)->toArray(),
         ]);
     }
 
