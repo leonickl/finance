@@ -47,6 +47,7 @@ class TransactionController extends Controller
         return Inertia::render('Transactions/Show', [
             'transaction' => $transaction,
             'repayments' => $transaction->repayments,
+            'claims' => Transaction::allClaims(),
         ]);
     }
 
@@ -62,15 +63,17 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
 
-        $transaction->debit_id = $request->integer('debit_id');
-        $transaction->credit_id = $request->integer('credit_id');
-        $transaction->value = $request->float('value');
-        $transaction->text = $request->get('text');
-        $transaction->claim_id = $request->integer('claim_id') ?: null;
-        $transaction->group_uid = $request->get('group_uid');
-        $transaction->person_id = $request->integer('person_id') ?: null;
+        if($request->exists('debitId')) $transaction->debit_id = $request->integer('debitId');
+        if($request->exists('creditId')) $transaction->credit_id = $request->integer('creditId');
+        if($request->exists('value')) $transaction->value = $request->float('value');
+        if($request->exists('text')) $transaction->text = $request->get('text');
+        if($request->exists('claimId')) $transaction->claim_id = $request->integer('claimId') ?: null;
+        if($request->exists('groupUid')) $transaction->group_uid = $request->get('groupUid');
+        if($request->exists('personId')) $transaction->person_id = $request->integer('personId') ?: null;
 
-        return $transaction;
+        $transaction->save();
+
+        return back();
     }
 
     public function destroy(string $id)

@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transactions/create', [TransactionController::class, 'create'])->name('create-transaction');
     Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transaction');
     Route::post('/transactions', [TransactionController::class, 'store'])->name('store-transaction');
-    // Route::post('/transactions/{id}', [TransactionController::class, 'update'])->name('update-transaction');
+    Route::patch('/transactions/{id}', [TransactionController::class, 'update'])->name('transaction.patch');
 
     Route::get('/statement', [StatementController::class, 'index'])->name('statement');
 

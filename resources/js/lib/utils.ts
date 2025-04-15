@@ -16,22 +16,28 @@ export function log<T>(value: T) {
     return value;
 }
 
-export function obj(o: object) {
+export function obj<K extends string | number | symbol, V>(o: Record<K, V>) {
     return {
-        only: (keys: string[] | null) =>
+        only: (keys: K[] | null) =>
             keys
-                ? obj(
-                      Object.fromEntries(
-                          Object.entries(o).filter(([key]) =>
-                              keys.includes(key),
-                          ),
+                ? (Object.fromEntries(
+                      Object.entries(o).filter(([key]) =>
+                          keys.includes(key as K),
                       ),
-                  )
-                : obj(o),
-        map: (f: <T>([arg0, arg1]: [string, T]) => [string, T]) =>
-            obj(Object.fromEntries(Object.entries(o).map(f))),
-        export: <T>(f: (args: [string, any]) => T): T[] =>
-            Object.entries(o).map(f),
+                  ) as Record<K, V>)
+                : o,
+
+        map: <U>(f: ([key, value]: [K, V]) => [K, U]) => {
+            const mapped = Object.fromEntries(
+                Object.entries(o).map(([key, value]) =>
+                    f([key as K, value as V]),
+                ),
+            );
+            return mapped as Record<K, U>;
+        },
+
+        export: <R>(f: ([key, value]: [K, V]) => R): R[] =>
+            Object.entries(o).map(([key, value]) => f([key as K, value as V])),
     };
 }
 

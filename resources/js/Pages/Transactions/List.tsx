@@ -16,8 +16,12 @@ export default function List({
             list={log(transactions)}
             header={['debit', 'credit', 'text', 'value', 'date']}
             row={(transaction) => [
-                transaction.debit.name,
-                transaction.credit.name,
+                transaction.debit.type.toString() +
+                    ' - ' +
+                    transaction.debit.name,
+                transaction.credit.type.toString() +
+                    ' - ' +
+                    transaction.credit.name,
                 transaction.text,
                 transaction.value + ' ' + transaction.currency.code,
                 date(transaction.timestamp),

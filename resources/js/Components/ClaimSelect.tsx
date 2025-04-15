@@ -1,17 +1,16 @@
 import { __, money } from '@/lib/utils';
 import { Transaction } from '@/Pages/Transactions/Transaction';
-import { PageProps } from '@/types';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ClaimSelect({
     claims,
     setValue,
     classes,
-}: PageProps<{
+}: {
     claims: Transaction[];
-    setValue: (arg0: string) => void;
+    setValue: (arg0: number) => void;
     classes?: string;
-}>) {
+}) {
     const [search, setSearch] = useState(''); // Search input
     const [isOpen, setIsOpen] = useState(false); // Dropdown visibility
     const ref = useRef<HTMLDivElement>(null); // Reference for clicking outside
@@ -64,7 +63,7 @@ export default function ClaimSelect({
                                 key={claim.id}
                                 className="h-12 cursor-pointer rounded px-5 py-3"
                                 onClick={() => {
-                                    setValue(claim.id.toString());
+                                    setValue(claim.id);
                                     setSearch(claimToString(claim));
                                     setIsOpen(false);
                                 }}

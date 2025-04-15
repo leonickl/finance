@@ -1,20 +1,23 @@
+import ClaimSelect from '@/Components/ClaimSelect';
 import Record from '@/Components/Record';
 import RecordLink from '@/Components/RecordLink';
 import { __, date, money } from '@/lib/utils';
+import { classes } from '@/style';
 import { PageProps } from '@/types';
-import { Money } from '../Accounts/Account';
+import { router } from '@inertiajs/react';
 import { Transaction } from './Transaction';
+import React from 'react';
 
 export default function Show({
     transaction,
     repayments,
     auth,
+    claims,
 }: PageProps<{
     transaction: Transaction;
     repayments: Transaction[];
+    claims: Transaction[];
 }>) {
-    console.log(transaction, repayments);
-
     return (
         <Record
             auth={auth}
@@ -53,6 +56,23 @@ export default function Show({
                 repaid: money(record.repaid),
                 rest: money(record.rest),
             })}
+            editable={(record, hide) => ({
+                claim: (
+                    <ClaimSelect
+                        claims={claims}
+                        setValue={(claimId: number) => {
+                            router.patch(
+                                route('transaction.patch', transaction.id),
+                                {
+                                    claimId,
+                                },
+                            );
+                            hide('claim');
+                        }}
+                        classes={classes}
+                    />
+                ),
+            })}
         >
             <div className="mt-10 flex w-full flex-col items-center gap-10">
                 <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
@@ -63,7 +83,7 @@ export default function Show({
 
                 <div className="grid w-[80%] grid-cols-[100px_150px_150px_300px] gap-10">
                     {repayments.map((transaction) => (
-                        <>
+                        <React.Fragment key={transaction.id}>
                             <div>
                                 <a href={route('transaction', transaction.id)}>
                                     {transaction.id}
@@ -81,7 +101,7 @@ export default function Show({
                                     label={transaction.debit.name}
                                 />
                             </div>
-                        </>
+                        </React.Fragment>
                     ))}
                 </div>
             </div>

@@ -2,6 +2,7 @@ import AccountSelect from '@/Components/AccountSelect';
 import ClaimSelect from '@/Components/ClaimSelect';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
+import { classes } from '@/style';
 import { PageProps } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { FormEvent, useMemo, useState } from 'react';
@@ -23,7 +24,7 @@ export default function Create({
     const [date, setDate] = useState<string>(
         new Date().toISOString().split('T')[0],
     );
-    const [claimId, setClaimId] = useState<string>();
+    const [claimId, setClaimId] = useState<number>();
 
     const credit = useMemo(
         () =>
@@ -52,9 +53,6 @@ export default function Create({
             claimId,
         });
     }
-
-    const classes =
-        'h-12 rounded border border-gray-800 shadow dark:border-gray-500 dark:bg-gray-800 px-5 py-3';
 
     return (
         <AuthenticatedLayout
@@ -131,7 +129,6 @@ export default function Create({
 
                                     {credit?.type.toString() === 'CLAIM' && (
                                         <ClaimSelect
-                                            auth={auth}
                                             claims={claims.filter(
                                                 (claim) =>
                                                     claim.debit_id ===
