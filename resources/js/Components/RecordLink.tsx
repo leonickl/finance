@@ -10,7 +10,7 @@ export default function RecordLink({
     return (
         <Link
             href={route(dest, id)}
-            className="underline hover:text-gray-400 hover:no-underline"
+            className="hover:underline hover:text-gray-400"
         >
             {short ? `(${id})` :`(${id}) ${label ?? '---'}`}
         </Link>

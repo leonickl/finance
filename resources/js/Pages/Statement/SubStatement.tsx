@@ -1,3 +1,4 @@
+import RecordLink from '@/Components/RecordLink';
 import { __, money } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { Statement as StatementType } from './Statement';
@@ -19,7 +20,12 @@ export default function SubStatement({
                     .map((account) => (
                         <>
                             <div className="font-bold text-gray-400">
-                                {account.name}
+                                <RecordLink
+                                    auth={auth}
+                                    dest="account"
+                                    id={account.id}
+                                    label={account.name}
+                                />
                             </div>
                             <div className="text-right text-gray-400">
                                 {money(account.balance)}
