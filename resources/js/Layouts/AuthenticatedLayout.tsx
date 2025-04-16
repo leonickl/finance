@@ -2,6 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import { __ } from '@/lib/utils';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 import { nav } from './nav';
@@ -14,7 +15,6 @@ export default function Authenticated({
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -34,7 +34,7 @@ export default function Authenticated({
                                         href={route(key)}
                                         active={route().current(key)}
                                     >
-                                        {label}
+                                        {__(label)}
                                     </NavLink>
                                 ))}
                             </div>
@@ -140,7 +140,7 @@ export default function Authenticated({
                                 href={route(key)}
                                 active={route().current(key)}
                             >
-                                {label}
+                                {__(label)}
                             </ResponsiveNavLink>
                         ))}
                     </div>
