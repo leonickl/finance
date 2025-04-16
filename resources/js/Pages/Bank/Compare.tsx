@@ -103,7 +103,7 @@ function CompareRow({
 
                     <button
                         onClick={() => link(bankTransaction.id, t.id)}
-                        className={classes}
+                        className={`${classes} bg-green-200 border-green-800 text-green-800`}
                     >
                         {__('link')}
                     </button>
@@ -175,7 +175,7 @@ function CompareForm({
             <input
                 type="submit"
                 value={bankTransaction.proposal ? __('accept') : __('save')}
-                className={classes}
+                className={`${classes} bg-green-200 border-green-800 text-green-800`}
             />
         </form>
     );
