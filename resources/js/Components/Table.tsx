@@ -1,10 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
-import { DataRecord, PageProps, Pagination } from '@/types';
+import { DataRecord, Pagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import React from 'react';
+import React, { useState } from 'react';
 import PaginationLinks from './PaginationLinks';
 import { SearchField } from './SearchField';
+
+type RecordToCells<T> = (arg: T) => React.ReactNode[];
 
 export default function Table<T extends DataRecord>({
     title,
@@ -13,22 +15,27 @@ export default function Table<T extends DataRecord>({
     list,
     header,
     row,
-    auth,
+    sub = undefined,
     search = false,
     cols,
-}: PageProps<{
+}: {
     title: string;
     showRoute: string;
     createRoute?: string | undefined;
     list: T[] | Pagination<T>;
     header: string[];
-    row: (arg: T) => React.ReactNode[];
+    row: RecordToCells<T>;
+    sub?: (arg0: T, arg1: (arg: React.ReactNode) => void) => React.ReactNode;
     search?: boolean;
     cols?: string;
-}>) {
-    function withLink(f: (arg: T) => React.ReactNode[]) {
-        return (x: T) => [<a href={route(showRoute, x.id)}>{x.id}</a>, ...f(x)];
-    }
+}) {
+    const paginated = !Array.isArray(list);
+
+    const records = paginated ? list.data : list;
+
+    const [status, setStatus] = useState(
+        Object.fromEntries(records.map((record) => [record.id, undefined])),
+    );
 
     function colsClass(len: number) {
         if (cols) return cols;
@@ -43,8 +50,6 @@ export default function Table<T extends DataRecord>({
 
         return 'grid-cols-auto';
     }
-
-    const paginated = !Array.isArray(list);
 
     return (
         <AuthenticatedLayout
@@ -71,12 +76,11 @@ export default function Table<T extends DataRecord>({
 
                             {(search || paginated) && (
                                 <div className="flex flex-row justify-evenly sm:flex-col sm:items-center">
-                                    {search && <SearchField auth={auth} />}
+                                    {search && <SearchField />}
 
                                     {paginated && (
                                         <div className="my-5">
                                             <PaginationLinks
-                                                auth={auth}
                                                 pagination={list}
                                             />
                                         </div>
@@ -90,18 +94,52 @@ export default function Table<T extends DataRecord>({
                                 <div className="border-b border-gray-300 p-3 text-center font-bold dark:border-gray-600"></div>
 
                                 {header.map((key) => (
-                                    <div className="border-b border-gray-300 p-3 text-center font-bold dark:border-gray-600">
+                                    <div
+                                        key={key}
+                                        className="border-b border-gray-300 p-3 text-center font-bold dark:border-gray-600"
+                                    >
                                         {__(key)}
                                     </div>
                                 ))}
 
-                                {(paginated ? list.data : list)
-                                    .flatMap(withLink(row))
-                                    .map((cell) => (
-                                        <div className="border-b border-gray-300 p-3 text-center dark:border-gray-600">
-                                            {cell}
-                                        </div>
-                                    ))}
+                                {records.map((record: T) => {
+                                    function setSubRow(value: React.ReactNode) {
+                                        setStatus((old) => ({
+                                            ...old,
+                                            [record.id]: value,
+                                        }));
+                                    }
+
+                                    const cells = [
+                                        <a href={route(showRoute, record.id)}>
+                                            {record.id}
+                                        </a>,
+                                        ...row(record),
+                                    ].filter((x) => x);
+
+                                    return (
+                                        <>
+                                            {cells.map((cell, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="border-t border-gray-300 p-3 text-center dark:border-gray-600"
+                                                >
+                                                    {cell}
+                                                </div>
+                                            ))}
+                                            {sub && (
+                                                <div className="col-span-4 flex flex-col gap-5 px-20 pb-10 pt-5">
+                                                    {status[record.id]
+                                                        ? status[record.id]
+                                                        : sub(
+                                                              record,
+                                                              setSubRow,
+                                                          )}
+                                                </div>
+                                            )}
+                                        </>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

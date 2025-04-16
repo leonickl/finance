@@ -11,6 +11,8 @@ export type PageProps<
     auth: {
         user: User;
     };
+    
+    csrf: string;
 };
 
 export type DataRecord = {

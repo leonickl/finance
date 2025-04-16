@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/bank/{bankAccount}/upload', [BankController::class, 'upload'])->name('bank.upload');
     Route::post('/bank/{bankAccount}/upload', [BankController::class, 'uploadAction'])->name('bank.upload.action');
     Route::get('/bank/{bankAccount}/compare', [BankController::class, 'compare'])->name('bank.compare');
+    Route::post('/bank/link', [BankController::class, 'link'])->name('bank.link');
    });
 
 require __DIR__.'/auth.php';

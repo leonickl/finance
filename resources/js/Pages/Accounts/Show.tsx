@@ -1,6 +1,6 @@
 import Record from '@/Components/Record';
 import RecordLink from '@/Components/RecordLink';
-import { __, date, dateShort, money, moneyInverted, yesno } from '@/lib/utils';
+import { __, dateShort, money, moneyInverted, yesno } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { Transaction } from '../Transactions/Transaction';
 import { Account, Money } from './Account';
@@ -44,7 +44,9 @@ export default function Show({
                                 </a>
                             </div>
 
-                            <div className='text-center'>{dateShort(transaction.timestamp)}</div>
+                            <div className="text-center">
+                                {dateShort(transaction.timestamp)}
+                            </div>
 
                             <div className="text-right">
                                 {transaction.debit_id === account.id
@@ -55,14 +57,12 @@ export default function Show({
                             <div>
                                 {transaction.debit_id === account.id ? (
                                     <RecordLink
-                                        auth={auth}
                                         dest="account"
                                         id={transaction.credit.id}
                                         label={transaction.credit.name}
                                     />
                                 ) : (
                                     <RecordLink
-                                        auth={auth}
                                         dest="account"
                                         id={transaction.debit.id}
                                         label={transaction.debit.name}
@@ -75,10 +75,8 @@ export default function Show({
                             <div className="text-center">
                                 {isClaimAccount && transaction.claim && (
                                     <RecordLink
-                                        auth={auth}
                                         dest="transaction"
                                         id={transaction.claim.id}
-                                        short
                                     />
                                 )}
                                 {isClaimAccount &&

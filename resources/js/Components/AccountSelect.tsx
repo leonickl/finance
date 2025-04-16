@@ -1,17 +1,15 @@
 import { __ } from '@/lib/utils';
 import { Account } from '@/Pages/Accounts/Account';
-import { PageProps } from '@/types';
+import { classes } from '@/style';
 import { useEffect, useRef, useState } from 'react';
 
 export default function AccountSelect({
     accounts,
     setValue,
-    classes,
-}: PageProps<{
+}: {
     accounts: Account[];
     setValue: (arg0: string) => void;
-    classes?: string;
-}>) {
+}) {
     const [search, setSearch] = useState(''); // Search input
     const [isOpen, setIsOpen] = useState(false); // Dropdown visibility
     const ref = useRef<HTMLDivElement>(null); // Reference for clicking outside

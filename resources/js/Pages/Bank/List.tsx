@@ -5,13 +5,11 @@ import { Bank } from './Bank';
 
 export default function List({
     bankAccounts,
-    auth,
 }: PageProps<{ bankAccounts: Bank[] }>) {
     return (
         <Table
             title="bank_accounts"
             showRoute="bank.show"
-            auth={auth}
             list={bankAccounts}
             header={['name', 'bank', 'balance']}
             row={(bankAccount) => [

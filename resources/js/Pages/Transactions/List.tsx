@@ -5,14 +5,12 @@ import { Transaction } from './Transaction';
 
 export default function List({
     transactions,
-    auth,
 }: PageProps<{ transactions: Pagination<Transaction> }>) {
     return (
         <Table
             title="transactions"
             showRoute="transaction"
             createRoute="create-transaction"
-            auth={auth}
             list={log(transactions)}
             header={['debit', 'credit', 'text', 'value', 'date']}
             row={(transaction) => [

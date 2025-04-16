@@ -21,7 +21,6 @@ export default function SubStatement({
                         <>
                             <div className="font-bold text-gray-400">
                                 <RecordLink
-                                    auth={auth}
                                     dest="account"
                                     id={account.id}
                                     label={account.name}

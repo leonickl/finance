@@ -11,4 +11,5 @@ export type BankTransaction = DataRecord & {
     src: string;
     proposal: BankProposal;
     possibleTransactions: Transaction[];
+    transaction: Transaction;
 };

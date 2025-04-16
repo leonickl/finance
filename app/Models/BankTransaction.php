@@ -59,6 +59,7 @@ final class BankTransaction extends Model
             'src' => $this->src,
             'proposal' => BankProposal::findFor($this),
             'possibleTransactions' => $this->possibleTransactions()->map->toArray(),
+            'transaction' => $this->transaction,
         ];
     }
 

@@ -1,18 +1,20 @@
-import { PageProps } from '@/types';
 import { Link } from '@inertiajs/react';
 
 export default function RecordLink({
     dest,
     id,
-    label,
-    short = false,
-}: PageProps<{ dest: string; id: number; label?: string; short?: boolean }>) {
+    label = undefined,
+}: {
+    dest: string;
+    id: number;
+    label?: string;
+}) {
     return (
         <Link
             href={route(dest, id)}
-            className="hover:underline hover:text-gray-400"
+            className="hover:text-gray-400 hover:underline"
         >
-            {short ? `(${id})` :`(${id}) ${label ?? '---'}`}
+            {label ? `(${id}) ${label ?? '---'}` : `(${id})`}
         </Link>
     );
 }

@@ -1,8 +1,7 @@
-import { PageProps } from '@/types';
 import { router, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export function SearchField({}: PageProps<{}>) {
+export function SearchField() {
     const { url } = usePage();
 
     const urlObj = new URL(url, window.location.origin);

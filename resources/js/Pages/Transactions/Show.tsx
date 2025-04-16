@@ -5,8 +5,8 @@ import { __, date, money } from '@/lib/utils';
 import { classes } from '@/style';
 import { PageProps } from '@/types';
 import { router } from '@inertiajs/react';
-import { Transaction } from './Transaction';
 import React from 'react';
+import { Transaction } from './Transaction';
 
 export default function Show({
     transaction,
@@ -30,7 +30,6 @@ export default function Show({
                 date: date(record.timestamp),
                 debit: (
                     <RecordLink
-                        auth={auth}
                         dest="account"
                         label={record.debit.name}
                         id={record.debit.id}
@@ -38,7 +37,6 @@ export default function Show({
                 ),
                 credit: (
                     <RecordLink
-                        auth={auth}
                         dest="account"
                         label={record.credit.name}
                         id={record.credit.id}
@@ -47,7 +45,6 @@ export default function Show({
                 person: record.person?.name,
                 claim: record.claim && (
                     <RecordLink
-                        auth={auth}
                         dest="transaction"
                         label={record.claim.text}
                         id={record.claim.id}
@@ -95,7 +92,6 @@ export default function Show({
                             </div>
                             <div>
                                 <RecordLink
-                                    auth={auth}
                                     dest="account"
                                     id={transaction.debit.id}
                                     label={transaction.debit.name}

@@ -74,17 +74,13 @@ export default function Create({
                                     className="flex w-96 flex-col gap-5"
                                 >
                                     <AccountSelect
-                                        auth={auth}
                                         accounts={accounts}
                                         setValue={setDebitId}
-                                        classes={classes}
                                     />
 
                                     <AccountSelect
-                                        auth={auth}
                                         accounts={accounts}
                                         setValue={setCreditId}
-                                        classes={classes}
                                     />
 
                                     <div className="flex justify-between">

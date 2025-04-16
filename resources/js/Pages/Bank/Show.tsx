@@ -1,7 +1,7 @@
+import Button from '@/Components/Button';
 import Record from '@/Components/Record';
 import { __, money } from '@/lib/utils';
 import { PageProps } from '@/types';
-import { Link } from '@inertiajs/react';
 import { Money } from '../Accounts/Account';
 import { Bank } from '../Bank/Bank';
 
@@ -21,13 +21,16 @@ export default function Show({
                 balance: money(balance),
             })}
         >
-            <Link href={route('bank.upload', bankAccount.id)}>
-                {__('upload')}
-            </Link>
-
-            <Link href={route('bank.compare', bankAccount.id)}>
-                {__('compare')}
-            </Link>
+            <div className='flex flex-row gap-5 m-5'>
+                <Button
+                    link={route('bank.upload', bankAccount.id)}
+                    label={__('upload')}
+                />
+                <Button
+                    link={route('bank.compare', bankAccount.id)}
+                    label={__('compare')}
+                />
+            </div>
         </Record>
     );
 }

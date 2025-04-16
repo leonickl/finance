@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Bank\UploadHandler;
+use App\Models\Account;
 use App\Models\BankAccount;
+use App\Models\BankTransaction;
+use App\Models\Transaction;
 
 class BankController extends Controller
 {
@@ -59,6 +62,24 @@ class BankController extends Controller
                 ->whereNull('transaction_id')
                 ->where('skipped', 0)
                 ->get(),
+            'accounts' => Account::all(),
         ]);
+    }
+
+    public function link()
+    {
+        $valid = request()->validate([
+            'bankTransactionId' => 'required|numeric',
+            'transactionId' => 'required|numeric',
+        ]);
+
+        $bankTransaction = BankTransaction::findOrFail($valid['bankTransactionId']);
+        $transaction = Transaction::findOrFail($valid['transactionId']);
+
+        $bankTransaction->transaction_id = $transaction->id;
+
+        $bankTransaction->save();
+
+        return response()->json($bankTransaction);
     }
 }
