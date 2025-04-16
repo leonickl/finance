@@ -9,10 +9,10 @@ use App\Models\Helpers\CurrencyAttribute;
 use App\Types\Currency;
 use App\Types\Date\Date;
 use App\Types\Money;
+use App\Types\TransactionCollection;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -43,36 +43,9 @@ final class BankTransaction extends Model
         ];
     }
 
-    public function possibleTransactions()
+    public function possibleTransactions(): TransactionCollection
     {
-        $accountId = $this->bankAccount->account_id;
-
-        $builder = Transaction::query()
-            ->where('value', $this->value);
-
-        // FIXME: what do i actually want and how to code it???
-
-        if ($this->value > 0) {
-            // Debit side
-            $builder->where('debit_id', $accountId)
-                ->whereNotIn('id', function ($query) {
-                    $query->select('transaction_id')
-                        ->from('bank_transactions')
-                        ->join('transactions', 'bank_transactions.transaction_id', '=', 'transactions.id')
-                        ->whereColumn('transactions.debit_id', '!=', DB::raw('NULL'));
-                });
-        } else {
-            // Credit side
-            $builder->where('credit_id', $accountId)
-                ->whereNotIn('id', function ($query) {
-                    $query->select('transaction_id')
-                        ->from('bank_transactions')
-                        ->join('transactions', 'bank_transactions.transaction_id', '=', 'transactions.id')
-                        ->whereColumn('transactions.credit_id', '!=', DB::raw('NULL'));
-                });
-        }
-
-        return $builder->get();
+        return Transaction::findForBankTransaction($this);
     }
 
     public function toArray()

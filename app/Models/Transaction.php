@@ -70,6 +70,28 @@ final class Transaction extends Model
         return TransactionCollection::make([...$claims]);
     }
 
+    public static function findForBankTransaction(BankTransaction $bankTransaction): TransactionCollection
+    {
+        $builder = self::query();
+
+        // check for bank account on correct side
+        $builder->where($bankTransaction->value > 0 ? 'debit_id' : 'credit_id', $bankTransaction->bankAccount->account->id);
+
+        // value must match (sign is considered via account side above)
+        $builder->where('value', abs($bankTransaction->value));
+
+        // must not have an existing bank transaction with the same sign
+        $builder->whereNotIn('id', fn ($query) => $query
+            ->select('transaction_id')
+            ->from('bank_transactions')
+            ->whereNotNull('transaction_id')
+            ->where('value', $bankTransaction->value > 0 ? '>' : '<', '0'),
+            // TODO check for currency?
+        );
+
+        return $builder->get()->transactions();
+    }
+
     public static function create(
         Account $debit,
         Account $credit,
