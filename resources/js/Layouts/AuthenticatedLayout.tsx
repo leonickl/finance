@@ -4,6 +4,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useState } from 'react';
+import { nav } from './nav';
 
 export default function Authenticated({
     header,
@@ -14,13 +15,6 @@ export default function Authenticated({
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
-    const nav = {
-        dashboard: 'Dashboard',
-        accounts: 'Accounts',
-        transactions: 'Transactions',
-        statement: 'Statement',
-        bank: 'Bank',
-    };
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
