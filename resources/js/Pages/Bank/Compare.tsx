@@ -20,6 +20,8 @@ export default function Compare({
     bankTransactions: BankTransaction[];
     accounts: Account[];
 }>) {
+    console.log(bankTransactions);
+
     const [usedTransactions, setUsedTransactions] = useState<number[]>([]);
 
     function useTransactionId(id: number) {
@@ -78,7 +80,7 @@ function CompareRow({
             body: { bankTransactionId, transactionId },
         }).then((bankTransaction: BankTransaction) => {
             useTransactionId(transactionId);
-            
+
             setSubRow(
                 <LinkedTransactionIndicator
                     transaction={bankTransaction.transaction}
@@ -111,6 +113,8 @@ function CompareRow({
             <CompareForm
                 bankTransaction={bankTransaction}
                 accounts={accounts}
+                csrf={csrf}
+                setSubRow={setSubRow}
             />
         </>
     );
@@ -119,17 +123,39 @@ function CompareRow({
 function CompareForm({
     bankTransaction,
     accounts,
+    csrf,
+    setSubRow,
 }: {
     bankTransaction: BankTransaction;
     accounts: Account[];
+    csrf: string;
+    setSubRow: (arg: React.ReactNode) => void;
 }) {
-    const [text, setText] = useState(bankTransaction.text);
-    const [accountId, setAccountId] = useState<string>('');
+    const [text, setText] = useState(
+        bankTransaction.proposal?.text_proposal ?? bankTransaction.text,
+    );
+    const [accountId, setAccountId] = useState<string>(
+        bankTransaction.proposal?.account_proposal.toString() ?? '',
+    );
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        console.log(text, accountId);
+        fetcher({
+            url: route('bank.create-and-link'),
+            csrf,
+            body: {
+                bankTransactionId: bankTransaction.id,
+                text,
+                accountId,
+            },
+        }).then((bankTransaction: BankTransaction) =>
+            setSubRow(
+                <LinkedTransactionIndicator
+                    transaction={bankTransaction.transaction}
+                />,
+            ),
+        );
     }
 
     return (
@@ -140,7 +166,11 @@ function CompareForm({
                 onChange={(e) => setText(e.target.value)}
             />
 
-            <AccountSelect accounts={accounts} setValue={setAccountId} />
+            <AccountSelect
+                accounts={accounts}
+                initialValue={accountId}
+                setValue={setAccountId}
+            />
 
             <input type="submit" value={__('save')} className={classes} />
         </form>

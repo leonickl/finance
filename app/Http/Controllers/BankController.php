@@ -7,6 +7,9 @@ use App\Models\Account;
 use App\Models\BankAccount;
 use App\Models\BankTransaction;
 use App\Models\Transaction;
+use App\Types\Date\Date;
+use App\Types\Money;
+use Illuminate\Support\Carbon;
 
 class BankController extends Controller
 {
@@ -73,8 +76,40 @@ class BankController extends Controller
             'transactionId' => 'required|numeric',
         ]);
 
+        dd($valid);
+
         $bankTransaction = BankTransaction::findOrFail($valid['bankTransactionId']);
         $transaction = Transaction::findOrFail($valid['transactionId']);
+
+        $bankTransaction->transaction_id = $transaction->id;
+
+        $bankTransaction->save();
+
+        return response()->json($bankTransaction);
+    }
+
+    public function createAndLink()
+    {
+        $valid = request()->validate([
+            'bankTransactionId' => 'required|numeric',
+            'accountId' => 'required|numeric',
+            'text' => 'nullable|string',
+        ]);
+
+        $bankTransaction = BankTransaction::findOrFail($valid['bankTransactionId']);
+        $account = Account::findOrFail($valid['accountId']);
+
+        [$debit, $credit] = $bankTransaction->value > 0
+            ? [$bankTransaction->bankAccount->account, $account]
+            : [$account, $bankTransaction->bankAccount->account];
+
+        $transaction = Transaction::create(
+            debit: $debit,
+            credit: $credit,
+            value: Money::new(abs($bankTransaction->value), $bankTransaction->currency),
+            text: $valid['text'] ?? '',
+            date: Date::of(Carbon::make($bankTransaction->date)),
+        );
 
         $bankTransaction->transaction_id = $transaction->id;
 

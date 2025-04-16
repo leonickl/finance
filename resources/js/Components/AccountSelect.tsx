@@ -5,21 +5,31 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function AccountSelect({
     accounts,
+    initialValue = undefined,
     setValue,
 }: {
     accounts: Account[];
+    initialValue?: string;
     setValue: (arg0: string) => void;
 }) {
     const [search, setSearch] = useState(''); // Search input
     const [isOpen, setIsOpen] = useState(false); // Dropdown visibility
+    const [selectedValue, setSelectedValue] = useState<string | undefined>(
+        initialValue,
+    ); // Selected account ID
     const ref = useRef<HTMLDivElement>(null); // Reference for clicking outside
 
-    // Filtered list based on search input
-    const filteredAccounts = accounts.filter((account) =>
-        `${account.type} - ${account.name}`
-            .toLowerCase()
-            .includes(search.toLowerCase()),
-    );
+    // Set search text based on initialValue
+    useEffect(() => {
+        if (initialValue) {
+            const initialAccount = accounts.find(
+                (acc) => acc.id.toString() === initialValue,
+            );
+            if (initialAccount) {
+                setSearch(`${initialAccount.type} - ${initialAccount.name}`);
+            }
+        }
+    }, [initialValue, accounts]);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -30,11 +40,17 @@ export default function AccountSelect({
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    // Filtered list based on search input
+    const filteredAccounts = accounts.filter((account) =>
+        `${account.type} - ${account.name}`
+            .toLowerCase()
+            .includes(search.toLowerCase()),
+    );
 
     return (
         <div className="relative w-96" ref={ref}>
@@ -60,7 +76,9 @@ export default function AccountSelect({
                                 key={account.id}
                                 className="h-12 cursor-pointer rounded px-5 py-3"
                                 onClick={() => {
-                                    setValue(account.id.toString());
+                                    const value = account.id.toString();
+                                    setSelectedValue(value);
+                                    setValue(value);
                                     setSearch(
                                         `${account.type} - ${account.name}`,
                                     );
