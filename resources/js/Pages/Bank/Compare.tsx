@@ -172,7 +172,11 @@ function CompareForm({
                 setValue={setAccountId}
             />
 
-            <input type="submit" value={__('save')} className={classes} />
+            <input
+                type="submit"
+                value={bankTransaction.proposal ? __('accept') : __('save')}
+                className={classes}
+            />
         </form>
     );
 }
