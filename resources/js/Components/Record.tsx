@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __, obj } from '@/lib/utils';
-import { DataRecord, PageProps } from '@/types';
+import { DataRecord } from '@/types';
 import { Head } from '@inertiajs/react';
 import React, { useMemo, useState } from 'react';
 
@@ -10,7 +10,7 @@ export default function Record<T extends DataRecord>({
     map,
     editable = (f: any) => ({}),
     children,
-}: PageProps<{
+}: {
     title: string;
     record: T;
     map: (arg0: T) => { [key: string]: React.ReactNode };
@@ -19,7 +19,7 @@ export default function Record<T extends DataRecord>({
         arg1: (arg0: string) => void,
     ) => { [key: string]: React.ReactNode };
     children?: React.ReactNode;
-}>) {
+}) {
     const edit = useMemo(() => editable(record, hide), [record]);
 
     const [status, setStatus] = useState<{ [key: string]: boolean }>(

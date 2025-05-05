@@ -21,7 +21,6 @@ export default function Show({
 
     return (
         <Record
-            auth={auth}
             title="account"
             record={account}
             map={(record) => ({

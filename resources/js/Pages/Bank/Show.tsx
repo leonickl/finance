@@ -12,7 +12,6 @@ export default function Show({
 }: PageProps<{ bankAccount: Bank; balance: Money }>) {
     return (
         <Record
-            auth={auth}
             title="bank_account"
             record={bankAccount}
             map={(record) => ({

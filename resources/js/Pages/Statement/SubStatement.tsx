@@ -1,12 +1,10 @@
 import RecordLink from '@/Components/RecordLink';
 import { __, money } from '@/lib/utils';
-import { PageProps } from '@/types';
 import { Statement as StatementType } from './Statement';
 
 export default function SubStatement({
     statement,
-    auth,
-}: PageProps<{ statement: StatementType }>) {
+}: { statement: StatementType }) {
     return (
         <div className="ml-5 flex flex-col gap-6">
             <div className="flex flex-row justify-between font-extrabold underline">
@@ -34,7 +32,7 @@ export default function SubStatement({
             </div>
 
             {statement.children.map((child) => (
-                <SubStatement auth={auth} statement={child} />
+                <SubStatement statement={child} />
             ))}
         </div>
     );

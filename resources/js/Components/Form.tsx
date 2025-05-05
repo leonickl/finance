@@ -1,6 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
-import { PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
 
@@ -9,12 +8,12 @@ export default function Form({
     fields,
     save,
     children,
-}: PageProps<{
+}: {
     title: string;
     fields: { name: string; type?: string }[];
     save: (input: { [key: string]: any }) => void;
     children?: React.ReactNode;
-}>) {
+}) {
     const [input, setInput] = useState<{ [key: string]: any }>({});
 
     function changeHandler(field: string, type?: string) {

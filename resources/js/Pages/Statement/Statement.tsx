@@ -29,12 +29,11 @@ export default function Statement({
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                         <div className="flex flex-row justify-between p-6 text-gray-900 dark:text-gray-200 gap-10">
                             <div className='flex-1'>
-                                <SubStatement auth={auth} statement={assets} />
+                                <SubStatement statement={assets} />
                             </div>
                             <div className='flex-1'>
                                 {' '}
                                 <SubStatement
-                                    auth={auth}
                                     statement={liabilities}
                                 />
                             </div>
