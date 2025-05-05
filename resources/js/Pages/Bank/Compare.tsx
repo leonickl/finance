@@ -175,7 +175,7 @@ function CompareForm({
             <input
                 type="submit"
                 value={bankTransaction.proposal ? __('accept') : __('save')}
-                className={`${classes} bg-green-200 border-blue-800 text-blue-800`}
+                className={`${classes} bg-blue-200 border-blue-800 text-blue-800`}
             />
         </form>
     );
