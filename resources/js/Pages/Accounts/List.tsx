@@ -7,6 +7,7 @@ export default function List({ accounts }: PageProps<{ accounts: Account[] }>) {
         <Table
             title="accounts"
             showRoute="account"
+            createRoute="account.create"
             list={accounts}
             header={['name', 'type', 'interest_rate']}
             row={(account) => [

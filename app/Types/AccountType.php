@@ -24,6 +24,11 @@ enum AccountType: int
     case FUTURE_INCOME = 14;
     case FUTURE_EXPENSES = 15;
 
+    public static function all()
+    {
+        return collect(self::cases())->mapWithKeys(fn(self $case) => [$case->value => $case->name]);
+    }
+
     public static function make(?int $value): self
     {
         return self::tryFrom($value ?? 0) ?? self::ROOT;

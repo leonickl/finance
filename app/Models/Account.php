@@ -21,6 +21,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 final class Account extends Model
 {
+    protected $fillable = [
+        'name',
+        'archived',
+        'type',
+        'recurring',
+        'interest_rate',
+    ];
+
     protected function casts(): array
     {
         return [

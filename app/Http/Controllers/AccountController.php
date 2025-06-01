@@ -9,42 +9,35 @@ use Inertia\Inertia;
 
 class AccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return Inertia::render('Accounts/List', [
-            'accounts' => Account::all(),
+            'accounts' => Account::latest()->get(),
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function create()
     {
-        $account = new Account;
-
-        $account->name = $request->get('name');
-        $account->archived = $request->boolean('archived');
-        $account->type = AccountType::make($request->integer('type'));
-        ($request->integer('group_id'));
-        $account->recurring = $request->boolean('recurring');
-        $account->interest_rate = $request->float('interest_rate');
-
-        $account->save();
-
-        return $account;
+        return inertia('Accounts/Create', [
+            'accountTypes' => AccountType::all(),
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(int $id)
+    public function store(Request $request)
     {
-        $account = Account::findOrFail($id);
+        Account::create([
+            'name' => $request->get('name'),
+            'archived' => $request->boolean('archived'),
+            'type' => AccountType::make($request->integer('type')),
+            'recurring' => $request->boolean('recurring'),
+            'interest_rate' => $request->float('interest_rate'),
+        ]);
 
+        return redirect()->route('accounts');
+    }
+
+    public function show(Account $account)
+    {
         return Inertia::render('Accounts/Show', [
             'account' => $account,
             'balance' => $account->balance()->toArray(),
@@ -52,9 +45,6 @@ class AccountController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $account = Account::findOrFail($id);
@@ -68,9 +58,6 @@ class AccountController extends Controller
         return $account;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         Account::destroy($id);

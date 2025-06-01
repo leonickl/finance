@@ -23,7 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
-    Route::get('/account/{id}', [AccountController::class, 'show'])->name('account');
+    Route::get('/account/create', [AccountController::class, 'create'])->name('account.create');
+    Route::post('/account', [AccountController::class, 'store'])->name('account.store');
+    Route::get('/account/{account}', [AccountController::class, 'show'])->name('account');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
     Route::get('/transactions/create', [TransactionController::class, 'create'])->name('create-transaction');
