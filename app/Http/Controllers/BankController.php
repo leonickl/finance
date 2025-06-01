@@ -76,8 +76,6 @@ class BankController extends Controller
             'transactionId' => 'required|numeric',
         ]);
 
-        dd($valid);
-
         $bankTransaction = BankTransaction::findOrFail($valid['bankTransactionId']);
         $transaction = Transaction::findOrFail($valid['transactionId']);
 
