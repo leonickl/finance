@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\BankProposalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatementController;
 use App\Http\Controllers\TransactionController;
@@ -39,6 +40,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/bank/{bankAccount}/compare', [BankController::class, 'compare'])->name('bank.compare');
     Route::post('/bank/link', [BankController::class, 'link'])->name('bank.link');
     Route::post('/bank/create-and-link', [BankController::class, 'createAndLink'])->name('bank.create-and-link');
+
+    Route::get('/bank-proposals', [BankProposalController::class, 'index'])->name('proposals');
+    Route::post('/bank-proposals', [BankProposalController::class, 'store'])->name('proposals.store');
+    Route::get('/bank-proposals/create', [BankProposalController::class, 'create'])->name('proposals.create');
+    Route::delete('/bank-proposals/{bankProposal}', [BankProposalController::class, 'destroy'])->name('proposals.destroy');
 });
 
 require __DIR__.'/auth.php';

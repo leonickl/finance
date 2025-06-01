@@ -14,8 +14,6 @@ export default function Create({
     accounts,
     claims,
 }: PageProps<{ accounts: Account[]; claims: Transaction[] }>) {
-    console.log(claims);
-
     const [debitId, setDebitId] = useState<string>();
     const [creditId, setCreditId] = useState<string>();
     const [value, setValue] = useState<string>('');

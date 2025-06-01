@@ -16,6 +16,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 final class BankProposal extends Model
 {
+    protected $fillable = [
+        'value_is_positive',
+        'text_contains',
+        'account_proposal',
+        'text_proposal',
+    ];
+
     protected function casts(): array
     {
         return ['value_is_positive' => 'boolean'];

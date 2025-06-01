@@ -10,7 +10,7 @@ type RecordToCells<T> = (arg: T) => React.ReactNode[];
 
 export default function Table<T extends DataRecord>({
     title,
-    showRoute,
+    showRoute = undefined,
     createRoute = undefined,
     list,
     header,
@@ -20,7 +20,7 @@ export default function Table<T extends DataRecord>({
     cols,
 }: {
     title: string;
-    showRoute: string;
+    showRoute?: string | undefined;
     createRoute?: string | undefined;
     list: T[] | Pagination<T>;
     header: string[];
@@ -110,12 +110,15 @@ export default function Table<T extends DataRecord>({
                                         }));
                                     }
 
-                                    const cells = [
+                                    const id = showRoute ? (
                                         <a href={route(showRoute, record.id)}>
                                             {record.id}
-                                        </a>,
-                                        ...row(record),
-                                    ].filter((x) => x);
+                                        </a>
+                                    ) : (
+                                        <span>{record.id}</span>
+                                    );
+
+                                    const cells = [id, ...row(record)];
 
                                     return (
                                         <>
