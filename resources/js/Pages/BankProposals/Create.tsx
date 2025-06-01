@@ -44,14 +44,18 @@ export default function Create({
                                     onSubmit={submitHandler}
                                     className="flex w-96 flex-col gap-5"
                                 >
-                                    <input
-                                        type="checkbox"
-                                        checked={valueIsPositive}
-                                        onChange={(e) =>
-                                            setValueIsPositive(e.target.checked)
-                                        }
-                                    />
-
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={valueIsPositive}
+                                            onChange={(e) =>
+                                                setValueIsPositive(
+                                                    e.target.checked,
+                                                )
+                                            }
+                                        />{' '}
+                                        positive value
+                                    </label>
                                     <input
                                         type="text"
                                         value={textContains}
@@ -61,12 +65,10 @@ export default function Create({
                                         className={classes}
                                         placeholder={__('text_contains')}
                                     />
-
                                     <AccountSelect
                                         accounts={accounts}
                                         setValue={setAccountProposal}
                                     />
-
                                     <input
                                         type="text"
                                         value={textProposal}
@@ -76,7 +78,6 @@ export default function Create({
                                         className={classes}
                                         placeholder={__('text_proposal')}
                                     />
-
                                     <input
                                         type="submit"
                                         value={__('save')}
