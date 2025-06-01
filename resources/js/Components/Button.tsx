@@ -1,4 +1,5 @@
 import { __ } from '@/lib/utils';
+import { Method } from '@inertiajs/core';
 import { Link } from '@inertiajs/react';
 
 export default function Button({
@@ -8,7 +9,7 @@ export default function Button({
 }: {
     link: string;
     label: string;
-    method?: string;
+    method?: Method;
 }) {
     return (
         <Link
