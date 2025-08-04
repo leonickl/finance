@@ -1,4 +1,4 @@
-import AppLayout from '@/layouts/app-wlayout';
+import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
