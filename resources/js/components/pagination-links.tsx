@@ -1,4 +1,4 @@
-import { Pagination } from '@/types';
+import { Pagination } from '@/types/data';
 import { Link } from '@inertiajs/react';
 
 export default function PaginationLinks<T>({
@@ -99,15 +99,7 @@ export default function PaginationLinks<T>({
                                     !link.label.includes('Previous'),
                             )
                             .map((link) =>
-                                link.active ? (
-                                    <span
-                                        key={link.label}
-                                        aria-current="page"
-                                        className="relative inline-flex cursor-default items-center border border-gray-300 bg-white px-4 py-2 text-sm leading-5 font-medium text-gray-500 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-600"
-                                    >
-                                        {link.label}
-                                    </span>
-                                ) : (
+                                !link.active && link.url ? (
                                     <Link
                                         key={link.label}
                                         href={link.url}
@@ -116,6 +108,14 @@ export default function PaginationLinks<T>({
                                     >
                                         {link.label}
                                     </Link>
+                                ) : (
+                                    <span
+                                        key={link.label}
+                                        aria-current="page"
+                                        className="relative inline-flex cursor-default items-center border border-gray-300 bg-white px-4 py-2 text-sm leading-5 font-medium text-gray-500 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-600"
+                                    >
+                                        {link.label}
+                                    </span>
                                 ),
                             )}
 

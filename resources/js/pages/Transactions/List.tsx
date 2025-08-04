@@ -1,6 +1,6 @@
 import Table from '@/components/table';
 import { date, log } from '@/lib/utils';
-import { Pagination } from '@/types';
+import { Pagination } from '@/types/data';
 import { Transaction } from './Transaction';
 
 export default function List({
