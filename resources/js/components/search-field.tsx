@@ -24,7 +24,7 @@ export function SearchField() {
                 replace: true, // Avoids adding to the browser history stack
             },
         );
-    }, [searchTerm]);
+    }, [searchTerm, searchParams, urlObj.pathname]);
 
     function resetSearch() {
         router.get(

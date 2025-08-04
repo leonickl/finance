@@ -8,7 +8,6 @@ import { Bank } from '../Bank/Bank';
 export default function Show({
     bankAccount,
     balance,
-    auth,
 }: {
     bankAccount: Bank;
     balance: Money;

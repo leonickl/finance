@@ -15,16 +15,16 @@ export default function Compare({
     bankTransactions,
     accounts,
     csrf,
-}: PageProps<{
+}: {
     bankAccount: Bank;
     bankTransactions: BankTransaction[];
     accounts: Account[];
-}>) {
+}) {
     console.log(bankTransactions);
 
     const [usedTransactions, setUsedTransactions] = useState<number[]>([]);
 
-    function useTransactionId(id: number) {
+    function withTransactionId(id: number) {
         setUsedTransactions((old) => [...old, id]);
     }
 
@@ -52,7 +52,7 @@ export default function Compare({
                     bankTransaction={bankTransaction}
                     accounts={accounts}
                     setSubRow={setSubRow}
-                    useTransactionId={useTransactionId}
+                    withTransactionId={withTransactionId}
                 />
             )}
             cols="grid-cols-[50px_200px_auto_200px]"
@@ -65,13 +65,13 @@ function CompareRow({
     bankTransaction,
     accounts,
     setSubRow,
-    useTransactionId,
+    withTransactionId,
 }: {
     csrf: string;
     bankTransaction: BankTransaction;
     accounts: Account[];
     setSubRow: (arg: React.ReactNode) => void;
-    useTransactionId: (arg: number) => void;
+    withTransactionId: (arg: number) => void;
 }) {
     function link(bankTransactionId: number, transactionId: number): void {
         fetcher({
@@ -79,7 +79,7 @@ function CompareRow({
             csrf,
             body: { bankTransactionId, transactionId },
         }).then((bankTransaction: BankTransaction) => {
-            useTransactionId(transactionId);
+            withTransactionId(transactionId);
 
             setSubRow(
                 <LinkedTransactionIndicator

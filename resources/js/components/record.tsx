@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { __, obj } from '@/lib/utils';
-import { DataRecord } from '@/types';
+import { DataRecord } from '@/types/data';
 import { Head } from '@inertiajs/react';
 import React, { useMemo, useState } from 'react';
 
@@ -20,7 +20,7 @@ export default function Record<T extends DataRecord>({
     ) => { [key: string]: React.ReactNode };
     children?: React.ReactNode;
 }) {
-    const edit = useMemo(() => editable(record, hide), [record]);
+    const edit = useMemo(() => editable(record, hide), [record, editable]);
 
     const [status, setStatus] = useState<{ [key: string]: boolean }>(
         obj(edit).map(([key]) => [key, false]),

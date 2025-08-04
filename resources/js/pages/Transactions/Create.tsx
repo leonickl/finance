@@ -31,7 +31,7 @@ export default function Create({
             accounts.find(
                 (account) => account.id === parseInt(creditId ?? '0'),
             ),
-        [creditId],
+        [creditId, accounts],
     );
 
     function valueToFloat() {
