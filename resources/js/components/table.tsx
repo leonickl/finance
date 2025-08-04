@@ -1,10 +1,10 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
 import { DataRecord, Pagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 import PaginationLinks from './pagination-links';
 import { SearchField } from './search-field';
+import AppLayout from '@/layouts/app-layout';
 
 type RecordToCells<T> = (arg: T) => React.ReactNode[];
 
@@ -52,13 +52,7 @@ export default function Table<T extends DataRecord>({
     }
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    {__(title)}
-                </h2>
-            }
-        >
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={__(title)} />
 
             <div className="py-12">
@@ -131,7 +125,7 @@ export default function Table<T extends DataRecord>({
                                                 </div>
                                             ))}
                                             {sub && (
-                                                <div className="col-span-4 flex flex-col gap-5 px-20 pb-10 pt-5">
+                                                <div className="col-span-4 flex flex-col gap-5 px-20 pt-5 pb-10">
                                                     {status[record.id]
                                                         ? status[record.id]
                                                         : sub(
@@ -148,6 +142,6 @@ export default function Table<T extends DataRecord>({
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AppLayout>
     );
 }

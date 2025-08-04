@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AppLayout from '@/layouts/app-layout';
 import { __, obj } from '@/lib/utils';
 import { DataRecord } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -42,13 +42,7 @@ export default function Record<T extends DataRecord>({
     }
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    {__(title) + ' ' + record.id}
-                </h2>
-            }
-        >
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={__(title) + ' ' + record.id} />
 
             <div className="py-12">
@@ -93,6 +87,6 @@ export default function Record<T extends DataRecord>({
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AppLayout>
     );
 }

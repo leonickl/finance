@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
@@ -35,13 +35,7 @@ export default function Form({
         'h-12 rounded border border-gray-800 shadow dark:border-gray-500 dark:bg-gray-800 px-5 py-3';
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    {__(title)}
-                </h2>
-            }
-        >
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={__(title)} />
 
             <div className="py-12">
@@ -86,6 +80,6 @@ export default function Form({
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AppLayout>
     );
 }

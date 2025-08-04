@@ -1,5 +1,5 @@
 import AccountSelect from '@/components/select-account';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';
 import { PageProps } from '@/types';
@@ -26,13 +26,7 @@ export default function Create({
     }
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    {__('create_transaction')}
-                </h2>
-            }
-        >
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={__('create_transaction')} />
 
             <div className="py-12">
@@ -89,6 +83,6 @@ export default function Create({
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AppLayout>
     );
 }
