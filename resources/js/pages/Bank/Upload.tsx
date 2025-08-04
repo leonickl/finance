@@ -1,12 +1,15 @@
 import Form from '@/components/form';
-import { PageProps } from '@/types';
+
 import { router } from '@inertiajs/react';
 import { Money } from '../Accounts/Account';
 import { Bank } from '../Bank/Bank';
 
 export default function Upload({
     bankAccount,
-}: PageProps<{ bankAccount: Bank; balance: Money }>) {
+}: {
+    bankAccount: Bank;
+    balance: Money;
+}) {
     function save(input: { [key: string]: any }) {
         const hasFile = input.file instanceof File && input.file.name;
 

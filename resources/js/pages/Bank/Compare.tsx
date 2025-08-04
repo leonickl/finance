@@ -4,7 +4,7 @@ import Table from '@/components/table';
 import fetcher from '@/fetcher';
 import { __, money } from '@/lib/utils';
 import { classes } from '@/style';
-import { PageProps } from '@/types';
+
 import React, { useState } from 'react';
 import { Account } from '../Accounts/Account';
 import { Transaction } from '../Transactions/Transaction';

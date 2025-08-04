@@ -52,7 +52,7 @@ export default function Table<T extends DataRecord>({
     }
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={[]}>
             <Head title={__(title)} />
 
             <div className="py-12">

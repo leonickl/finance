@@ -3,7 +3,7 @@ import RecordLink from '@/components/record-link';
 import ClaimSelect from '@/components/select-claim';
 import { __, date, money } from '@/lib/utils';
 import { classes } from '@/style';
-import { PageProps } from '@/types';
+
 import { router } from '@inertiajs/react';
 import React from 'react';
 import { Transaction } from './Transaction';

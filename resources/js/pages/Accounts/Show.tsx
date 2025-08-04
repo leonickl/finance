@@ -1,7 +1,7 @@
 import Record from '@/components/record';
 import RecordLink from '@/components/record-link';
 import { __, dateShort, money, moneyInverted, yesno } from '@/lib/utils';
-import { PageProps } from '@/types';
+
 import { Transaction } from '../Transactions/Transaction';
 import { Account, Money } from './Account';
 

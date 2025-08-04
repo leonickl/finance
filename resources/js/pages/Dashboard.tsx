@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 
 export default function Dashboard() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={[]}>
             <Head title="Dashboard" />
 
             <div className="py-12">

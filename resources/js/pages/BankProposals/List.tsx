@@ -1,12 +1,10 @@
 import Button from '@/components/button';
 import Table from '@/components/table';
 import { __ } from '@/lib/utils';
-import { PageProps } from '@/types';
+
 import { BankProposal } from '../Bank/BankProposal';
 
-export default function List({
-    proposals,
-}: PageProps<{ proposals: BankProposal[] }>) {
+export default function List({ proposals }: { proposals: BankProposal[] }) {
     return (
         <Table
             title="bank_proposals"

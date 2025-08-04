@@ -1,8 +1,8 @@
 import Table from '@/components/table';
-import { PageProps } from '@/types';
+
 import { Account } from './Account';
 
-export default function List({ accounts }: PageProps<{ accounts: Account[] }>) {
+export default function List({ accounts }: { accounts: Account[] }) {
     return (
         <Table
             title="accounts"

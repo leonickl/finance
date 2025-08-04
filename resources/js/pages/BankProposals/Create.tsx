@@ -2,13 +2,11 @@ import AccountSelect from '@/components/select-account';
 import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';
-import { PageProps } from '@/types';
+
 import { Head, router } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
 import { Account } from '../Accounts/Account';
-export default function Create({
-    accounts,
-}: PageProps<{ accounts: Account[] }>) {
+export default function Create({ accounts }: { accounts: Account[] }) {
     const [valueIsPositive, setValueIsPositive] = useState<boolean>(false);
     const [textContains, setTextContains] = useState<string>('');
     const [accountProposal, setAccountProposal] = useState<string>();
@@ -26,7 +24,7 @@ export default function Create({
     }
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={[]}>
             <Head title={__('create_transaction')} />
 
             <div className="py-12">

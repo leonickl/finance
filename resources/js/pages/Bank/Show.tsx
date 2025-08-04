@@ -1,7 +1,7 @@
 import Button from '@/components/button';
 import Record from '@/components/record';
 import { __, money } from '@/lib/utils';
-import { PageProps } from '@/types';
+
 import { Money } from '../Accounts/Account';
 import { Bank } from '../Bank/Bank';
 
@@ -9,7 +9,10 @@ export default function Show({
     bankAccount,
     balance,
     auth,
-}: PageProps<{ bankAccount: Bank; balance: Money }>) {
+}: {
+    bankAccount: Bank;
+    balance: Money;
+}) {
     return (
         <Record
             title="bank_account"

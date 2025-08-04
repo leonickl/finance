@@ -1,11 +1,13 @@
 import Table from '@/components/table';
 import { date, log } from '@/lib/utils';
-import { PageProps, Pagination } from '@/types';
+import { Pagination } from '@/types';
 import { Transaction } from './Transaction';
 
 export default function List({
     transactions,
-}: PageProps<{ transactions: Pagination<Transaction> }>) {
+}: {
+    transactions: Pagination<Transaction>;
+}) {
     return (
         <Table
             title="transactions"

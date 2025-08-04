@@ -3,7 +3,7 @@ import ClaimSelect from '@/components/select-claim';
 import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';
-import { PageProps } from '@/types';
+
 import { Head, router } from '@inertiajs/react';
 import { FormEvent, useMemo, useState } from 'react';
 import { Account } from '../Accounts/Account';
@@ -12,7 +12,10 @@ import { Transaction } from './Transaction';
 export default function Create({
     accounts,
     claims,
-}: PageProps<{ accounts: Account[]; claims: Transaction[] }>) {
+}: {
+    accounts: Account[];
+    claims: Transaction[];
+}) {
     const [debitId, setDebitId] = useState<string>();
     const [creditId, setCreditId] = useState<string>();
     const [value, setValue] = useState<string>('');
@@ -52,7 +55,7 @@ export default function Create({
     }
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={[]}>
             <Head title={__('create_transaction')} />
 
             <div className="py-12">

@@ -1,20 +1,18 @@
 import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
-import { PageProps } from '@/types';
+
 import { Head } from '@inertiajs/react';
 import { Statement as StatementType } from './Statement';
 import SubStatement from './SubStatement';
 
-export default function Statement({
-    statement,
-}: PageProps<{ statement: StatementType }>) {
+export default function Statement({ statement }: { statement: StatementType }) {
     const assets = statement.children.find((child) => child.name === 'ASSETS');
     const liabilities = statement.children.find(
         (child) => child.name === 'LIABILITIES',
     );
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={[]}>
             <Head title={__('statement')} />
 
             <div className="py-12">

@@ -42,7 +42,7 @@ export default function Record<T extends DataRecord>({
     }
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={[]}>
             <Head title={__(title) + ' ' + record.id} />
 
             <div className="py-12">

@@ -1,11 +1,9 @@
 import Table from '@/components/table';
 import { money } from '@/lib/utils';
-import { PageProps } from '@/types';
+
 import { Bank } from './Bank';
 
-export default function List({
-    bankAccounts,
-}: PageProps<{ bankAccounts: Bank[] }>) {
+export default function List({ bankAccounts }: { bankAccounts: Bank[] }) {
     return (
         <Table
             title="bank_accounts"
