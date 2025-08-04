@@ -31,7 +31,7 @@ export default function Table<T extends DataRecord>({
 }) {
     const paginated = !Array.isArray(list);
 
-    const records = paginated ? list.data : list;
+    const records: T[] = paginated ? list.data : list;
 
     const [status, setStatus] = useState(
         Object.fromEntries(records.map((record) => [record.id, undefined])),
