@@ -20,7 +20,7 @@ export default function Show({
                 balance: money(balance),
             })}
         >
-            <div className='flex flex-row gap-5 m-5'>
+            <div className="m-5 flex flex-row gap-5">
                 <Button
                     link={route('bank.upload', bankAccount.id)}
                     label={__('upload')}

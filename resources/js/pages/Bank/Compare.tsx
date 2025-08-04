@@ -1,5 +1,5 @@
-import AccountSelect from '@/components/select-account';
 import RecordLink from '@/components/record-link';
+import AccountSelect from '@/components/select-account';
 import Table from '@/components/table';
 import fetcher from '@/fetcher';
 import { __, money } from '@/lib/utils';
@@ -103,7 +103,7 @@ function CompareRow({
 
                     <button
                         onClick={() => link(bankTransaction.id, t.id)}
-                        className={`${classes} bg-green-200 border-green-800 text-green-800`}
+                        className={`${classes} border-green-800 bg-green-200 text-green-800`}
                     >
                         {__('link')}
                     </button>
@@ -175,7 +175,7 @@ function CompareForm({
             <input
                 type="submit"
                 value={bankTransaction.proposal ? __('accept') : __('save')}
-                className={`${classes} ${bankTransaction.proposal ? 'bg-green-200 border-green-800 text-green-800' : 'bg-blue-200 border-blue-800 text-blue-800'}`}
+                className={`${classes} ${bankTransaction.proposal ? 'border-green-800 bg-green-200 text-green-800' : 'border-blue-800 bg-blue-200 text-blue-800'}`}
             />
         </form>
     );

@@ -1,10 +1,10 @@
+import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { DataRecord, Pagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 import PaginationLinks from './pagination-links';
 import { SearchField } from './search-field';
-import AppLayout from '@/layouts/app-layout';
 
 type RecordToCells<T> = (arg: T) => React.ReactNode[];
 

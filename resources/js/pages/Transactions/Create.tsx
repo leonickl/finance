@@ -1,5 +1,6 @@
 import AccountSelect from '@/components/select-account';
 import ClaimSelect from '@/components/select-claim';
+import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';
 import { PageProps } from '@/types';
@@ -7,7 +8,6 @@ import { Head, router } from '@inertiajs/react';
 import { FormEvent, useMemo, useState } from 'react';
 import { Account } from '../Accounts/Account';
 import { Transaction } from './Transaction';
-import AppLayout from '@/layouts/app-layout';
 
 export default function Create({
     accounts,
@@ -52,7 +52,7 @@ export default function Create({
     }
 
     return (
-         <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={__('create_transaction')} />
 
             <div className="py-12">

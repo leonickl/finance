@@ -19,8 +19,8 @@ export type Transaction = DataRecord & {
     claim: Transaction;
     currency: Currency;
     money: Money;
-    repaid: Money |null;
-    rest: Money |null;
+    repaid: Money | null;
+    rest: Money | null;
 };
 
 export type Currency = {

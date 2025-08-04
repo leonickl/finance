@@ -1,10 +1,10 @@
+import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';
 import { PageProps } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
 import { AccountType } from '../Accounts/Account';
-import AppLayout from '@/layouts/app-layout';
 export default function Create({
     accountTypes,
 }: PageProps<{ accountTypes: AccountType[] }>) {
@@ -21,7 +21,7 @@ export default function Create({
     }
 
     return (
-         <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={__('create_transaction')} />
 
             <div className="py-12">

@@ -4,7 +4,9 @@ import { Statement as StatementType } from './Statement';
 
 export default function SubStatement({
     statement,
-}: { statement: StatementType }) {
+}: {
+    statement: StatementType;
+}) {
     return (
         <div className="ml-5 flex flex-col gap-6">
             <div className="flex flex-row justify-between font-extrabold underline">

@@ -1,6 +1,6 @@
-import ClaimSelect from '@/components/select-claim';
 import Record from '@/components/record';
 import RecordLink from '@/components/record-link';
+import ClaimSelect from '@/components/select-claim';
 import { __, date, money } from '@/lib/utils';
 import { classes } from '@/style';
 import { PageProps } from '@/types';
@@ -70,7 +70,7 @@ export default function Show({
             })}
         >
             <div className="mt-10 flex w-full flex-col items-center gap-10">
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                <h2 className="text-xl leading-tight font-semibold text-gray-800 dark:text-gray-200">
                     {__('repayments')}
                 </h2>
 
