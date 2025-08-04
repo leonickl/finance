@@ -1,23 +1,29 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
+
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BankProposalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatementController;
 use App\Http\Controllers\TransactionController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 Route::get('/', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return Inertia::render('welcome');
+})->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware([
+    'auth',
+    ValidateSessionWithWorkOS::class,
+])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -49,4 +55,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/bank-proposals/{bankProposal}', [BankProposalController::class, 'destroy'])->name('proposals.destroy');
 });
 
+
+require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
