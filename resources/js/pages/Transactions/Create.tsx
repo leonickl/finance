@@ -1,5 +1,5 @@
-import AccountSelect from '@/Components/AccountSelect';
-import ClaimSelect from '@/Components/ClaimSelect';
+import AccountSelect from '@/components/select-account';
+import ClaimSelect from '@/components/select-claim';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';
@@ -10,7 +10,6 @@ import { Account } from '../Accounts/Account';
 import { Transaction } from './Transaction';
 
 export default function Create({
-    auth,
     accounts,
     claims,
 }: PageProps<{ accounts: Account[]; claims: Transaction[] }>) {

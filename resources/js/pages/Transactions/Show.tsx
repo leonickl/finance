@@ -1,6 +1,6 @@
-import ClaimSelect from '@/Components/ClaimSelect';
-import Record from '@/Components/Record';
-import RecordLink from '@/Components/RecordLink';
+import ClaimSelect from '@/components/select-claim';
+import Record from '@/components/record';
+import RecordLink from '@/components/record-link';
 import { __, date, money } from '@/lib/utils';
 import { classes } from '@/style';
 import { PageProps } from '@/types';
@@ -11,7 +11,6 @@ import { Transaction } from './Transaction';
 export default function Show({
     transaction,
     repayments,
-    auth,
     claims,
 }: PageProps<{
     transaction: Transaction;

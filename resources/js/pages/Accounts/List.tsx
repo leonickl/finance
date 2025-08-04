@@ -1,4 +1,4 @@
-import Table from '@/Components/Table';
+import Table from '@/components/table';
 import { PageProps } from '@/types';
 import { Account } from './Account';
 

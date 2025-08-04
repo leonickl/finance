@@ -1,4 +1,4 @@
-import RecordLink from '@/Components/RecordLink';
+import RecordLink from '@/components/record-link';
 import { __, money } from '@/lib/utils';
 import { Statement as StatementType } from './Statement';
 

@@ -1,4 +1,4 @@
-import Table from '@/Components/Table';
+import Table from '@/components/table';
 import { date, log } from '@/lib/utils';
 import { PageProps, Pagination } from '@/types';
 import { Transaction } from './Transaction';

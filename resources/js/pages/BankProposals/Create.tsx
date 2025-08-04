@@ -1,4 +1,4 @@
-import AccountSelect from '@/Components/AccountSelect';
+import AccountSelect from '@/components/select-account';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { __ } from '@/lib/utils';
 import { classes } from '@/style';

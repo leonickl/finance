@@ -1,6 +1,6 @@
-import AccountSelect from '@/Components/AccountSelect';
-import RecordLink from '@/Components/RecordLink';
-import Table from '@/Components/Table';
+import AccountSelect from '@/components/select-account';
+import RecordLink from '@/components/record-link';
+import Table from '@/components/table';
 import fetcher from '@/fetcher';
 import { __, money } from '@/lib/utils';
 import { classes } from '@/style';

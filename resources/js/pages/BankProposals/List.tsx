@@ -1,5 +1,5 @@
-import Button from '@/Components/Button';
-import Table from '@/Components/Table';
+import Button from '@/components/button';
+import Table from '@/components/table';
 import { __ } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { BankProposal } from '../Bank/BankProposal';

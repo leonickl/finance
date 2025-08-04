@@ -1,4 +1,4 @@
-import { DataRecord } from '@/types';
+import { DataRecord } from '@/types/data';
 import { Currency } from '../Transactions/Transaction';
 
 export type Account = DataRecord & {

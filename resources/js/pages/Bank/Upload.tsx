@@ -1,11 +1,10 @@
-import Form from '@/Components/Form';
+import Form from '@/components/form';
 import { PageProps } from '@/types';
 import { router } from '@inertiajs/react';
 import { Money } from '../Accounts/Account';
 import { Bank } from '../Bank/Bank';
 
 export default function Upload({
-    auth,
     bankAccount,
 }: PageProps<{ bankAccount: Bank; balance: Money }>) {
     function save(input: { [key: string]: any }) {

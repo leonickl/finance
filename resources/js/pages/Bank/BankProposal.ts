@@ -1,4 +1,4 @@
-import { DataRecord } from "@/types";
+import { DataRecord } from "@/types/data";
 
 export type BankProposal = DataRecord & {
     value_is_positive: boolean;

@@ -1,4 +1,4 @@
-import Table from '@/Components/Table';
+import Table from '@/components/table';
 import { money } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { Bank } from './Bank';

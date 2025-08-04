@@ -3,8 +3,8 @@ import { __ } from '@/lib/utils';
 import { DataRecord, Pagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import React, { useState } from 'react';
-import PaginationLinks from './PaginationLinks';
-import { SearchField } from './SearchField';
+import PaginationLinks from './pagination-links';
+import { SearchField } from './search-field';
 
 type RecordToCells<T> = (arg: T) => React.ReactNode[];
 
