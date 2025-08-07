@@ -9,11 +9,11 @@ export default function Show({
     account,
     balance,
     transactions,
-}: PageProps<{
+}: {
     account: Account;
     balance: Money;
     transactions: Transaction[];
-}>) {
+}) {
     const isClaimAccount =
         account.type.toString() === 'CLAIM' ||
         account.type.toString() === 'CLAIM_INTEREST';

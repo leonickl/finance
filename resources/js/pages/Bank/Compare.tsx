@@ -5,6 +5,7 @@ import fetcher from '@/fetcher';
 import { __, money } from '@/lib/utils';
 import { classes } from '@/style';
 
+import { usePage } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { Account } from '../Accounts/Account';
 import { Transaction } from '../Transactions/Transaction';
@@ -14,13 +15,12 @@ import { BankTransaction } from './BankTransaction';
 export default function Compare({
     bankTransactions,
     accounts,
-    csrf,
 }: {
     bankAccount: Bank;
     bankTransactions: BankTransaction[];
     accounts: Account[];
 }) {
-    console.log(bankTransactions);
+    const { csrf } = usePage().props;
 
     const [usedTransactions, setUsedTransactions] = useState<number[]>([]);
 
@@ -31,7 +31,7 @@ export default function Compare({
     bankTransactions = bankTransactions.map((bt) => ({
         ...bt,
         possibleTransactions: bt.possibleTransactions.filter(
-            (t) => !usedTransactions.includes(t.id),
+            (t: Transaction) => !usedTransactions.includes(t.id),
         ),
     }));
 
@@ -48,7 +48,7 @@ export default function Compare({
             ]}
             sub={(bankTransaction, setSubRow) => (
                 <CompareRow
-                    csrf={csrf}
+                    csrf={csrf as string}
                     bankTransaction={bankTransaction}
                     accounts={accounts}
                     setSubRow={setSubRow}

@@ -12,11 +12,11 @@ export default function Show({
     transaction,
     repayments,
     claims,
-}: PageProps<{
+}: {
     transaction: Transaction;
     repayments: Transaction[];
     claims: Transaction[];
-}>) {
+}) {
     return (
         <Record
             title="transaction"
