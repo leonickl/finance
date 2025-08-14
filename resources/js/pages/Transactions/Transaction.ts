@@ -1,4 +1,4 @@
-import { DataRecord } from '@/types';
+import { DataRecord } from '@/types/data';
 import { Account, Money } from '../Accounts/Account';
 import { Person } from '../People/Person';
 
@@ -8,7 +8,7 @@ export type Transaction = DataRecord & {
     credit_id: number;
     value: number;
     text: string;
-    timestamp: any;
+    timestamp: string;
     claim_id: number | null;
     group_uid: string | null;
     person_id: number | null;

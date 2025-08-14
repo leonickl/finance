@@ -8,7 +8,7 @@ export default function Record<T extends DataRecord>({
     title,
     record,
     map,
-    editable = (f: any) => ({}),
+    editable = () => ({}),
     children,
 }: {
     title: string;

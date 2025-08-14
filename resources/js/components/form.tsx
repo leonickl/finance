@@ -3,6 +3,8 @@ import { __ } from '@/lib/utils';
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
 
+export type InputType = string | File | null
+
 export default function Form({
     title,
     fields,
@@ -11,10 +13,10 @@ export default function Form({
 }: {
     title: string;
     fields: { name: string; type?: string }[];
-    save: (input: { [key: string]: any }) => void;
+    save: (input: { [key: string]: InputType }) => void;
     children?: React.ReactNode;
 }) {
-    const [input, setInput] = useState<{ [key: string]: any }>({});
+    const [input, setInput] = useState<{ [key: string]: InputType }>({});
 
     function changeHandler(field: string, type?: string) {
         return (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +24,7 @@ export default function Form({
                 type === 'file'
                     ? (e.target.files?.[0] ?? null)
                     : e.target.value;
+
             setInput((old) => ({ ...old, [field]: value }));
         };
     }

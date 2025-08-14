@@ -1,4 +1,4 @@
-import Form from '@/components/form';
+import Form, { InputType } from '@/components/form';
 
 import { router } from '@inertiajs/react';
 import { Money } from '../Accounts/Account';
@@ -10,12 +10,13 @@ export default function Upload({
     bankAccount: Bank;
     balance: Money;
 }) {
-    function save(input: { [key: string]: any }) {
+    function save(input: { [key: string]: InputType }) {
         const hasFile = input.file instanceof File && input.file.name;
 
         if (hasFile) {
             const formData = new FormData();
-            formData.append('file', input.file);
+
+            formData.append('file', input.file as Blob);
 
             router.post(route('bank.upload.action', bankAccount.id), formData, {
                 forceFormData: true,
