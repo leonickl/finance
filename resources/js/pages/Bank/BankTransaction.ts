@@ -1,4 +1,4 @@
-import { DataRecord } from '@/types';
+import { DataRecord } from '@/types/data';
 import { Money } from '../Accounts/Account';
 import { Transaction } from '../Transactions/Transaction';
 import { BankProposal } from './BankProposal';
