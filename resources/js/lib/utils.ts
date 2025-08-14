@@ -1,5 +1,5 @@
-import { Money } from '@/Pages/Accounts/Account';
-import { Currency } from '@/Pages/Transactions/Transaction';
+import { Money } from '@/pages/Accounts/Account';
+import { Currency } from '@/pages/Transactions/Transaction';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
