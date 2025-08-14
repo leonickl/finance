@@ -40,7 +40,7 @@ class Export extends Command
             'transactions',
         ];
 
-        $sql = '';
+        $sql = "SET @@foreign_key_checks = 0;\n\n";
 
         foreach ($tables as $table) {
             $records = DB::query()->select('*')->from($table)->get();
@@ -51,9 +51,11 @@ class Export extends Command
                 $contents = implode(', ', array_map(json_encode(...), (array) $record));
                 $columns = implode(', ', array_map(fn (string $value) => '`'.$value.'`', array_keys((array) $record)));
 
-                $sql .= 'insert into `'.$table.'` ('.$columns.') values ('.$contents.');'.PHP_EOL;
+                $sql .= "insert into `$table` ($columns) values ($contents);\n";
             }
         }
+
+        $sql .= "\nSET @@foreign_key_checks = 1;\n";
 
         $filename = 'export/export-'.date('Y-m-d-H-i-s').'.sql';
         $result = Storage::put($filename, $sql);
