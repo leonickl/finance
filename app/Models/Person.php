@@ -17,7 +17,7 @@ use Laravel\Scout\Searchable;
 final class Person extends Model
 {
     use Searchable;
-    
+
     public static function default(): Person
     {
         return new Person(['name' => '---']);

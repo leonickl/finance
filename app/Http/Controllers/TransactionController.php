@@ -63,13 +63,27 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
 
-        if($request->exists('debitId')) $transaction->debit_id = $request->integer('debitId');
-        if($request->exists('creditId')) $transaction->credit_id = $request->integer('creditId');
-        if($request->exists('value')) $transaction->value = $request->float('value');
-        if($request->exists('text')) $transaction->text = $request->get('text');
-        if($request->exists('claimId')) $transaction->claim_id = $request->integer('claimId') ?: null;
-        if($request->exists('groupUid')) $transaction->group_uid = $request->get('groupUid');
-        if($request->exists('personId')) $transaction->person_id = $request->integer('personId') ?: null;
+        if ($request->exists('debitId')) {
+            $transaction->debit_id = $request->integer('debitId');
+        }
+        if ($request->exists('creditId')) {
+            $transaction->credit_id = $request->integer('creditId');
+        }
+        if ($request->exists('value')) {
+            $transaction->value = $request->float('value');
+        }
+        if ($request->exists('text')) {
+            $transaction->text = $request->get('text');
+        }
+        if ($request->exists('claimId')) {
+            $transaction->claim_id = $request->integer('claimId') ?: null;
+        }
+        if ($request->exists('groupUid')) {
+            $transaction->group_uid = $request->get('groupUid');
+        }
+        if ($request->exists('personId')) {
+            $transaction->person_id = $request->integer('personId') ?: null;
+        }
 
         $transaction->save();
 

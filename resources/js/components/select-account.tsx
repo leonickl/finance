@@ -14,9 +14,7 @@ export default function AccountSelect({
 }) {
     const [search, setSearch] = useState(''); // Search input
     const [isOpen, setIsOpen] = useState(false); // Dropdown visibility
-    const [, setSelectedValue] = useState<string | undefined>(
-        initialValue,
-    ); // Selected account ID
+    const [, setSelectedValue] = useState<string | undefined>(initialValue); // Selected account ID
     const ref = useRef<HTMLDivElement>(null); // Reference for clicking outside
 
     // Set search text based on initialValue

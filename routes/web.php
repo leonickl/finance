@@ -1,16 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
-
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BankProposalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatementController;
 use App\Http\Controllers\TransactionController;
-
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -54,7 +52,6 @@ Route::middleware([
     Route::get('/bank-proposals/create', [BankProposalController::class, 'create'])->name('proposals.create');
     Route::delete('/bank-proposals/{bankProposal}', [BankProposalController::class, 'destroy'])->name('proposals.destroy');
 });
-
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

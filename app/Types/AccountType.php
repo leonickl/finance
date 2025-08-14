@@ -26,7 +26,7 @@ enum AccountType: int
 
     public static function all()
     {
-        return collect(self::cases())->mapWithKeys(fn(self $case) => [$case->value => $case->name]);
+        return collect(self::cases())->mapWithKeys(fn (self $case) => [$case->value => $case->name]);
     }
 
     public static function make(?int $value): self

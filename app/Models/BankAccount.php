@@ -41,7 +41,7 @@ final class BankAccount extends Model
         return $this->bank.' - '.$this->account->name;
     }
 
-        public function updateBalance(?Money $balance): void
+    public function updateBalance(?Money $balance): void
     {
         if ($balance !== null && $balance->currency() !== $this->currency) {
             throw new CurrencyMismatchException(found: $balance->currency(), expected: $this->currency);
