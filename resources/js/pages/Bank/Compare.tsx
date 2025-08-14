@@ -56,6 +56,14 @@ export default function Compare({
                 />
             )}
             cols="grid-cols-[50px_200px_auto_200px]"
+            injectBefore={
+                <button
+                    type="submit"
+                    className={`${classes} text-green-800} border-green-800 bg-green-200`}
+                >
+                    {__('accept_all')}
+                </button>
+            }
         />
     );
 }
@@ -120,6 +128,24 @@ function CompareRow({
     );
 }
 
+export function acceptProposal(
+    csrf: string,
+    bankTransactionId: number,
+    text: string,
+    accountId: number,
+    then: (arg: BankTransaction) => void,
+) {
+    fetcher({
+        url: route('bank.create-and-link'),
+        csrf,
+        body: {
+            bankTransactionId,
+            text,
+            accountId,
+        },
+    }).then(then);
+}
+
 function CompareForm({
     bankTransaction,
     accounts,
@@ -141,20 +167,17 @@ function CompareForm({
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        fetcher({
-            url: route('bank.create-and-link'),
+        acceptProposal(
             csrf,
-            body: {
-                bankTransactionId: bankTransaction.id,
-                text,
-                accountId,
-            },
-        }).then((bankTransaction: BankTransaction) =>
-            setSubRow(
-                <LinkedTransactionIndicator
-                    transaction={bankTransaction.transaction}
-                />,
-            ),
+            bankTransaction.id,
+            text,
+            Number.parseInt(accountId),
+            (bankTransaction: BankTransaction) =>
+                setSubRow(
+                    <LinkedTransactionIndicator
+                        transaction={bankTransaction.transaction}
+                    />,
+                ),
         );
     }
 

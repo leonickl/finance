@@ -18,6 +18,7 @@ export default function Table<T extends DataRecord>({
     sub = undefined,
     search = false,
     cols,
+    injectBefore = undefined,
 }: {
     title: string;
     showRoute?: string | undefined;
@@ -28,6 +29,7 @@ export default function Table<T extends DataRecord>({
     sub?: (arg0: T, arg1: (arg: React.ReactNode) => void) => React.ReactNode;
     search?: boolean;
     cols?: string;
+    injectBefore?: React.ReactNode;
 }) {
     const paginated = !Array.isArray(list);
 
@@ -59,6 +61,8 @@ export default function Table<T extends DataRecord>({
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
+                            {injectBefore}
+
                             {createRoute && (
                                 <Link
                                     href={route(createRoute)}
