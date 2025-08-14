@@ -35,6 +35,20 @@ export default function Compare({
         ),
     }));
 
+    function acceptAll(bankTransactions: BankTransaction[]) {
+        bankTransactions
+            .filter((bt) => bt.proposal)
+            .forEach((bt) =>
+                acceptProposal(
+                    csrf as string,
+                    bt.id,
+                    bt.proposal.text_proposal,
+                    bt.proposal.account_proposal,
+                    () => {},
+                ),
+            );
+    }
+
     return (
         <Table
             title="bank_accounts"
@@ -60,6 +74,7 @@ export default function Compare({
                 <button
                     type="submit"
                     className={`${classes} text-green-800} border-green-800 bg-green-200`}
+                    onClick={() => acceptAll(bankTransactions)}
                 >
                     {__('accept_all')}
                 </button>
