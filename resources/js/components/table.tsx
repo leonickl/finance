@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { __ } from '@/lib/utils';
-import { DataRecord, Pagination } from '@/types';
+import { DataRecord, Pagination } from '@/types/data';
 import { Head, Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 import PaginationLinks from './pagination-links';
