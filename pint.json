@@ -1,9 +1,0 @@
-{
-    "preset": "laravel",
-    "rules": {
-        "no_unused_imports": true,
-        "no_useless_else": true,
-        "combine_consecutive_issets": true,
-        "single_quote": true
-    }
-}

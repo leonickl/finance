@@ -12,7 +12,6 @@ final readonly class UploadHandler
 {
     public function __construct(private BankAccount $bankAccount) {}
 
-
     public function uploadText(string $content): void
     {
         // trim spaces and quotes > only json should be left

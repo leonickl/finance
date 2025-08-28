@@ -59,7 +59,7 @@ final readonly class TradeRepublicParser implements Parser
 
     private function objectToTransaction(stdClass $object): ?BankTransactionDto
     {
-        if (!isset($object->value)) {
+        if (! isset($object->value)) {
             // e. g., credit card verification
             return null;
         }

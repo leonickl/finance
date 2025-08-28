@@ -127,7 +127,7 @@ final class Transaction extends Model
             'credit_id' => $this->credit_id,
             'value' => $this->value,
             'text' => $this->text,
-            'timestamp' => $this->timestamp,
+            'timestamp' => $this->timestamp->toString(),
             'claim_id' => $this->claim_id,
             'group_uid' => $this->group_uid,
             'person_id' => $this->person_id,
