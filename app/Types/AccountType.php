@@ -26,7 +26,8 @@ enum AccountType: int
 
     public static function all()
     {
-        return collect(self::cases())->mapWithKeys(fn (self $case) => [$case->value => $case->name]);
+        return collect(self::cases())
+            ->mapWithKeys(fn (self $case) => [$case->value => $case->name]);
     }
 
     public static function make(?int $value): self
@@ -103,6 +104,6 @@ enum AccountType: int
 
     public function isClaimType(): bool
     {
-        return $this === self::CLAIM_INTEREST || $this == self::CLAIM;
+        return $this === self::CLAIM_INTEREST || $this === self::CLAIM;
     }
 }
