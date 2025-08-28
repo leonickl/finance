@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Laravel\Scout\Searchable;
 use Override;
 
 /**
@@ -40,7 +39,6 @@ use Override;
 final class Transaction extends Model
 {
     use CurrencyAttribute;
-    use Searchable;
 
     protected function casts(): array
     {
