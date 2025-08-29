@@ -17,6 +17,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class FinancePanelProvider extends PanelProvider
@@ -52,8 +53,12 @@ class FinancePanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->authGuard('web')
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->canAccess(function () {
+                return Auth::check(); // ✅ allow all logged-in users
+            });
     }
 }
