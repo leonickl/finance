@@ -12,10 +12,14 @@ final readonly class Currency implements Htmlable
 {
     private function __construct(private string $code) {}
 
-    public static function new(string $code): self
+    public static function new(?string $code): self
     {
+        if(! $code) {
+            return new self('EUR');
+        }
+
         if (mb_strlen($code) !== 3) {
-            throw new RuntimeException('Illegal currency code given');
+            throw new RuntimeException("Illegal currency code given: {$code}");
         }
 
         return new self($code);
@@ -47,5 +51,10 @@ final readonly class Currency implements Htmlable
         return [
             'code' => $this->code,
         ];
+    }
+
+    public function __toString()
+    {
+        return $this->code;
     }
 }

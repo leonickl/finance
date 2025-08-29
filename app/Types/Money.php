@@ -145,4 +145,11 @@ final readonly class Money implements Floatable
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $value = round($this->float(), 2);
+
+        return "$value $this->currency";
+    }
 }
