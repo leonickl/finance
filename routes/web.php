@@ -3,11 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::redirect('/', 'finance')->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::redirect('dashboard', 'finance')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
