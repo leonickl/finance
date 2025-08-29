@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property bool $recurring
  * @property float|null $interest_rate
  * @property AccountType $type
+ * @property-read string $fullname
  * @property-read BankAccount $bankAccount
  */
 final class Account extends Model
@@ -46,6 +47,11 @@ final class Account extends Model
                 'group_id' => $type->value,
             ],
         );
+    }
+
+    protected function fullname(): Attribute
+    {
+        return Attribute::get(fn() => __($this->type->name).' - '.$this->name);
     }
 
     public function toArray(): array
