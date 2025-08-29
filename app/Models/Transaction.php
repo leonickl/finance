@@ -40,6 +40,18 @@ final class Transaction extends Model
 {
     use CurrencyAttribute;
 
+    protected $fillable = [
+        'debit_id',
+        'credit_id',
+        'value',
+        'currency',
+        'text',
+        'timestamp',
+        'claim_id',
+        'group_uid',
+        'person_id',
+    ];
+
     protected function casts(): array
     {
         return [
