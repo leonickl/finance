@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\Transactions\Schemas;
 
+use App\Models\Account;
+use App\Models\Transaction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
 class TransactionForm
@@ -15,26 +16,44 @@ class TransactionForm
         return $schema
             ->components([
                 Select::make('debit_id')
-                    ->relationship('debit', 'name')
+                    ->relationship('debit')
+                    ->getOptionLabelFromRecordUsing(fn(Account $account) => $account->fullname)
                     ->required(),
                 Select::make('credit_id')
-                    ->relationship('credit', 'name')
-                    ->required(),
+                    ->relationship('credit')
+                    ->getOptionLabelFromRecordUsing(fn(Account $account) => $account->fullname)
+                    ->required()
+                    ->reactive(),
                 TextInput::make('value')
                     ->required()
                     ->numeric(),
-                Textarea::make('text')
-                    ->required()
-                    ->columnSpanFull(),
+                TextInput::make('currency')
+                    ->default('EUR')
+                    ->required(),
                 DatePicker::make('timestamp')
+                    ->required()
+                    ->default(now()),
+                TextInput::make('text')
                     ->required(),
                 Select::make('claim_id')
-                    ->relationship('claim', 'id'),
-                TextInput::make('group_uid'),
-                Select::make('person_id')
-                    ->relationship('person', 'name'),
-                TextInput::make('currency')
-                    ->required(),
+                    ->relationship('claim')
+                    ->options(function (callable $get) {
+                        $selectedCredit = $get('credit_id');
+
+                        if (! $selectedCredit) {
+                            return [];
+                        }
+
+                        return Transaction::where('debit_id', $selectedCredit)
+                            ->get()
+                            ->filter(fn($claim) => $claim->rest?->isPositive() ?? false)
+                            ->mapWithKeys(fn($claim) => [
+                                $claim->id => "({$claim->id}) {$claim->date} {$claim->text} {$claim->rest} / {$claim->value}"
+                            ])
+                            ->toArray();
+                    })
+                    ->visible(fn(callable $get) => Account::find($get('credit_id'))?->type->isClaimType() ?? false)
+                    ->columnSpanFull(),
             ]);
     }
 }
