@@ -78,4 +78,9 @@ final readonly class Date
     {
         return Year::make($this->carbon->year);
     }
+
+    public function __tostring()
+    {
+        return $this->dottedDate();
+    }
 }
