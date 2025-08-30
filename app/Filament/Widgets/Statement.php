@@ -7,7 +7,7 @@ use Filament\Widgets\Widget;
 
 class Statement extends Widget
 {
-    protected string $view = 'volt-livewire::filament.widgets.statement';
+    protected string $view = 'filament.widgets.statement';
 
     public function statement()
     {

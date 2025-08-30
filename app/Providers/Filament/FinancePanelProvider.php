@@ -17,7 +17,6 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class FinancePanelProvider extends PanelProvider
@@ -37,7 +36,7 @@ class FinancePanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,

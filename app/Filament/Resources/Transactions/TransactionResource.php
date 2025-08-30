@@ -22,8 +22,6 @@ class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
     protected static ?string $recordTitleAttribute = 'text';
 
     public static function form(Schema $schema): Schema
@@ -64,5 +62,10 @@ class TransactionResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-queue-list';
     }
 }

@@ -22,8 +22,6 @@ class AccountResource extends Resource
 {
     protected static ?string $model = Account::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
@@ -64,5 +62,10 @@ class AccountResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-credit-card';
     }
 }
