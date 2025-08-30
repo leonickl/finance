@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Filament\Widgets\MonthlyExpensesChart;
 use App\Filament\Widgets\MonthlyIncomeChart;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
 
@@ -20,6 +21,8 @@ class MonthlyBudget extends Page
         return [
             Action::make('back')
                 ->url(route('filament.finance.pages.monthly-budget', ['lag' => $lag - 1])),
+            Action::make('now')
+                ->url(route('filament.finance.pages.monthly-budget', ['lag' => 0])),
             Action::make('forward')
                 ->url(route('filament.finance.pages.monthly-budget', ['lag' => $lag + 1])),
         ];
@@ -31,5 +34,14 @@ class MonthlyBudget extends Page
             MonthlyIncomeChart::class,
             MonthlyExpensesChart::class,
         ];
+    }
+
+    public function getTitle(): string
+    {
+        $month = Carbon::now()
+            ->addMonths(request()->integer('lag'))
+            ->translatedFormat('F Y'); // e.g., "August 2025"
+
+        return "Monthly Budget - $month";
     }
 }
