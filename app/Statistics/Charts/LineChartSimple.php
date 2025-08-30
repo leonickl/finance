@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 final readonly class LineChartSimple extends LineChart
 {
-    public static function make(MonthRange $range, Collection $balanceByMonths, string $width, string $height, bool $withMean): self
+    public static function make(MonthRange $range, Collection $balanceByMonths, bool $withMean): self
     {
         $months = $range->elements()->reverse()->toArray();
         $zeroes = array_map(fn () => Money::zero(), $months);
@@ -36,6 +36,6 @@ final readonly class LineChartSimple extends LineChart
             );
         }
 
-        return new self($range, predictionDuration: 0, datasets: $datasets, width: $width, height: $height);
+        return new self($range, predictionDuration: 0, datasets: $datasets);
     }
 }
