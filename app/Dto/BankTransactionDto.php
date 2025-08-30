@@ -25,7 +25,7 @@ final readonly class BankTransactionDto
      */
     public static function all(int $bankAccountId): Collection
     {
-        return BankAccount::findOrDie($bankAccountId)
+        return BankAccount::findOrFail($bankAccountId)
             ->bankTransactions
             ->map(fn (BankTransaction $transaction) => $transaction->dto());
     }
