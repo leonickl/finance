@@ -41,7 +41,7 @@ class YearlyBudget extends Page
     public function getTitle(): string
     {
         $year = Carbon::now()
-            ->addMonths(request()->integer('lag'))
+            ->addYears(request()->integer('lag'))
             ->translatedFormat('Y');
 
         return "Yearly Budget - $year";
