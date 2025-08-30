@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Bank\BankTransactionDto;
+use App\Dto\BankTransactionDto;
 use App\Models\Helpers\CurrencyAttribute;
 use App\Types\Currency;
 use App\Types\Date\Date;

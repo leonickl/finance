@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Types;
 
+use App\Dto\StatementDto;
 use App\Models\Account;
 use Illuminate\Support\Collection;
 
@@ -92,14 +93,14 @@ enum AccountType: int
         });
     }
 
-    public function statement(): array
+    public function statement(): StatementDto
     {
-        return [
-            'name' => $this->name,
-            'balance' => $this->balance()->toArray(),
-            'children' => $this->children()->map->statement(),
-            'accounts' => $this->accounts()->map->withBalance(),
-        ];
+        return new StatementDto(
+            name: $this->name,
+            balance: $this->balance(),
+            children: $this->children(),
+            accounts: $this->accounts(),
+        );
     }
 
     public function isClaimType(): bool
