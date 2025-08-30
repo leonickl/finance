@@ -14,12 +14,12 @@ class MonthlyInfo extends StatsOverviewWidget
         $budget = new MonthlyBudget(Month::now()->plus(session('lag', 0)));
 
         return [
-            Stat::make('Income', $budget->incomeSum())
+            Stat::make('Monthly Income', $budget->incomeSum())
                 ->chart($budget->incomePerDay())
                 ->color('success'),
-            Stat::make('Total', $budget->balance())
+            Stat::make('Monthly Balance', $budget->balance())
                 ->color('gray'),
-            Stat::make('Expenses', $budget->expensesSum())
+            Stat::make('Monthly Expenses', $budget->expensesSum())
                 ->chart($budget->expensesPerDay())
                 ->color('danger'),
         ];

@@ -14,12 +14,12 @@ class YearlyInfo extends StatsOverviewWidget
         $budget = new YearlyBudget(Year::now()->plus(session('lag', 0)));
 
         return [
-            Stat::make('Income', $budget->incomeSum())
+            Stat::make('Yearly Income', $budget->incomeSum())
                 ->chart($budget->incomePerMonth())
                 ->color('success'),
-            Stat::make('Total', $budget->balance())
+            Stat::make('Yearly Balance', $budget->balance())
                 ->color('gray'),
-            Stat::make('Expenses', $budget->expensesSum())
+            Stat::make('Yearly Expenses', $budget->expensesSum())
                 ->chart($budget->expensesPerMonth())
                 ->color('danger'),
         ];
