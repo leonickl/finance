@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Accounts\Tables;
 
+use App\Types\AccountType;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -24,7 +25,8 @@ class AccountsTable
                 IconColumn::make('archived')
                     ->boolean(),
                 TextColumn::make('group_id')
-                    ->numeric()
+                    ->label('Type')
+                    ->formatStateUsing(fn(int $state) => AccountType::from($state)->label())
                     ->sortable(),
                 IconColumn::make('recurring')
                     ->boolean(),

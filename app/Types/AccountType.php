@@ -107,4 +107,9 @@ enum AccountType: int
     {
         return $this === self::CLAIM_INTEREST || $this === self::CLAIM;
     }
+
+    public function label()
+    {
+        return __($this->name);
+    }
 }
