@@ -2,12 +2,15 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Traits\WithoutLegend;
 use App\Statistics\Budget\YearlyBudget;
 use App\Types\Date\Year;
 use Filament\Widgets\ChartWidget;
 
 class YearlyIncomeChart extends ChartWidget
 {
+    use WithoutLegend;
+
     protected ?string $heading = 'Yearly Income';
 
     protected function getData(): array
