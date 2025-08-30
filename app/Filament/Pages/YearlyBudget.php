@@ -3,9 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\YearlyExpensesChart;
-use App\Filament\Widgets\YearlyExpensesInfo;
 use App\Filament\Widgets\YearlyIncomeChart;
-use App\Filament\Widgets\YearlyIncomeInfo;
+use App\Filament\Widgets\YearlyInfo;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
 use Illuminate\Support\Carbon;
@@ -35,8 +34,7 @@ class YearlyBudget extends Page
         return [
             YearlyIncomeChart::class,
             YearlyExpensesChart::class,
-            YearlyIncomeInfo::class,
-            YearlyExpensesInfo::class,
+            YearlyInfo::class,
         ];
     }
 
