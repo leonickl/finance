@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class MonthlyExpensesChart extends ChartWidget
 {
-    protected ?string $heading = 'Monthly Expenses Chart';
+    protected ?string $heading = 'Monthly Expenses';
 
 
     protected function getData(): array

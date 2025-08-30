@@ -8,12 +8,33 @@ use Filament\Widgets\ChartWidget;
 
 class MonthlyIncomeChart extends ChartWidget
 {
-    protected ?string $heading = 'Monthly Income Chart';
+    protected ?string $heading = 'Monthly Income';
 
-    protected function getData(): array
-    {
-        return (new MonthlyBudget(Month::now()->plus(session('lag'))))->incomeDonutData();
-    }
+protected function getData(): array
+{
+    $budget = new MonthlyBudget(Month::now()->plus(session('lag')));
+    $donutData = $budget->incomeDonutData();
+
+    return [
+        'datasets' => $donutData['datasets'],
+        'labels' => $donutData['labels'],
+        'options' => [
+            'plugins' => [
+                'datalabels' => [
+                    'formatter' => 'function(value, context) { return value; }',
+                    'color' => '#22c55e',
+                    'font' => [
+                        'weight' => 'bold',
+                        'size' => 24,
+                    ],
+                    'display' => 'auto',
+                ],
+            ],
+        ],
+    ];
+}
+
+
 
     protected function getType(): string
     {

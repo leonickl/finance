@@ -3,7 +3,9 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\MonthlyExpensesChart;
+use App\Filament\Widgets\MonthlyExpensesInfo;
 use App\Filament\Widgets\MonthlyIncomeChart;
+use App\Filament\Widgets\MonthlyIncomeInfo;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
@@ -33,6 +35,8 @@ class MonthlyBudget extends Page
         return [
             MonthlyIncomeChart::class,
             MonthlyExpensesChart::class,
+            MonthlyIncomeInfo::class,
+            MonthlyExpensesInfo::class,
         ];
     }
 
@@ -43,5 +47,10 @@ class MonthlyBudget extends Page
             ->translatedFormat('F Y'); // e.g., "August 2025"
 
         return "Monthly Budget - $month";
+    }
+
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-calendar';
     }
 }
