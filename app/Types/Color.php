@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace App\Types;
 
-use App\Enums\CaseCollection;
-
 enum Color
 {
-    use CaseCollection;
-
     case DARK;
     case DARKER;
     case LIGHT;
@@ -25,11 +21,11 @@ enum Color
     case RED_BRIGHTER;
     case GREEN_BRIGHTER;
 
-    const Color DEFAULT = self::BLACK;
+    const self DEFAULT = self::BLACK;
 
     public static function variableDefinitions(): string
     {
-        $list = self::caseCollection()
+        $list = collect(self::cases())
             ->map(fn (self $case) => '--' . $case->label() . ': ' . $case->color() . ';')
             ->join('');
 
@@ -78,11 +74,11 @@ enum Color
 
     public static function classDefinitions(): string
     {
-        $textColor = self::caseCollection()
+        $textColor = collect(self::cases())
             ->map(fn (self $case) => '.' . $case->label() . '{ color: ' . $case->color() . '; }')
             ->join('');
 
-        $backgroundColor = self::caseCollection()
+        $backgroundColor = collect(self::cases())
             ->map(fn (self $case) => '.' . $case->bgLabel() . '{ background-color: ' . $case->color() . '; }')
             ->join('');
 
@@ -121,7 +117,7 @@ enum Color
 
     public static function random(): Color
     {
-        return self::caseCollection()->random();
+        return collect(self::cases())->random();
     }
 
     public function var(): string

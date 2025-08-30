@@ -20,7 +20,7 @@ abstract readonly class ChartDataset
             'fill' => false,
             'borderColor' => $this->borderColor ?? Color::randomForChart(),
             'backgroundColor' => 'lightgray',
-            'tension' => .8,
+            'tension' => .6,
             'data' => $this->data()->toArray(),
         ];
     }

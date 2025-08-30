@@ -10,15 +10,14 @@ use App\Types\Date\Range;
 use App\Types\Date\YearRange;
 use App\Types\DebitCredit;
 use App\Types\Map;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use RuntimeException;
 
-abstract readonly class BudgetLines implements Htmlable
+abstract readonly class BudgetLines
 {
     public function __construct(protected Range $range) {}
 
-    private function chartData(): array
+    public function chartData(): array
     {
         return [
             'labels' => $this->labels(),
@@ -59,7 +58,7 @@ abstract readonly class BudgetLines implements Htmlable
                     default => throw new RuntimeException('Unknown Date Unit '.$this->range::class)
                 };
 
-                $month = $transaction->date()->{$dateUnitType}();
+                $month = $transaction->date->{$dateUnitType}();
 
                 // if month is included in current range
                 if ($accounts[$account->id]->has($month)) {

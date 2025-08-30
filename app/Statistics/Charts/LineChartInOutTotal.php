@@ -10,9 +10,9 @@ use App\Types\TransactionCollection;
 
 final readonly class LineChartInOutTotal extends LineChart
 {
-    public static function make(MonthRange $range, int $predictionDuration = 0, string $width = '100%', string $height = '100%'): self
+    public static function make(MonthRange $range, int $horizon = 0): self
     {
-        return new self(range: $range, predictionDuration: $predictionDuration, datasets: self::datasets($range, $predictionDuration), width: $width, height: $height);
+        return new self($range, $horizon, self::datasets($range, $horizon));
     }
 
     private static function datasets(MonthRange $range, int $predictionDuration): array
