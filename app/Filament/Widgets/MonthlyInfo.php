@@ -11,7 +11,7 @@ class MonthlyInfo extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
-        $budget = new MonthlyBudget(Month::now()->plus(session('lag')));
+        $budget = new MonthlyBudget(Month::now()->plus(session('lag', 0)));
 
         return [
             Stat::make('Income', $budget->incomeSum())

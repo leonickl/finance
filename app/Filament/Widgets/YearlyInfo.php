@@ -11,7 +11,7 @@ class YearlyInfo extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
-        $budget = new YearlyBudget(Year::now()->plus(session('lag')));
+        $budget = new YearlyBudget(Year::now()->plus(session('lag', 0)));
 
         return [
             Stat::make('Income', $budget->incomeSum())
