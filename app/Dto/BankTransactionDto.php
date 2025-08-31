@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
-use App\Exceptions\OnlyEuroSupportedException;
 use App\Models\BankAccount;
 use App\Models\BankTransaction;
 use App\Types\Date\Date;
@@ -26,23 +25,16 @@ final readonly class BankTransactionDto
      */
     public static function all(int $bankAccountId): Collection
     {
-        return BankAccount::findOrDie($bankAccountId)
+        return BankAccount::findOrFail($bankAccountId)
             ->bankTransactions
             ->map(fn (BankTransaction $transaction) => $transaction->dto());
     }
 
-    /**
-     * @throws OnlyEuroSupportedException
-     */
     public function tryToTransaction(): ?BankTransaction
     {
         if ($this->isAlreadySaved()) {
             return null;
         }
-
-        //        if ( ! $this->value->currency()->equals(BankAccount::findOrDie($this->bankAccountId)->currency)) {
-        //            throw new OnlyEuroSupportedException($this->value->currency()->code(), ' - ' . $this->value->format());
-        //        }
 
         return $this->toTransaction();
     }

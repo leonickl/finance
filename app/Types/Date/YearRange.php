@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Types\Date;
 
+use App\Statistics\Charts\Point;
+use App\Statistics\Charts\Points;
+use App\Types\TransactionCollection;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
 use Override;
@@ -28,6 +31,19 @@ final readonly class YearRange extends Range
         }
 
         return collect($years);
+    }
+
+    #[Override]
+    public function group(TransactionCollection $transactions): Points
+    {
+        return Points::fromCollection(
+            $this->elements()->map(
+                fn (Year $year) => new Point(
+                    x: $year,
+                    y: $transactions->allInYear($year)->sumValues()->float(),
+                ),
+            ),
+        );
     }
 
     #[Override]

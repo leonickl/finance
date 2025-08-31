@@ -17,7 +17,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property bool $recurring
  * @property float|null $interest_rate
  * @property AccountType $type
+ * @property-read string $fullname
  * @property-read BankAccount $bankAccount
+ * @property-read Money $name
  */
 final class Account extends Model
 {
@@ -48,6 +50,11 @@ final class Account extends Model
         );
     }
 
+    protected function fullname(): Attribute
+    {
+        return Attribute::get(fn() => __($this->type->name).' - '.$this->name);
+    }
+
     public function toArray(): array
     {
         return [
@@ -69,14 +76,6 @@ final class Account extends Model
             'recurring' => false,
             'type' => AccountType::ROOT,
         ]);
-    }
-
-    public function withBalance(): array
-    {
-        return [
-            ...$this->toArray(),
-            'balance' => $this->balance()->toArray(),
-        ];
     }
 
     public function transactions(bool $desc = false): TransactionCollection

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Types\Date;
 
+use App\Statistics\Charts\Point;
+use App\Statistics\Charts\Points;
+use App\Types\TransactionCollection;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
 use Override;
@@ -22,6 +25,19 @@ final readonly class MonthRange extends Range
         $end = count($months) > 0 ? $months[count($months) - 1] : Month::now();
 
         return new self($start, $end);
+    }
+
+    #[Override]
+    public function group(TransactionCollection $transactions): Points
+    {
+        return Points::fromCollection(
+            $this->elements()->map(
+                fn (Month $month) => new Point(
+                    x: $month,
+                    y: $transactions->allInMonth($month)->sumValues()->float(),
+                ),
+            ),
+        );
     }
 
     /**

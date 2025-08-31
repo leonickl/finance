@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Laravel\Scout\Searchable;
 use Override;
 
 /**
@@ -40,7 +39,18 @@ use Override;
 final class Transaction extends Model
 {
     use CurrencyAttribute;
-    use Searchable;
+
+    protected $fillable = [
+        'debit_id',
+        'credit_id',
+        'value',
+        'currency',
+        'text',
+        'timestamp',
+        'claim_id',
+        'group_uid',
+        'person_id',
+    ];
 
     protected function casts(): array
     {
@@ -127,7 +137,7 @@ final class Transaction extends Model
             'credit_id' => $this->credit_id,
             'value' => $this->value,
             'text' => $this->text,
-            'timestamp' => $this->timestamp,
+            'timestamp' => $this->timestamp->toString(),
             'claim_id' => $this->claim_id,
             'group_uid' => $this->group_uid,
             'person_id' => $this->person_id,

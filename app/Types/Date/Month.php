@@ -104,4 +104,9 @@ final readonly class Month implements DateUnit
     {
         return ['year' => $this->year, 'month' => $this->month];
     }
+
+    public function __toString()
+    {
+        return $this->string();
+    }
 }

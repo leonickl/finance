@@ -23,7 +23,7 @@ final readonly class Date
     }
 
     /**
-     * @param string $string dd.mm.yyyy
+     * @param  string  $string  dd.mm.yyyy
      */
     public static function fromGermanDate(string $string): self
     {
@@ -77,5 +77,10 @@ final readonly class Date
     public function year(): Year
     {
         return Year::make($this->carbon->year);
+    }
+
+    public function __tostring()
+    {
+        return $this->dottedDate();
     }
 }
