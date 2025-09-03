@@ -15,14 +15,14 @@ final readonly class Month implements DateUnit
     private function __construct(private int $year, private int $month)
     {
         if ($month < 1 || $month > 12) {
-            throw new InvalidArgumentException($this->string().' is not a valid month');
+            throw new InvalidArgumentException($this->string() . ' is not a valid month');
         }
     }
 
     #[Override]
     public function string(): string
     {
-        return $this->year.'-'.($this->month < 10 ? '0'.$this->month : $this->month);
+        return $this->year . '-' . ($this->month < 10 ? '0' . $this->month : $this->month);
     }
 
     public static function fromString(string $str): Month

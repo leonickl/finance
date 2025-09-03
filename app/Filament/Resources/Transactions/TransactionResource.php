@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Transactions;
 
 use App\Filament\Resources\Transactions\Pages\CreateTransaction;
@@ -16,7 +18,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TransactionResource extends Resource
+final class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
 

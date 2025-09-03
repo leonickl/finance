@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Widgets;
 
 use App\Statistics\Budget\MonthlyBudget;
@@ -7,7 +9,7 @@ use App\Types\Date\Month;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
-class MonthlyInfo extends StatsOverviewWidget
+final class MonthlyInfo extends StatsOverviewWidget
 {
     protected function getStats(): array
     {

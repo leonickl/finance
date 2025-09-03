@@ -48,7 +48,7 @@ final readonly class MonthRange extends Range
     {
         $carbonPeriod = CarbonPeriod::create(
             $this->start->toCarbon(),
-            $this->gap.' month',
+            $this->gap . ' month',
             $this->end->toCarbon(),
         );
 

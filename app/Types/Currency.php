@@ -14,7 +14,7 @@ final readonly class Currency implements Htmlable
 
     public static function new(?string $code): self
     {
-        if (! $code) {
+        if ( ! $code) {
             return new self('EUR');
         }
 

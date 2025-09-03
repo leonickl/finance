@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Statistics\Charts;
 
 use App\Types\Date\Month;
 use App\Types\Date\MonthRange;
 
-class Lines
+final class Lines
 {
     public static function range()
     {

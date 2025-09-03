@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Widgets;
 
 use App\Statistics\Charts\LineChartInOutTotal;
 use App\Statistics\Charts\Lines;
 use Filament\Widgets\ChartWidget;
 
-class RegressionChart extends ChartWidget
+final class RegressionChart extends ChartWidget
 {
     protected ?string $heading = 'Regression';
 

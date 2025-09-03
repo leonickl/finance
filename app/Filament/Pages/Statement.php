@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
 
-class Statement extends Page
+final class Statement extends Page
 {
     protected string $view = 'filament.pages.statement';
 

@@ -26,10 +26,10 @@ enum Color
     public static function variableDefinitions(): string
     {
         $list = collect(self::cases())
-            ->map(fn (self $case) => '--'.$case->label().': '.$case->color().';')
+            ->map(fn (self $case) => '--' . $case->label() . ': ' . $case->color() . ';')
             ->join('');
 
-        return ':root {'.$list.'}';
+        return ':root {' . $list . '}';
     }
 
     public function label(): string
@@ -75,24 +75,24 @@ enum Color
     public static function classDefinitions(): string
     {
         $textColor = collect(self::cases())
-            ->map(fn (self $case) => '.'.$case->label().'{ color: '.$case->color().'; }')
+            ->map(fn (self $case) => '.' . $case->label() . '{ color: ' . $case->color() . '; }')
             ->join('');
 
         $backgroundColor = collect(self::cases())
-            ->map(fn (self $case) => '.'.$case->bgLabel().'{ background-color: '.$case->color().'; }')
+            ->map(fn (self $case) => '.' . $case->bgLabel() . '{ background-color: ' . $case->color() . '; }')
             ->join('');
 
-        return $textColor.$backgroundColor;
+        return $textColor . $backgroundColor;
     }
 
     public function bgLabel(): string
     {
-        return $this->label().'-bg';
+        return $this->label() . '-bg';
     }
 
     public static function randomForChart(): string
     {
-        return '#'.collect([
+        return '#' . collect([
             'FCECC9',
             'FCB0B3',
             'F93943',
@@ -122,6 +122,6 @@ enum Color
 
     public function var(): string
     {
-        return 'var(--'.$this->label().')';
+        return 'var(--' . $this->label() . ')';
     }
 }

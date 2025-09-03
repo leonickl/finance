@@ -16,7 +16,7 @@ trait CurrencyAttribute
     {
         return Attribute::make(
             get: fn (string $c) => Currency::new($c),
-            set: fn (Currency|string $c) => $c instanceof Currency ? $c->code() : $c,
+            set: fn (Currency | string $c) => $c instanceof Currency ? $c->code() : $c,
         );
     }
 }

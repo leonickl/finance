@@ -46,7 +46,7 @@ final readonly class PaypalCsvParser extends CsvParser
 
         return new BankTransactionDto(
             date: Date::fromGermanDate($transaction[0]),
-            text: $transaction[3].'-'.$transaction[4].'-'.$transaction[12],
+            text: $transaction[3] . '-' . $transaction[4] . '-' . $transaction[12],
             value: Money::new(
                 Number::floatFromGerman($transaction[9]),
                 Currency::new($transaction[6]),

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\BankAccounts\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
-class BankAccountInfolist
+final class BankAccountInfolist
 {
     public static function configure(Schema $schema): Schema
     {

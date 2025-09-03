@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Types\TransactionCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
-class MacroProvider extends ServiceProvider
+final class MacroProvider extends ServiceProvider
 {
     /**
      * Register services.

@@ -20,7 +20,7 @@ final readonly class YearRange extends Range
     {
         $carbonPeriod = CarbonPeriod::create(
             $this->start->toCarbon(),
-            $this->gap.' year',
+            $this->gap . ' year',
             $this->end->toCarbon(),
         );
 

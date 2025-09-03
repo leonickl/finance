@@ -16,12 +16,10 @@ final readonly class Grouper
 
     public function grouped(): Collection
     {
-        return once(function () {
-            return $this->list
-                ->mapToGroups(fn (Transaction $t) => [$t->{$this->side->databaseColumn()} => $t])
-                ->map(fn (Collection $transactions, int $accountId) => new Grouped($accountId, $transactions->transactions()))
-                ->sortByDesc(fn (Grouped $x) => $x->balance()->float());
-        });
+        return once(fn () => $this->list
+            ->mapToGroups(fn (Transaction $t) => [$t->{$this->side->databaseColumn()} => $t])
+            ->map(fn (Collection $transactions, int $accountId) => new Grouped($accountId, $transactions->transactions()))
+            ->sortByDesc(fn (Grouped $x) => $x->balance()->float()));
     }
 
     public function all(): array

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Accounts\Tables;
 
 use App\Types\AccountType;
@@ -14,7 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class AccountsTable
+final class AccountsTable
 {
     public static function configure(Table $table): Table
     {

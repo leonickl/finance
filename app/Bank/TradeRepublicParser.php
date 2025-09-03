@@ -35,7 +35,7 @@ final readonly class TradeRepublicParser implements Parser
             $month = explode('.', $transaction->date)[1];
 
             if ($month < 1 || $month > 12) {
-                throw new RuntimeException('invalid month: '.$month);
+                throw new RuntimeException('invalid month: ' . $month);
             }
 
             // when processing the list, dates get smaller (parser enters the past)
@@ -59,12 +59,12 @@ final readonly class TradeRepublicParser implements Parser
 
     private function objectToTransaction(stdClass $object): ?BankTransactionDto
     {
-        if (! isset($object->value)) {
+        if ( ! isset($object->value)) {
             // e. g., credit card verification
             return null;
         }
 
-        if (! isset($object->date, $object->text)) {
+        if ( ! isset($object->date, $object->text)) {
             throw new RuntimeException('Invalid data object');
         }
 
@@ -72,11 +72,11 @@ final readonly class TradeRepublicParser implements Parser
 
         // trade republic prefixes only positive numbers, negative numbers have no sign.
         if ($value[0] !== '+') {
-            $value = '-'.$value;
+            $value = '-' . $value;
         }
 
         if ($currency !== '€') {
-            throw new Exception('Only euro supported in '.self::class.', given '.$currency);
+            throw new Exception('Only euro supported in ' . self::class . ', given ' . $currency);
         }
 
         return new BankTransactionDto(

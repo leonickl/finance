@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Dto\StatementDto;
 use Livewire\Component;
 
-class SubStatement extends Component
+final class SubStatement extends Component
 {
     public StatementDto $statement;
 

@@ -75,7 +75,7 @@ final readonly class Regression
         $this->a = $this->meanY - $this->b * $this->meanX;
     }
 
-    public function predict(int|float $x): float
+    public function predict(int | float $x): float
     {
         return round($this->a + $this->b * $x, 1);
     }

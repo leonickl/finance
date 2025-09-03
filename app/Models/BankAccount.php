@@ -38,7 +38,7 @@ final class BankAccount extends Model
 
     public function label(): string
     {
-        return $this->bank.' - '.$this->account->name;
+        return $this->bank . ' - ' . $this->account->name;
     }
 
     public function updateBalance(?Money $balance): void

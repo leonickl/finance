@@ -39,7 +39,7 @@ abstract readonly class CsvParser implements Parser
 
     protected static function trimQuotes(string $string): string
     {
-        return trim($string, '"');
+        return mb_trim($string, '"');
     }
 
     /**

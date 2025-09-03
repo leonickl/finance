@@ -15,7 +15,7 @@ final readonly class UploadHandler
     public function uploadText(string $content): void
     {
         // trim spaces and quotes > only json should be left
-        $content = trim($content, " \n\r\t\v\0\"\'´`");
+        $content = mb_trim($content, " \n\r\t\v\0\"\'´`");
 
         $result = $this->parser()->parse($content);
 

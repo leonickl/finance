@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\MonthlyExpensesChart;
@@ -9,7 +11,7 @@ use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
 
-class MonthlyBudget extends Page
+final class MonthlyBudget extends Page
 {
     protected string $view = 'filament.pages.monthly-budget';
 
@@ -44,7 +46,7 @@ class MonthlyBudget extends Page
             ->addMonths(request()->integer('lag'))
             ->translatedFormat('F Y'); // e.g., "August 2025"
 
-        return "Monthly Budget - $month";
+        return "Monthly Budget - {$month}";
     }
 
     public static function getNavigationIcon(): string

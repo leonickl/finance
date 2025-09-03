@@ -73,7 +73,7 @@ final class Transaction extends Model
 
     public static function allClaims($columns = ['*']): TransactionCollection
     {
-        $claims = Transaction::whereHas('debit', function ($query) {
+        $claims = Transaction::whereHas('debit', function ($query): void {
             $query->where('group_id', AccountType::CLAIM->value);
         })->get($columns);
 
@@ -173,7 +173,7 @@ final class Transaction extends Model
 
     protected function text(): Attribute
     {
-        $callback = fn (?string $text) => trim(str_replace(['<br>', '<br/>', '<br />'], [' ', ' ', ' '], $text ?? ''));
+        $callback = fn (?string $text) => mb_trim(str_replace(['<br>', '<br/>', '<br />'], [' ', ' ', ' '], $text ?? ''));
 
         return Attribute::make(get: $callback, set: $callback);
     }

@@ -48,7 +48,7 @@ final readonly class Money implements Floatable
      */
     public function convert(Currency $currency): self
     {
-        info('conversion from '.$this->currency()->code().' to '.$currency->code());
+        info('conversion from ' . $this->currency()->code() . ' to ' . $currency->code());
 
         return new self($this->int, $currency);
     }
@@ -63,7 +63,7 @@ final readonly class Money implements Floatable
         return new self(-$this->int, $this->currency);
     }
 
-    public function multiply(float|int $factor): self
+    public function multiply(float | int $factor): self
     {
         return new self((int) round($this->int * $factor), $this->currency);
     }
@@ -150,6 +150,6 @@ final readonly class Money implements Floatable
     {
         $value = round($this->float(), 2);
 
-        return "$value $this->currency";
+        return "{$value} {$this->currency}";
     }
 }

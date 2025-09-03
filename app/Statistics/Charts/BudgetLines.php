@@ -55,7 +55,7 @@ abstract readonly class BudgetLines
                 $dateUnitType = match (true) {
                     $this->range instanceof MonthRange => 'month',
                     $this->range instanceof YearRange => 'year',
-                    default => throw new RuntimeException('Unknown Date Unit '.$this->range::class)
+                    default => throw new RuntimeException('Unknown Date Unit ' . $this->range::class)
                 };
 
                 $month = $transaction->date->{$dateUnitType}();

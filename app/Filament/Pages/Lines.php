@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ExpensesBudgetLinesChart;
@@ -7,7 +9,7 @@ use App\Filament\Widgets\IncomeBudgetLinesChart;
 use App\Filament\Widgets\RegressionChart;
 use Filament\Pages\Page;
 
-class Lines extends Page
+final class Lines extends Page
 {
     protected string $view = 'filament.pages.lines';
 

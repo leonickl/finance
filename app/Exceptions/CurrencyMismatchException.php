@@ -11,6 +11,6 @@ final class CurrencyMismatchException extends RuntimeException
 {
     public function __construct(Currency $found, Currency $expected)
     {
-        parent::__construct('Currency mismatch - found '.$found->code().', expected '.$expected->code());
+        parent::__construct('Currency mismatch - found ' . $found->code() . ', expected ' . $expected->code());
     }
 }

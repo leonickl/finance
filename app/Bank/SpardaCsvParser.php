@@ -46,7 +46,7 @@ final readonly class SpardaCsvParser extends CsvParser
 
         return new BankTransactionDto(
             date: Date::fromGermanDate($transaction[4]),
-            text: $transaction[6].'-'.$transaction[10],
+            text: $transaction[6] . '-' . $transaction[10],
             value: Money::new(
                 Number::floatFromGerman($transaction[11]),
                 Currency::new($transaction[12]),

@@ -17,6 +17,6 @@ final class Number
 
     public static function percentage(float $number): string
     {
-        return round($number * 100, 2).' %';
+        return round($number * 100, 2) . ' %';
     }
 }

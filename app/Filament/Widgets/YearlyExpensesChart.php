@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Widgets;
 
 use App\Filament\Traits\WithoutLegend;
@@ -7,7 +9,7 @@ use App\Statistics\Budget\YearlyBudget;
 use App\Types\Date\Year;
 use Filament\Widgets\ChartWidget;
 
-class YearlyExpensesChart extends ChartWidget
+final class YearlyExpensesChart extends ChartWidget
 {
     use WithoutLegend;
 

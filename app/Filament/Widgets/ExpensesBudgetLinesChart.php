@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Widgets;
 
 use App\Statistics\Charts\ExpenseBudgetLines;
 use App\Statistics\Charts\Lines;
 use Filament\Widgets\ChartWidget;
 
-class ExpensesBudgetLinesChart extends ChartWidget
+final class ExpensesBudgetLinesChart extends ChartWidget
 {
     protected ?string $heading = 'Expenses Budget Lines';
 

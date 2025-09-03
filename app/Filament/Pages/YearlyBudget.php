@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\YearlyExpensesChart;
@@ -9,7 +11,7 @@ use Filament\Actions\Action;
 use Filament\Pages\Page;
 use Illuminate\Support\Carbon;
 
-class YearlyBudget extends Page
+final class YearlyBudget extends Page
 {
     protected string $view = 'filament.pages.yearly-budget';
 
@@ -44,7 +46,7 @@ class YearlyBudget extends Page
             ->addYears(request()->integer('lag'))
             ->translatedFormat('Y');
 
-        return "Yearly Budget - $year";
+        return "Yearly Budget - {$year}";
     }
 
     public static function getNavigationIcon(): string
