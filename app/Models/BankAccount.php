@@ -51,16 +51,6 @@ final class BankAccount extends Model
         $this->save();
     }
 
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'bank' => $this->bank,
-            'account' => $this->account->toArray(),
-            'balance' => $this->balance(),
-        ];
-    }
-
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');

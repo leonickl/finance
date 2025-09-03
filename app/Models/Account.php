@@ -55,18 +55,6 @@ final class Account extends Model
         return Attribute::get(fn () => __($this->type->name) . ' - ' . $this->name);
     }
 
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'archived' => $this->archived,
-            'recurring' => $this->recurring,
-            'interestRate' => $this->interest_rate,
-            'type' => $this->type->name,
-        ];
-    }
-
     public static function splitAccount(): Account
     {
         return Account::firstOrCreate([

@@ -129,30 +129,6 @@ final class Transaction extends Model
         return $transaction;
     }
 
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'debit_id' => $this->debit_id,
-            'credit_id' => $this->credit_id,
-            'value' => $this->value,
-            'text' => $this->text,
-            'timestamp' => $this->timestamp->toString(),
-            'claim_id' => $this->claim_id,
-            'group_uid' => $this->group_uid,
-            'person_id' => $this->person_id,
-            'date' => $this->date,
-            'debit' => $this->debit,
-            'credit' => $this->credit,
-            'person' => $this->person,
-            'claim' => $this->claim,
-            'currency' => $this->currency->toArray(),
-            'money' => $this->value()->toArray(),
-            'repaid' => $this->repaid?->toArray(),
-            'rest' => $this->rest?->toArray(),
-        ];
-    }
-
     public function toSearchableArray(): array
     {
         return [

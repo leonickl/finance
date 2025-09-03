@@ -48,21 +48,6 @@ final class BankTransaction extends Model
         return Transaction::findForBankTransaction($this);
     }
 
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'date' => $this->date,
-            'text' => $this->text,
-            'money' => $this->money->toArray(),
-            'skipped' => $this->skipped,
-            'src' => $this->src,
-            'proposal' => BankProposal::findFor($this),
-            'possibleTransactions' => $this->possibleTransactions()->map->toArray(),
-            'transaction' => $this->transaction,
-        ];
-    }
-
     public static function countOccurrences(BankTransactionDto $transaction): int
     {
         return self::query()
