@@ -12,7 +12,7 @@ final readonly class UploadHandler
 {
     public function __construct(private BankAccount $bankAccount) {}
 
-    public function uploadText(string $content): void
+    public function uploadText(string $content): object
     {
         // trim spaces and quotes > only json should be left
         $content = mb_trim($content, " \n\r\t\v\0\"\'´`");
@@ -21,7 +21,11 @@ final readonly class UploadHandler
 
         $this->bankAccount->balance = $result->balance();
 
-        $result->transactions()->each(fn (BankTransaction $transaction) => $transaction->save());
+        $transactions = $result->transactions();
+
+        $transactions->each(fn (BankTransaction $transaction) => $transaction->save());
+
+        return (object) ['count' => $transactions->count()];
     }
 
     private function parser(): Parser
