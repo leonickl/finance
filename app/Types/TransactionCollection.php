@@ -147,22 +147,10 @@ final class TransactionCollection extends Collection
         return $this->filter(fn (Transaction $transaction) => $transaction->timestamp->year === $year->int());
     }
 
-    /** @return Collection<int, Claim> */
-    public function claims(): Collection
-    {
-        return $this->toBase()->map(fn (Transaction $transaction) => Claim::new($transaction));
-    }
-
-    /** @return Collection<int, Repayment> */
-    public function repayments(): Collection
-    {
-        return $this->toBase()->map(fn (Transaction $transaction) => Repayment::new($transaction));
-    }
-
     /** @return Collection<string, Money> */
     public function balanceByMonth(): Collection
     {
-        return $this->groupBy(fn (Transaction $transaction) => $transaction->date()->month()->string())
+        return $this->groupBy(fn (Transaction $transaction) => $transaction->date->month()->string())
             ->map(fn (TransactionCollection $transactions) => $transactions->sumValues());
     }
 }
