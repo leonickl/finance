@@ -108,7 +108,7 @@ final class Map implements ArrayAccess, Countable, IteratorAggregate
     {
         $values = [];
 
-        foreach($this->data as [$key, $value]) {
+        foreach ($this->data as [$key, $value]) {
             $values[] = $value;
         }
 

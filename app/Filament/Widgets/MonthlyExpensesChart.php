@@ -13,7 +13,6 @@ class MonthlyExpensesChart extends ChartWidget
 
     protected ?string $heading = 'Monthly Expenses';
 
-
     protected function getData(): array
     {
         return (new MonthlyBudget(Month::now()->plus(session('lag'))))->expensesDonutData();

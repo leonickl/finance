@@ -20,7 +20,7 @@ class AccountForm
                     ->required(),
                 Select::make('group_id')
                     ->label('Type')
-                    ->options(collect(AccountType::cases())->mapWithKeys(fn($case) => [$case->value => $case->name])),
+                    ->options(collect(AccountType::cases())->mapWithKeys(fn ($case) => [$case->value => $case->name])),
                 Toggle::make('recurring')
                     ->required(),
                 TextInput::make('interest_rate')

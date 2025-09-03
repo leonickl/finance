@@ -26,7 +26,7 @@ class AccountsTable
                     ->boolean(),
                 TextColumn::make('group_id')
                     ->label('Type')
-                    ->formatStateUsing(fn(int $state) => AccountType::from($state)->label())
+                    ->formatStateUsing(fn (int $state) => AccountType::from($state)->label())
                     ->sortable(),
                 IconColumn::make('recurring')
                     ->boolean(),

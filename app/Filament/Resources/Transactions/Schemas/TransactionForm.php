@@ -17,11 +17,11 @@ class TransactionForm
             ->components([
                 Select::make('debit_id')
                     ->relationship('debit')
-                    ->getOptionLabelFromRecordUsing(fn(Account $account) => $account->fullname)
+                    ->getOptionLabelFromRecordUsing(fn (Account $account) => $account->fullname)
                     ->required(),
                 Select::make('credit_id')
                     ->relationship('credit')
-                    ->getOptionLabelFromRecordUsing(fn(Account $account) => $account->fullname)
+                    ->getOptionLabelFromRecordUsing(fn (Account $account) => $account->fullname)
                     ->required()
                     ->reactive(),
                 TextInput::make('value')
@@ -46,13 +46,13 @@ class TransactionForm
 
                         return Transaction::where('debit_id', $selectedCredit)
                             ->get()
-                            ->filter(fn($claim) => $claim->rest?->isPositive() ?? false)
-                            ->mapWithKeys(fn($claim) => [
-                                $claim->id => "({$claim->id}) {$claim->date} {$claim->text} {$claim->rest} / {$claim->value}"
+                            ->filter(fn ($claim) => $claim->rest?->isPositive() ?? false)
+                            ->mapWithKeys(fn ($claim) => [
+                                $claim->id => "({$claim->id}) {$claim->date} {$claim->text} {$claim->rest} / {$claim->value}",
                             ])
                             ->toArray();
                     })
-                    ->visible(fn(callable $get) => Account::find($get('credit_id'))?->type->isClaimType() ?? false)
+                    ->visible(fn (callable $get) => Account::find($get('credit_id'))?->type->isClaimType() ?? false)
                     ->columnSpanFull(),
             ]);
     }

@@ -10,9 +10,11 @@ use App\Types\Floatable;
 final readonly class Point
 {
     private DateUnit $x;
+
     private float $y;
 
-    public function __construct(DateUnit $x, float|Floatable $y) {
+    public function __construct(DateUnit $x, float|Floatable $y)
+    {
         $this->x = $x;
         $this->y = is_float($y) ? $y : $y->float();
     }

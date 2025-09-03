@@ -22,14 +22,14 @@ final readonly class YearlyBudget extends Budget
     public function expensesPerMonth()
     {
         return $this->expenses()
-            ->groupBy(fn(Transaction $record) => $record->date->month())
-            ->map(fn(Collection $items) => $items->transactions()->sumValues()->float());
+            ->groupBy(fn (Transaction $record) => $record->date->month())
+            ->map(fn (Collection $items) => $items->transactions()->sumValues()->float());
     }
 
     public function incomePerMonth()
     {
         return $this->income()
-            ->groupBy(fn(Transaction $record) => $record->date->month())
-            ->map(fn(Collection $items) => $items->transactions()->sumValues()->float());
+            ->groupBy(fn (Transaction $record) => $record->date->month())
+            ->map(fn (Collection $items) => $items->transactions()->sumValues()->float());
     }
 }

@@ -11,7 +11,7 @@ class Statement extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Widgets\Statement::class
+            \App\Filament\Widgets\Statement::class,
         ];
     }
 

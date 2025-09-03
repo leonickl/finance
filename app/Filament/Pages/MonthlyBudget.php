@@ -3,8 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\MonthlyExpensesChart;
-use App\Filament\Widgets\MonthlyInfo;
 use App\Filament\Widgets\MonthlyIncomeChart;
+use App\Filament\Widgets\MonthlyInfo;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Pages\Page;

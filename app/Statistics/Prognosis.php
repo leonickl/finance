@@ -32,9 +32,9 @@ final readonly class Prognosis
 
             $sum += $factor * $values;
 
-            $debug .= $month->string() . ': '
-                . $factor . ' * ' . $values . ' = ' . $factor * $values
-                . PHP_EOL;
+            $debug .= $month->string().': '
+                .$factor.' * '.$values.' = '.$factor * $values
+                .PHP_EOL;
 
             $month = $month->minus();
         }

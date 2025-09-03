@@ -22,14 +22,14 @@ final readonly class MonthlyBudget extends Budget
     public function expensesPerDay()
     {
         return $this->expenses()
-            ->groupBy(fn(Transaction $record) => $record->date)
-            ->map(fn(Collection $items) => $items->transactions()->sumValues()->float());
+            ->groupBy(fn (Transaction $record) => $record->date)
+            ->map(fn (Collection $items) => $items->transactions()->sumValues()->float());
     }
 
     public function incomePerDay()
     {
         return $this->income()
-            ->groupBy(fn(Transaction $record) => $record->date)
-            ->map(fn(Collection $items) => $items->transactions()->sumValues()->float());
+            ->groupBy(fn (Transaction $record) => $record->date)
+            ->map(fn (Collection $items) => $items->transactions()->sumValues()->float());
     }
 }

@@ -52,7 +52,7 @@ final class Account extends Model
 
     protected function fullname(): Attribute
     {
-        return Attribute::get(fn() => __($this->type->name).' - '.$this->name);
+        return Attribute::get(fn () => __($this->type->name).' - '.$this->name);
     }
 
     public function toArray(): array
