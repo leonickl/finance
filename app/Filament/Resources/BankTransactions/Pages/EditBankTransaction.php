@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\BankTransactions\Pages;
 
 use App\Filament\Resources\BankTransactions\BankTransactionResource;
@@ -9,7 +11,7 @@ use Filament\Actions\RestoreAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBankTransaction extends EditRecord
+final class EditBankTransaction extends EditRecord
 {
     protected static string $resource = BankTransactionResource::class;
 

@@ -6,8 +6,6 @@ namespace App\Types;
 
 use App\Models\Account;
 use App\Models\Transaction;
-use App\Models\Virtual\Claim;
-use App\Models\Virtual\Repayment;
 use App\Types\Date\Month;
 use App\Types\Date\Year;
 use Illuminate\Support\Carbon;
