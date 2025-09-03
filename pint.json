@@ -1,0 +1,80 @@
+{
+    "exclude": [
+        "dist",
+        "node_modules",
+        "storage",
+        "vendor"
+    ],
+    "preset": "laravel",
+    "rules": {
+        "simplified_null_return": true,
+        "braces": false,
+        "new_with_braces": {
+            "anonymous_class": false,
+            "named_class": false
+        },
+        "declare_strict_types": true,
+        "concat_space": {
+            "spacing": "one"
+        },
+        "constant_case": {
+            "case": "lower"
+        },
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "attribute_empty_parentheses": true,
+        "backtick_to_shell_exec": true,
+        "final_class": true,
+        "is_null": true,
+        "method_chaining_indentation": true,
+        "new_with_parentheses": false,
+        "elseif": true,
+        "modernize_types_casting": true,
+        "explicit_string_variable": true,
+        "blank_line_after_opening_tag": true,
+        "blank_line_after_namespace": true,
+        "short_scalar_cast": true,
+        "single_blank_line_at_eof": true,
+        "simplified_if_return": true,
+        "logical_operators": true,
+        "lowercase_keywords": true,
+        "modernize_strpos": true,
+        "multiline_whitespace_before_semicolons": {
+            "strategy": "no_multi_line"
+        },
+        "no_alias_language_construct_call": true,
+        "no_empty_statement": true,
+        "no_multiple_statements_per_line": true,
+        "no_multiline_whitespace_around_double_arrow": true,
+        "no_short_bool_cast": true,
+        "no_mixed_echo_print": {
+            "use": "echo"
+        },
+        "no_superfluous_elseif": true,
+        "no_trailing_comma_in_singleline": true,
+        "no_unused_imports": true,
+        "no_useless_concat_operator": true,
+        "no_useless_else": true,
+        "not_operator_with_space": true,
+        "cast_spaces": {
+            "space": "single"
+        },
+        "class_definition": true,
+        "no_unneeded_import_alias": true,
+        "object_operator_without_whitespace": true,
+        "ternary_operator_spaces": true,
+        "trim_array_spaces": true,
+        "types_spaces": {
+            "space": "single"
+        },
+        "void_return": true,
+        "whitespace_after_comma_in_array": {
+            "ensure_single_space": true
+        },
+        "use_arrow_functions": true,
+        "no_useless_return": true,
+        "single_line_empty_body": true,
+        "mb_str_functions": true
+    }
+}
