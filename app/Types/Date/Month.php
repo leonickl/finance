@@ -32,6 +32,11 @@ final readonly class Month implements DateUnit
         return self::make((int) $y, (int) $m);
     }
 
+    public static function tryFromString(?string $str): ?Month
+    {
+        return $str ? self::fromString($str) : null;
+    }
+
     public static function make(int $year, int $month): Month
     {
         return new Month($year, $month);
