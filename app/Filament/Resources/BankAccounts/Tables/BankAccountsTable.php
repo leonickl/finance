@@ -87,6 +87,9 @@ final class BankAccountsTable
                             ->success()
                             ->send();
                     }),
+                Action::make('compare')
+                    ->label(__('compare'))
+                    ->url(fn (BankAccount $bankAccount) => route('filament.finance.resources.bank-transactions.compare', $bankAccount)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
