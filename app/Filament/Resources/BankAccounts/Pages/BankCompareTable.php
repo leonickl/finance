@@ -30,8 +30,13 @@ final class BankCompareTable extends Page implements HasTable
 
     public function table(Table $table): Table
     {
+        $query = BankTransaction::query()
+            ->where('bank_account_id', $this->record->id)
+            ->whereNull('transaction_id')
+            ->where('skipped', false);
+
         return $table
-            ->query(BankTransaction::query()) // TODO only of current bank account
+            ->query($query)
             ->columns([
                 TextColumn::make('id'),
                 TextColumn::make('text')
