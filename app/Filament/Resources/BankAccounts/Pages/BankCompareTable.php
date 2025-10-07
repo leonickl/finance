@@ -40,7 +40,7 @@ final class BankCompareTable extends Page implements HasTable
             ->columns([
                 TextColumn::make('id'),
                 TextColumn::make('text')
-                    ->getStateUsing(fn($record) => strlen($record->text) > 50 ? substr($record->text, 0, 30).'...' : $record->text),
+                    ->getStateUsing(fn ($record) => mb_strlen($record->text) > 50 ? mb_substr($record->text, 0, 30) . '...' : $record->text),
                 TextColumn::make('date'),
             ])
             ->actions([
