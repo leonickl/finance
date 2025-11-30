@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BankAccounts\Pages;
 
 use App\Filament\Resources\BankAccounts\BankAccountResource;
+use App\Models\Account;
 use App\Models\BankProposal;
 use App\Models\BankTransaction;
 use App\Models\Transaction;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
@@ -80,7 +84,7 @@ final class BankCompareTable extends Page implements HasTable
                             debit: $debit,
                             credit: $credit,
                             value: $record->money->abs(),
-                            text: $proposal->text_proposal,
+                            text: $proposal->text_proposal ?: $record->text,
                             date: $record->date(),
                         );
 
@@ -94,6 +98,28 @@ final class BankCompareTable extends Page implements HasTable
                     })
                     ->visible(fn ($record) => BankProposal::findFor($record) !== null),
                 Action::make('make-proposal')
+                    ->fillForm(fn (BankTransaction $record) => [
+                        'text_contains' => $record->text,
+                    ])
+                    ->schema([
+                        TextInput::make('text_contains')
+                            ->required(),
+                        Toggle::make('value_is_positive')
+                            ->onColor('success')
+                            ->offColor('danger'),
+                        Select::make('account_proposal')
+                            ->options(Account::all()->pluck('fullname', 'id'))
+                            ->required(),
+                        TextInput::make('text_proposal'),
+                    ])
+                    ->action(function (array $data): void {
+                        BankProposal::create($data);
+
+                        Notification::make()
+                            ->title('Bank proposal created')
+                            ->success()
+                            ->send();
+                    })
                     ->visible(fn ($record) => BankProposal::findFor($record) === null),
             ])
             ->striped();
