@@ -13,8 +13,12 @@ final class TransactionInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('debit.name'),
-                TextEntry::make('credit.name'),
+                TextEntry::make('debit.name')
+                    ->label(__('debit'))
+                    ->getStateUsing(fn ($record) => $record->debit->fullname),
+                TextEntry::make('credit.name')
+                    ->label(__('credit'))
+                    ->getStateUsing(fn ($record) => $record->credit->fullname),
                 TextEntry::make('value')
                     ->numeric(),
                 TextEntry::make('timestamp')
