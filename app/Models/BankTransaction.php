@@ -69,10 +69,15 @@ final class BankTransaction extends Model
         );
     }
 
+    public function date(): Date
+    {
+        return Date::of(Carbon::make($this->date));
+    }
+
     public function dto(): BankTransactionDto
     {
         return new BankTransactionDto(
-            date: Date::of(Carbon::make($this->date)),
+            date: $this->date(),
             text: $this->text,
             value: Money::new($this->value, $this->currency),
             iban: $this->iban,

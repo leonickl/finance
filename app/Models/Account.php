@@ -99,4 +99,16 @@ final class Account extends Model
     {
         return $this->hasOne(BankAccount::class, 'account_id');
     }
+
+    public static function unknown(): Account
+    {
+        return Account::firstOrCreate([
+            'name' => '_unknown',
+        ], [
+            'name' => '_unknown',
+            'archived' => false,
+            'recurring' => false,
+            'group_id' => AccountType::ROOT->value,
+        ]);
+    }
 }

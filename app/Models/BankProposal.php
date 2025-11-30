@@ -39,7 +39,7 @@ final class BankProposal extends Model
 
     public function label(): string
     {
-        return $this->text_proposal;
+        return $this->text_proposal . ' ' . $this->accountProposal->fullname;
     }
 
     public function accountProposal(): BelongsTo
