@@ -7,18 +7,15 @@ namespace App\Filament\Resources\BankAccounts\Pages;
 use App\Filament\Resources\BankAccounts\BankAccountResource;
 use App\Models\BankProposal;
 use App\Models\BankTransaction;
-use App\Types\Date\Date;
-use Exception;
+use App\Models\Transaction;
 use Filament\Actions\Action;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
-use App\Models\Account;
-use App\Models\Transaction;
-use Illuminate\Support\Carbon;
 
 final class BankCompareTable extends Page implements HasTable
 {
@@ -62,16 +59,21 @@ final class BankCompareTable extends Page implements HasTable
                     ->action(function (BankTransaction $record): void {
                         $proposal = BankProposal::findFor($record);
 
-                        if ( ! $proposal) {
-                            throw new Exception('cannot apply null-proposal');
-                        }
-
                         if ($record->value > 0) {
                             $debit = $record->bankAccount->account;
-                            $credit = Account::query()->find($proposal->account) ?? Account::unknown();
+                            $credit = $proposal->accountProposal;
                         } else {
-                            $debit = Account::query()->find($proposal->account) ?? Account::unknown();
+                            $debit = $proposal->accountProposal;
                             $credit = $record->bankAccount->account;
+                        }
+
+                        if ($debit === null || $credit === null) {
+                            Notification::make()
+                                ->title("Account {$proposal->account} not found")
+                                ->warning()
+                                ->send();
+
+                            return;
                         }
 
                         $transaction = Transaction::create(
@@ -84,9 +86,15 @@ final class BankCompareTable extends Page implements HasTable
 
                         $record->transaction_id = $transaction->id;
                         $record->save();
+
+                        Notification::make()
+                            ->title("Created Transaction {$transaction->id}")
+                            ->success()
+                            ->send();
                     })
-                    ->isEnabled(),
-                Action::make('make-proposal'),
+                    ->visible(fn ($record) => BankProposal::findFor($record) !== null),
+                Action::make('make-proposal')
+                    ->visible(fn ($record) => BankProposal::findFor($record) === null),
             ])
             ->striped();
     }
