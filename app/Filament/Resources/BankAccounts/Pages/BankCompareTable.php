@@ -100,6 +100,7 @@ final class BankCompareTable extends Page implements HasTable
                 Action::make('make-proposal')
                     ->fillForm(fn (BankTransaction $record) => [
                         'text_contains' => $record->text,
+                        'value_is_positive' => $record->value > 0,
                     ])
                     ->schema([
                         TextInput::make('text_contains')
@@ -108,7 +109,9 @@ final class BankCompareTable extends Page implements HasTable
                             ->onColor('success')
                             ->offColor('danger'),
                         Select::make('account_proposal')
-                            ->options(Account::all()->pluck('fullname', 'id'))
+                            ->options(Account::all()
+                                ->sortBy(fn($record) => $record->fullname)
+                                ->pluck('fullname', 'id'))
                             ->required(),
                         TextInput::make('text_proposal'),
                     ])
