@@ -8,7 +8,6 @@ use App\Filament\Resources\BankAccounts\BankAccountResource;
 use App\Models\Account;
 use App\Models\BankProposal;
 use App\Models\BankTransaction;
-use App\Models\Transaction;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -61,35 +60,7 @@ final class BankCompareTable extends Page implements HasTable
             ->actions([
                 Action::make('apply')
                     ->action(function (BankTransaction $record): void {
-                        $proposal = BankProposal::findFor($record);
-
-                        if ($record->value > 0) {
-                            $debit = $record->bankAccount->account;
-                            $credit = $proposal->accountProposal;
-                        } else {
-                            $debit = $proposal->accountProposal;
-                            $credit = $record->bankAccount->account;
-                        }
-
-                        if ($debit === null || $credit === null) {
-                            Notification::make()
-                                ->title("Account {$proposal->account} not found")
-                                ->warning()
-                                ->send();
-
-                            return;
-                        }
-
-                        $transaction = Transaction::create(
-                            debit: $debit,
-                            credit: $credit,
-                            value: $record->money->abs(),
-                            text: $proposal->text_proposal ?: $record->text,
-                            date: $record->date(),
-                        );
-
-                        $record->transaction_id = $transaction->id;
-                        $record->save();
+                        $transaction = BankProposal::applyFor($record);
 
                         Notification::make()
                             ->title("Created Transaction {$transaction->id}")
@@ -110,7 +81,7 @@ final class BankCompareTable extends Page implements HasTable
                             ->offColor('danger'),
                         Select::make('account_proposal')
                             ->options(Account::all()
-                                ->sortBy(fn($record) => $record->fullname)
+                                ->sortBy(fn ($record) => $record->fullname)
                                 ->pluck('fullname', 'id'))
                             ->required(),
                         TextInput::make('text_proposal'),
