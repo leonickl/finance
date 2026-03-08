@@ -38,9 +38,17 @@ final class BankProposal extends Model
             ));
     }
 
-    public static function applyFor(BankTransaction $record)
+    public static function applyFor(BankTransaction $record): ?Transaction
     {
+        if ($record->transaction_id) {
+            return null;
+        }
+
         $proposal = BankProposal::findFor($record);
+
+        if ($proposal === null) {
+            return null;
+        }
 
         if ($record->value > 0) {
             $debit = $record->bankAccount->account;

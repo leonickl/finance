@@ -6,6 +6,7 @@ namespace App\Filament\Resources\BankAccounts\Pages;
 
 use App\Filament\Resources\BankAccounts\BankAccountResource;
 use App\Models\Account;
+use App\Models\BankAccount;
 use App\Models\BankProposal;
 use App\Models\BankTransaction;
 use App\Models\Transaction;
@@ -132,6 +133,21 @@ final class BankCompareTable extends Page implements HasTable
                         $bankTransaction->update([
                             'transaction_id' => $transaction->id,
                         ]);
+                    }),
+            ])
+            ->toolbarActions([
+                Action::make('apply-all')
+                    ->action(function (BankAccount $bankAccount): void {
+                        $counter = 0;
+
+                        foreach ($bankAccount->bankTransactions as $bankTransaction) {
+                            $counter += BankProposal::applyFor($bankTransaction) ? 1 : 0;
+                        }
+
+                        Notification::make()
+                            ->title("Applied {$counter} proposals")
+                            ->success()
+                            ->send();
                     }),
             ])
             ->striped();
