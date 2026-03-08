@@ -17,8 +17,7 @@ final class AccountInfolist
                 TextEntry::make('name'),
                 IconEntry::make('archived')
                     ->boolean(),
-                TextEntry::make('group_id')
-                    ->numeric(),
+                TextEntry::make('type'),
                 IconEntry::make('recurring')
                     ->boolean(),
                 TextEntry::make('created_at')

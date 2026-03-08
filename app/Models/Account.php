@@ -37,17 +37,8 @@ final class Account extends Model
             'interest_rate' => 'float',
             'archived' => 'boolean',
             'recurring' => 'boolean',
+            'type' => AccountType::class,
         ];
-    }
-
-    protected function type(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => AccountType::make($this->group_id),
-            set: fn (AccountType $type) => [
-                'group_id' => $type->value,
-            ],
-        );
     }
 
     protected function fullname(): Attribute
@@ -107,7 +98,7 @@ final class Account extends Model
         ], [
             'archived' => false,
             'recurring' => false,
-            'group_id' => AccountType::ROOT->value,
+            'type' => AccountType::ROOT,
         ]);
     }
 }

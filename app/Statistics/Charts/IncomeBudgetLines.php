@@ -15,7 +15,7 @@ final readonly class IncomeBudgetLines extends BudgetLines
     #[Override]
     protected function accounts(): Collection
     {
-        return Account::where('group_id', AccountType::INCOME->value)->get();
+        return Account::where('type', AccountType::INCOME->value)->get();
     }
 
     #[Override]

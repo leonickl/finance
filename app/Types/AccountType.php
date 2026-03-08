@@ -6,9 +6,10 @@ namespace App\Types;
 
 use App\Dto\StatementDto;
 use App\Models\Account;
+use Filament\Support\Contracts\HasLabel;
 use Illuminate\Support\Collection;
 
-enum AccountType: int
+enum AccountType: int implements HasLabel
 {
     case ROOT = 0;
     case CASH = 1;
@@ -57,7 +58,7 @@ enum AccountType: int
      */
     public function accounts(): Collection
     {
-        return Account::where('group_id', $this->value)->get();
+        return Account::where('type', $this->value)->get();
     }
 
     /**
@@ -108,7 +109,7 @@ enum AccountType: int
         return $this === self::CLAIM_INTEREST || $this === self::CLAIM;
     }
 
-    public function label()
+    public function getLabel(): string
     {
         return __($this->name);
     }

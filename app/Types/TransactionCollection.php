@@ -58,7 +58,7 @@ final class TransactionCollection extends Collection
     public static function allExpenses(): self
     {
         return self::withDebitIn(
-            Account::where('group_id', AccountType::EXPENSES->value)->pluck('id')->toArray(),
+            Account::where('type', AccountType::EXPENSES->value)->pluck('id')->toArray(),
         );
     }
 
@@ -73,7 +73,7 @@ final class TransactionCollection extends Collection
     public static function allIncomes(): self
     {
         return self::withCreditIn(
-            Account::where('group_id', AccountType::INCOME->value)->pluck('id')->toArray(),
+            Account::where('type', AccountType::INCOME->value)->pluck('id')->toArray(),
         );
     }
 

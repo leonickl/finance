@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Accounts\Schemas;
 
 use App\Types\AccountType;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
@@ -20,9 +20,9 @@ final class AccountForm
                     ->required(),
                 Toggle::make('archived')
                     ->required(),
-                Select::make('group_id')
+                Radio::make('type')
                     ->label('Type')
-                    ->options(collect(AccountType::cases())->mapWithKeys(fn ($case) => [$case->value => $case->name])),
+                    ->options(AccountType::class),
                 Toggle::make('recurring')
                     ->required(),
                 TextInput::make('interest_rate')

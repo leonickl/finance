@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Accounts\Tables;
 
-use App\Types\AccountType;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -26,9 +25,8 @@ final class AccountsTable
                     ->searchable(),
                 IconColumn::make('archived')
                     ->boolean(),
-                TextColumn::make('group_id')
+                TextColumn::make('type')
                     ->label('Type')
-                    ->formatStateUsing(fn (int $state) => AccountType::from($state)->label())
                     ->sortable(),
                 IconColumn::make('recurring')
                     ->boolean(),

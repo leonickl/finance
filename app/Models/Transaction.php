@@ -74,7 +74,7 @@ final class Transaction extends Model
     public static function allClaims($columns = ['*']): TransactionCollection
     {
         $claims = Transaction::whereHas('debit', function ($query): void {
-            $query->where('group_id', AccountType::CLAIM->value);
+            $query->where('type', AccountType::CLAIM->value);
         })->get($columns);
 
         return TransactionCollection::make([...$claims]);
