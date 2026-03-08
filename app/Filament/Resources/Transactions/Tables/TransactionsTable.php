@@ -32,6 +32,7 @@ final class TransactionsTable
                     ->sortable(),
                 TextColumn::make('claim.id')
                     ->searchable(),
+                TextColumn::make('text'),
                 TextColumn::make('group_uid')
                     ->searchable(),
                 TextColumn::make('person.name')
