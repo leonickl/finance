@@ -9,6 +9,7 @@ use App\Types\Money;
 use App\Types\TransactionCollection;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -44,6 +45,13 @@ final class Account extends Model
     protected function fullname(): Attribute
     {
         return Attribute::get(fn () => __($this->type->name) . ' – ' . $this->name);
+    }
+
+    public static function allNotArchived(): Collection
+    {
+        return self::query()
+            ->where('archived', 0)
+            ->get();
     }
 
     public static function splitAccount(): Account

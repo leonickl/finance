@@ -82,7 +82,7 @@ final class BankCompareTable extends Page implements HasTable
                             ->onColor('success')
                             ->offColor('danger'),
                         Select::make('account_proposal')
-                            ->options(Account::all()
+                            ->options(Account::allNotArchived()
                                 ->sortBy(fn ($record) => $record->fullname)
                                 ->pluck('fullname', 'id'))
                             ->required(),
@@ -103,7 +103,7 @@ final class BankCompareTable extends Page implements HasTable
                     ])
                     ->schema([
                         Select::make('other_account')
-                            ->options(Account::all()
+                            ->options(Account::allNotArchived()
                                 ->sortBy(fn ($record) => $record->fullname)
                                 ->pluck('fullname', 'id'))
                             ->required(),
