@@ -32,7 +32,10 @@ final class TransactionsTable
                     ->sortable(),
                 TextColumn::make('claim.id')
                     ->searchable(),
-                TextColumn::make('text'),
+                TextColumn::make('text')
+                    ->getStateUsing(fn ($record) => strlen($record->text) > 40
+                        ? substr($record->text, 0, 37).'…'
+                        : $record->text),
                 TextColumn::make('group_uid')
                     ->searchable(),
                 TextColumn::make('person.name')
