@@ -20,7 +20,7 @@ final class TransactionInfolist
                     ->label(__('credit'))
                     ->getStateUsing(fn ($record) => $record->credit->fullname),
                 TextEntry::make('value')
-                    ->getStateUsing(fn ($record) => (string)$record->value()),
+                    ->getStateUsing(fn ($record) => (string) $record->value()),
                 TextEntry::make('timestamp')
                     ->date(),
                 TextEntry::make('claim.id')

@@ -9,7 +9,6 @@ use App\Models\Account;
 use App\Models\BankProposal;
 use App\Models\BankTransaction;
 use App\Models\Transaction;
-use App\Types\Money;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -98,7 +97,7 @@ final class BankCompareTable extends Page implements HasTable
                     })
                     ->visible(fn ($record) => BankProposal::findFor($record) === null),
                 Action::make('create-transaction')
-                    ->fillForm(fn(BankTransaction $record) => [
+                    ->fillForm(fn (BankTransaction $record) => [
                         'text' => $record->text,
                     ])
                     ->schema([
@@ -114,7 +113,7 @@ final class BankCompareTable extends Page implements HasTable
                         $account = $bankTransaction->bankAccount->account;
                         $other_account = Account::find($data['other_account']);
 
-                        if($bankTransaction->money->isPositive()) {
+                        if ($bankTransaction->money->isPositive()) {
                             $debit = $account;
                             $credit = $other_account;
                         } else {
@@ -133,7 +132,7 @@ final class BankCompareTable extends Page implements HasTable
                         $bankTransaction->update([
                             'transaction_id' => $transaction->id,
                         ]);
-                    })
+                    }),
             ])
             ->striped();
     }
