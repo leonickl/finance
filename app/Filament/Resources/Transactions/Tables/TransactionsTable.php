@@ -33,8 +33,8 @@ final class TransactionsTable
                 TextColumn::make('claim.id')
                     ->searchable(),
                 TextColumn::make('text')
-                    ->getStateUsing(fn ($record) => strlen($record->text) > 40
-                        ? substr($record->text, 0, 37).'…'
+                    ->getStateUsing(fn ($record) => mb_strlen($record->text) > 40
+                        ? mb_substr($record->text, 0, 37) . '…'
                         : $record->text),
                 TextColumn::make('group_uid')
                     ->searchable(),
