@@ -52,7 +52,7 @@ final class Account extends Model
 
     protected function fullname(): Attribute
     {
-        return Attribute::get(fn () => __($this->type->name) . ' - ' . $this->name);
+        return Attribute::get(fn () => __($this->type->name) . ' – ' . $this->name);
     }
 
     public static function splitAccount(): Account
@@ -105,7 +105,6 @@ final class Account extends Model
         return Account::firstOrCreate([
             'name' => '_unknown',
         ], [
-            'name' => '_unknown',
             'archived' => false,
             'recurring' => false,
             'group_id' => AccountType::ROOT->value,
