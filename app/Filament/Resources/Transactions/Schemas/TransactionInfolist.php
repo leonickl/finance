@@ -20,18 +20,20 @@ final class TransactionInfolist
                     ->label(__('credit'))
                     ->getStateUsing(fn ($record) => $record->credit->fullname),
                 TextEntry::make('value')
-                    ->numeric(),
+                    ->getStateUsing(fn ($record) => (string) $record->value()),
                 TextEntry::make('timestamp')
                     ->date(),
-                TextEntry::make('claim.id'),
-                TextEntry::make('group_uid'),
-                TextEntry::make('person.name'),
+                TextEntry::make('claim.id')
+                    ->label(__('claim_id'))
+                    ->getStateUsing(fn ($record) => $record->claim?->id ?? '---'),
+                TextEntry::make('group_uid')
+                    ->getStateUsing(fn ($record) => $record->group_uid ?? '---'),
+                TextEntry::make('person.name')
+                    ->getStateUsing(fn ($record) => $record->person?->name ?? '---'),
                 TextEntry::make('currency'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')
-                    ->dateTime(),
-                TextEntry::make('deleted_at')
                     ->dateTime(),
             ]);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -35,6 +36,36 @@ final class BankProposal extends Model
                 mb_strtolower(str_replace(["\r\n", "\n"], [' ', ' '], $transaction->text)),
                 mb_strtolower(str_replace(["\r\n", "\n"], [' ', ' '], $proposal->text_contains)),
             ));
+    }
+
+    public static function applyFor(BankTransaction $record)
+    {
+        $proposal = BankProposal::findFor($record);
+
+        if ($record->value > 0) {
+            $debit = $record->bankAccount->account;
+            $credit = $proposal->accountProposal;
+        } else {
+            $debit = $proposal->accountProposal;
+            $credit = $record->bankAccount->account;
+        }
+
+        if ($debit === null || $credit === null) {
+            throw new Exception('Proposal account not found');
+        }
+
+        $transaction = Transaction::create(
+            debit: $debit,
+            credit: $credit,
+            value: $record->money->abs(),
+            text: $proposal->text_proposal ?: $record->text,
+            date: $record->date(),
+        );
+
+        $record->transaction_id = $transaction->id;
+        $record->save();
+
+        return $transaction;
     }
 
     public function label(): string

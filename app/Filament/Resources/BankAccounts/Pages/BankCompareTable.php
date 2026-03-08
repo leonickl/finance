@@ -61,35 +61,7 @@ final class BankCompareTable extends Page implements HasTable
             ->actions([
                 Action::make('apply')
                     ->action(function (BankTransaction $record): void {
-                        $proposal = BankProposal::findFor($record);
-
-                        if ($record->value > 0) {
-                            $debit = $record->bankAccount->account;
-                            $credit = $proposal->accountProposal;
-                        } else {
-                            $debit = $proposal->accountProposal;
-                            $credit = $record->bankAccount->account;
-                        }
-
-                        if ($debit === null || $credit === null) {
-                            Notification::make()
-                                ->title("Account {$proposal->account} not found")
-                                ->warning()
-                                ->send();
-
-                            return;
-                        }
-
-                        $transaction = Transaction::create(
-                            debit: $debit,
-                            credit: $credit,
-                            value: $record->money->abs(),
-                            text: $proposal->text_proposal ?: $record->text,
-                            date: $record->date(),
-                        );
-
-                        $record->transaction_id = $transaction->id;
-                        $record->save();
+                        $transaction = BankProposal::applyFor($record);
 
                         Notification::make()
                             ->title("Created Transaction {$transaction->id}")
@@ -110,7 +82,7 @@ final class BankCompareTable extends Page implements HasTable
                             ->offColor('danger'),
                         Select::make('account_proposal')
                             ->options(Account::all()
-                                ->sortBy(fn($record) => $record->fullname)
+                                ->sortBy(fn ($record) => $record->fullname)
                                 ->pluck('fullname', 'id'))
                             ->required(),
                         TextInput::make('text_proposal'),
@@ -124,6 +96,43 @@ final class BankCompareTable extends Page implements HasTable
                             ->send();
                     })
                     ->visible(fn ($record) => BankProposal::findFor($record) === null),
+                Action::make('create-transaction')
+                    ->fillForm(fn (BankTransaction $record) => [
+                        'text' => $record->text,
+                    ])
+                    ->schema([
+                        Select::make('other_account')
+                            ->options(Account::all()
+                                ->sortBy(fn ($record) => $record->fullname)
+                                ->pluck('fullname', 'id'))
+                            ->required(),
+                        TextInput::make('text')
+                            ->required(),
+                    ])
+                    ->action(function (array $data, BankTransaction $bankTransaction): void {
+                        $account = $bankTransaction->bankAccount->account;
+                        $other_account = Account::find($data['other_account']);
+
+                        if ($bankTransaction->money->isPositive()) {
+                            $debit = $account;
+                            $credit = $other_account;
+                        } else {
+                            $debit = $other_account;
+                            $credit = $account;
+                        }
+
+                        $transaction = Transaction::create(
+                            debit: $debit,
+                            credit: $credit,
+                            value: $bankTransaction->money->abs(),
+                            text: $data['text'],
+                            date: $bankTransaction->date(),
+                        );
+
+                        $bankTransaction->update([
+                            'transaction_id' => $transaction->id,
+                        ]);
+                    }),
             ])
             ->striped();
     }
