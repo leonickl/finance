@@ -23,6 +23,9 @@ final class TransactionInfolist
                     ->getStateUsing(fn ($record) => (string) $record->value()),
                 TextEntry::make('timestamp')
                     ->date(),
+                TextEntry::make('text')
+                    ->label(__('text'))
+                    ->columnSpanFull(),
                 TextEntry::make('claim.id')
                     ->label(__('claim_id'))
                     ->getStateUsing(fn ($record) => $record->claim?->id ?? '---'),
