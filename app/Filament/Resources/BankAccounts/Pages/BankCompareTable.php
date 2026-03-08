@@ -8,6 +8,8 @@ use App\Filament\Resources\BankAccounts\BankAccountResource;
 use App\Models\Account;
 use App\Models\BankProposal;
 use App\Models\BankTransaction;
+use App\Models\Transaction;
+use App\Types\Money;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -95,6 +97,43 @@ final class BankCompareTable extends Page implements HasTable
                             ->send();
                     })
                     ->visible(fn ($record) => BankProposal::findFor($record) === null),
+                Action::make('create-transaction')
+                    ->fillForm(fn(BankTransaction $record) => [
+                        'text' => $record->text,
+                    ])
+                    ->schema([
+                        Select::make('other_account')
+                            ->options(Account::all()
+                                ->sortBy(fn ($record) => $record->fullname)
+                                ->pluck('fullname', 'id'))
+                            ->required(),
+                        TextInput::make('text')
+                            ->required(),
+                    ])
+                    ->action(function (array $data, BankTransaction $bankTransaction): void {
+                        $account = $bankTransaction->bankAccount->account;
+                        $other_account = Account::find($data['other_account']);
+
+                        if($bankTransaction->money->isPositive()) {
+                            $debit = $account;
+                            $credit = $other_account;
+                        } else {
+                            $debit = $other_account;
+                            $credit = $account;
+                        }
+
+                        $transaction = Transaction::create(
+                            debit: $debit,
+                            credit: $credit,
+                            value: $bankTransaction->money->abs(),
+                            text: $data['text'],
+                            date: $bankTransaction->date(),
+                        );
+
+                        $bankTransaction->update([
+                            'transaction_id' => $transaction->id,
+                        ]);
+                    })
             ])
             ->striped();
     }

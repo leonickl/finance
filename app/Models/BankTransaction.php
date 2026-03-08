@@ -34,6 +34,10 @@ final class BankTransaction extends Model
 {
     use CurrencyAttribute;
 
+    protected $fillable = [
+        'transaction_id',
+    ];
+
     protected function casts(): array
     {
         return [
