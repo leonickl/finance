@@ -17,6 +17,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 final class BankProposal extends Model
 {
+    protected $attributes = [
+        'text_proposal' => '',
+    ];
+
     protected $fillable = [
         'value_is_positive',
         'text_contains',
