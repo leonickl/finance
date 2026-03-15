@@ -52,6 +52,7 @@ final class FinancePanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->viteTheme('resources/css/filament/finance/theme.css');
     }
 }

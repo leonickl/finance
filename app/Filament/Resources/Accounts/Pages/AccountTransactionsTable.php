@@ -37,8 +37,7 @@ final class AccountTransactionsTable extends Page implements HasTable
         return $table
             ->query($query)
             ->columns([
-                TextColumn::make('id')
-                    ->numeric(),
+                TextColumn::make('id'),
                 TextColumn::make('other_account')
                     ->getStateUsing(fn ($record) => $this->record->id === $record->debit_id
                         ? $record->credit->fullname
@@ -61,6 +60,9 @@ final class AccountTransactionsTable extends Page implements HasTable
             ->headerActions([
                 Action::make('back')
                     ->url(fn () => route('filament.finance.resources.accounts.index', $this->record)),
-            ]);
+            ])
+            ->recordClasses(fn (Transaction $record) => $this->record->id === $record->debit_id
+                ? 'dark:bg-green-700 bg-green-300'
+                : 'dark:bg-red-500 bg-red-400');
     }
 }
