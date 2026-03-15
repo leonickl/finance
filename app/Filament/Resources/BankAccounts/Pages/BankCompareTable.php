@@ -11,6 +11,7 @@ use App\Models\BankProposal;
 use App\Models\BankTransaction;
 use App\Models\Transaction;
 use Filament\Actions\Action;
+use Filament\Actions\BulkAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -21,6 +22,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 
 final class BankCompareTable extends Page implements HasTable
 {
@@ -53,12 +55,10 @@ final class BankCompareTable extends Page implements HasTable
                 TextColumn::make('date'),
                 TextColumn::make('money')
                     ->alignEnd(),
-                TextColumn::make('text')
-                    ->getStateUsing(fn ($record) => mb_strlen($record->text) > 30
-                        ? mb_substr($record->text, 0, 30) . '...' : $record->text),
                 TextColumn::make('proposal')
                     ->getStateUsing(fn ($record) => BankProposal::findFor($record)?->label()),
             ])
+            ->searchable()
             ->actions([
                 Action::make('apply')
                     ->action(function (BankTransaction $record): void {
@@ -133,6 +133,11 @@ final class BankCompareTable extends Page implements HasTable
                         $bankTransaction->update([
                             'transaction_id' => $transaction->id,
                         ]);
+
+                        Notification::make()
+                            ->title('Created a transaction')
+                            ->success()
+                            ->send();
                     }),
             ])
             ->toolbarActions([
@@ -146,6 +151,49 @@ final class BankCompareTable extends Page implements HasTable
 
                         Notification::make()
                             ->title("Applied {$counter} proposals")
+                            ->success()
+                            ->send();
+                    }),
+                BulkAction::make('bulk-create-transaction')
+                    ->requiresConfirmation()
+                    ->schema([
+                        Select::make('other_account')
+                            ->options(Account::allNotArchived()
+                                ->sortBy(fn ($record) => $record->fullname)
+                                ->pluck('fullname', 'id'))
+                            ->required(),
+                        TextInput::make('text'),
+                    ])
+                    ->action(function (array $data, Collection $bankTransactions): void {
+                        foreach ($bankTransactions as $bankTransaction) {
+                            $account = $bankTransaction->bankAccount->account;
+                            $other_account = Account::find($data['other_account']);
+
+                            if ($bankTransaction->money->isPositive()) {
+                                $debit = $account;
+                                $credit = $other_account;
+                            } else {
+                                $debit = $other_account;
+                                $credit = $account;
+                            }
+
+                            $transaction = Transaction::create(
+                                debit: $debit,
+                                credit: $credit,
+                                value: $bankTransaction->money->abs(),
+                                text: $data['text'] ?? '',
+                                date: $bankTransaction->date(),
+                            );
+
+                            $bankTransaction->update([
+                                'transaction_id' => $transaction->id,
+                            ]);
+                        }
+
+                        $bankTransactionsCount = $bankTransactions->count();
+
+                        Notification::make()
+                            ->title("Created a bulk of {$bankTransactionsCount}")
                             ->success()
                             ->send();
                     }),
