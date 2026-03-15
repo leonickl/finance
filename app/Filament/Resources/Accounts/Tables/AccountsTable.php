@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Accounts\Tables;
 
+use App\Models\Account;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -52,6 +54,8 @@ final class AccountsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                Action::make('transactions')
+                    ->url(fn (Account $account) => route('filament.finance.resources.accounts.transactions', $account)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

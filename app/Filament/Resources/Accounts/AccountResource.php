@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Accounts;
 
+use App\Filament\Resources\Accounts\Pages\AccountTransactionsTable;
 use App\Filament\Resources\Accounts\Pages\CreateAccount;
 use App\Filament\Resources\Accounts\Pages\EditAccount;
 use App\Filament\Resources\Accounts\Pages\ListAccounts;
@@ -53,6 +54,7 @@ final class AccountResource extends Resource
             'create' => CreateAccount::route('/create'),
             'view' => ViewAccount::route('/{record}'),
             'edit' => EditAccount::route('/{record}/edit'),
+            'transactions' => AccountTransactionsTable::route('/{record}/transactions'),
         ];
     }
 

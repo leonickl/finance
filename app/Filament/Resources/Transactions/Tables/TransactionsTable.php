@@ -20,6 +20,8 @@ final class TransactionsTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->numeric(),
                 TextColumn::make('debit.name')
                     ->searchable(),
                 TextColumn::make('credit.name')
@@ -41,7 +43,8 @@ final class TransactionsTable
                 TextColumn::make('person.name')
                     ->searchable(),
                 TextColumn::make('currency')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

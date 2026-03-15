@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BankAccounts;
 
+use App\Filament\Resources\BankAccounts\Pages\BankCompareTable;
 use App\Filament\Resources\BankAccounts\Pages\CreateBankAccount;
 use App\Filament\Resources\BankAccounts\Pages\EditBankAccount;
 use App\Filament\Resources\BankAccounts\Pages\ListBankAccounts;
@@ -53,6 +54,7 @@ final class BankAccountResource extends Resource
             'create' => CreateBankAccount::route('/create'),
             'view' => ViewBankAccount::route('/{record}'),
             'edit' => EditBankAccount::route('/{record}/edit'),
+            'compare' => BankCompareTable::route('/{record}/compare'),
         ];
     }
 }
