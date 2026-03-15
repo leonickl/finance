@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $text_contains
  * @property int $account_proposal
  * @property string $text_proposal
- * @property-read  Account $accountProposal
+ * @property-read Account $accountProposal
  */
 final class BankProposal extends Model
 {
