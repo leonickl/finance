@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Transactions\Tables;
 
-use Filament\Actions\BulkActionGroup;
+use App\Models\Account;
+use Filament\Actions\BulkAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 
 final class TransactionsTable
 {
@@ -66,11 +68,34 @@ final class TransactionsTable
                 EditAction::make(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                BulkAction::make('set-debit')
+                    ->schema([
+                        Select::make('debit-account')
+                            ->options(Account::allNotArchived()
+                                ->sortBy(fn ($record) => $record->fullname)
+                                ->pluck('fullname', 'id'))
+                            ->required(),
+                    ])
+                    ->action(function (array $data, Collection $transactions): void {
+                        $transactions->each->update([
+                            'debit_id' => $data['debit-account'],
+                        ]);
+                    }),
+                BulkAction::make('set-credit')
+                    ->schema([
+                        Select::make('credit-account')
+                            ->options(Account::allNotArchived()
+                                ->sortBy(fn ($record) => $record->fullname)
+                                ->pluck('fullname', 'id'))
+                            ->required(),
+                    ])
+                    ->action(function (array $data, Collection $transactions): void {
+                        $transactions->each->update([
+                            'credit_id' => $data['credit-account'],
+                        ]);
+                    }),
             ]);
     }
 }
