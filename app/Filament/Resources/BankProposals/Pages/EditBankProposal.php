@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\BankProposals\Pages;
 
 use App\Filament\Resources\BankProposals\BankProposalResource;
@@ -8,7 +10,7 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBankProposal extends EditRecord
+final class EditBankProposal extends EditRecord
 {
     protected static string $resource = BankProposalResource::class;
 

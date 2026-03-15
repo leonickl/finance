@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\BankProposals;
 
 use App\Filament\Resources\BankProposals\Pages\CreateBankProposal;
@@ -16,11 +18,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BankProposalResource extends Resource
+final class BankProposalResource extends Resource
 {
     protected static ?string $model = BankProposal::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'text_contains';
 
