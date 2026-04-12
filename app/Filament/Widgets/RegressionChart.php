@@ -21,8 +21,8 @@ final class RegressionChart extends ChartWidget
     protected function getData(): array
     {
         $range = new MonthRange(
-            start: Month::tryFromString($this->filters['start']) ?? Month::now()->minus(12 * 3),
-            end: Month::tryFromString($this->filters['end']) ?? Month::now(),
+            start: Month::tryFromString(@$this->filters['start']) ?? Month::now()->minus(12 * 3),
+            end: Month::tryFromString(@$this->filters['end']) ?? Month::now(),
         );
 
         return LineChartInOutTotal::make($range, horizon: 5)->chartData();
