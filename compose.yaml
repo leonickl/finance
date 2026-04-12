@@ -23,6 +23,7 @@ services:
             - sail
         depends_on:
             - meilisearch
+        restart: 'unless-stopped'
     meilisearch:
         image: 'getmeili/meilisearch:latest'
         ports:
@@ -42,6 +43,7 @@ services:
                 - 'http://127.0.0.1:7700/health'
             retries: 3
             timeout: 5s
+        restart: 'unless-stopped'
 networks:
     sail:
         driver: bridge
