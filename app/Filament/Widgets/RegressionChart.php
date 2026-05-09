@@ -18,6 +18,10 @@ final class RegressionChart extends ChartWidget
 
     protected ?string $heading = 'Regression';
 
+    protected ?array $options = [
+        'aspectRatio' => 1,
+    ];
+
     protected function getData(): array
     {
         $range = new MonthRange(
