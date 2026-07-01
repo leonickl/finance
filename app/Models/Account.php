@@ -20,7 +20,6 @@ use Illuminate\Support\Collection;
  * @property AccountType $type
  * @property-read string $fullname
  * @property-read BankAccount $bankAccount
- * @property-read Money $name
  */
 final class Account extends Model
 {

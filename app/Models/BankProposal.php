@@ -89,4 +89,18 @@ final class BankProposal extends Model
     {
         return $this->belongsTo(Account::class, 'account_proposal');
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'value_is_positive' => $this->value_is_positive,
+            'text_contains' => $this->text_contains,
+            'text_proposal' => $this->text_proposal,
+            'accountProposal' => [
+                'id' => $this->accountProposal->id,
+                'fullname' => $this->accountProposal->fullname,
+            ],
+        ];
+    }
 }
