@@ -14,8 +14,8 @@ class VerifyMcpApiKey
     {
         $apiKey = config('services.mcp.api_key');
 
-        if ($apiKey === null) {
-            return $next($request);
+        if ($apiKey === null || trim($apiKey) === '') {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         $authorization = $request->bearerToken();
