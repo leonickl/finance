@@ -12,6 +12,10 @@ final class ExpensesBudgetLinesChart extends ChartWidget
 {
     protected ?string $heading = 'Expenses Budget Lines';
 
+    protected ?array $options = [
+        'aspectRatio' => .5,
+    ];
+
     protected function getData(): array
     {
         return (new ExpenseBudgetLines(Lines::range()))->chartData();
