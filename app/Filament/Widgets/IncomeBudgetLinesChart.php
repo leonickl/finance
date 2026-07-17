@@ -13,7 +13,7 @@ final class IncomeBudgetLinesChart extends ChartWidget
     protected ?string $heading = 'Income Budget Lines';
 
     protected ?array $options = [
-        'aspectRatio' => .5,
+        'aspectRatio' => 2,
     ];
 
     protected function getData(): array

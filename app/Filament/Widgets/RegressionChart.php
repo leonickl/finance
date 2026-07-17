@@ -19,7 +19,7 @@ final class RegressionChart extends ChartWidget
     protected ?string $heading = 'Regression';
 
     protected ?array $options = [
-        'aspectRatio' => 1,
+        'aspectRatio' => 2,
     ];
 
     protected function getData(): array
