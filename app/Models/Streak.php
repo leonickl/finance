@@ -51,7 +51,7 @@ final class Streak extends Model
                 ->where('debit_id', $this->debit_id)
                 ->where('credit_id', $this->credit_id)
                 ->where('value', $this->value)
-                ->whereBetween('', [$month->toCarbon()->startOfMonth(), $month->toCarbon()->endOfMonth()])
+                ->whereBetween('timestamp', [$month->toCarbon()->startOfMonth(), $month->toCarbon()->endOfMonth()])
                 ->first();
 
             if ($transactions) {
