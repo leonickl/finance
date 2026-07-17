@@ -15,7 +15,10 @@ use RuntimeException;
 
 abstract readonly class BudgetLines
 {
-    public function __construct(protected Range $range) {}
+    public function __construct(
+        protected Range $range,
+        protected bool $cumulative = false,
+    ) {}
 
     public function chartData(): array
     {
@@ -67,15 +70,42 @@ abstract readonly class BudgetLines
             }
         }
 
-        $datasets = collect();
+        $sorted = collect($accounts)
+            ->map(fn (Map $balanceByMonths, int $accountId) => [
+                'name' => $accountNames[$accountId],
+                'data' => $balanceByMonths,
+            ])
+            ->sortByDesc(fn (array $item) => array_sum($item['data']->values()))
+            ->values();
 
-        foreach ($accounts as $accountId => $balanceByMonths) {
-            $datasets[] = new IncomeExpenseChartDataset(accountName: $accountNames[$accountId], balanceByMonths: $balanceByMonths);
+        if ($this->cumulative) {
+            $stacked = [];
+            $runningTotals = null;
+
+            foreach ($sorted as $item) {
+                if ($runningTotals === null) {
+                    $runningTotals = clone $item['data'];
+                    $stacked[] = $item;
+                } else {
+                    $stackedMap = Map::empty();
+
+                    foreach ($item['data'] as [$month, $value]) {
+                        $stackedMap[$month] = $runningTotals[$month] + $value;
+                    }
+
+                    $runningTotals = $stackedMap;
+                    $stacked[] = ['name' => $item['name'], 'data' => $stackedMap];
+                }
+            }
+
+            $sorted = collect($stacked);
         }
 
-        return $datasets
-            ->sortBy(fn (ChartDataset $chartDataset) => $chartDataset->size())
-            ->values()
+        return $sorted
+            ->map(fn (array $item) => new IncomeExpenseChartDataset(
+                accountName: $item['name'],
+                balanceByMonths: $item['data'],
+            ))
             ->map(fn (ChartDataset $chartDataset) => $chartDataset->toArray())
             ->toArray();
     }

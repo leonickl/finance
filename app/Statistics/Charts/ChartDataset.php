@@ -18,7 +18,7 @@ abstract readonly class ChartDataset
         return [
             'label' => $this->label,
             'fill' => false,
-            'borderColor' => $this->borderColor ?? Color::randomForChart(),
+            'borderColor' => $this->borderColor ?? Color::forChart($this->label),
             'backgroundColor' => 'lightgray',
             'tension' => .6,
             'data' => $this->data()->toArray(),

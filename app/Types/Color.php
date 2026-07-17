@@ -92,7 +92,12 @@ enum Color
 
     public static function randomForChart(): string
     {
-        return '#' . collect([
+        return self::forChart('' . mt_rand());
+    }
+
+    public static function forChart(string $key): string
+    {
+        $colors = [
             'FCECC9',
             'FCB0B3',
             'F93943',
@@ -112,7 +117,11 @@ enum Color
             'C8AB83',
             '55868C',
             '7F636E',
-        ])->random();
+        ];
+
+        $index = hexdec(substr(md5($key), 0, 8)) % count($colors);
+
+        return '#' . $colors[$index];
     }
 
     public static function random(): Color
