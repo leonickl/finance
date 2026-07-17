@@ -18,6 +18,8 @@ final class RegressionChart extends ChartWidget
 
     protected ?string $heading = 'Regression';
 
+    protected ?string $maxHeight = '400px';
+
     protected ?array $options = [
         'aspectRatio' => 2,
     ];

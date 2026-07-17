@@ -12,6 +12,8 @@ final class ExpensesBudgetLinesChart extends ChartWidget
 {
     protected ?string $heading = 'Expenses Budget Lines';
 
+    protected ?string $maxHeight = '500px';
+
     protected ?array $options = [
         'aspectRatio' => 2,
     ];

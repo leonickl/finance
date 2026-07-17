@@ -12,6 +12,8 @@ final class IncomeBudgetLinesChart extends ChartWidget
 {
     protected ?string $heading = 'Income Budget Lines';
 
+    protected ?string $maxHeight = '500px';
+
     protected ?array $options = [
         'aspectRatio' => 2,
     ];
