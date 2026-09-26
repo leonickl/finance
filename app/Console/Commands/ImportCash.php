@@ -44,7 +44,7 @@ final class ImportCash extends Command
             label: 'Target Account',
             options: fn (string $value) => mb_strlen($value) > 0
                 ? $accounts
-                    ->filter(fn ($account) => str_contains(strtolower($account->fullname), strtolower($value)))
+                    ->filter(fn ($account) => str_contains(mb_strtolower($account->fullname), mb_strtolower($value)))
                     ->pluck('fullname', 'id')
                     ->toArray()
                 : $accounts
@@ -112,7 +112,7 @@ final class ImportCash extends Command
                 label: 'Debit Account',
                 options: fn (string $value) => mb_strlen($value) > 0
                     ? $accounts
-                        ->filter(fn ($account) => str_contains(strtolower($account->fullname), strtolower($value)))
+                        ->filter(fn ($account) => str_contains(mb_strtolower($account->fullname), mb_strtolower($value)))
                         ->pluck('fullname', 'id')
                         ->toArray()
                     : [$cash_account->id => $cash_account->fullname],
@@ -122,7 +122,7 @@ final class ImportCash extends Command
                 label: 'Credit Account',
                 options: fn (string $value) => mb_strlen($value) > 0
                     ? $accounts
-                        ->filter(fn ($account) => str_contains(strtolower($account->fullname), strtolower($value)))
+                        ->filter(fn ($account) => str_contains(mb_strtolower($account->fullname), mb_strtolower($value)))
                         ->pluck('fullname', 'id')
                         ->toArray()
                     : [$cash_account->id => $cash_account->fullname],
