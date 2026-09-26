@@ -23,6 +23,14 @@ final readonly class Date
     }
 
     /**
+     * @param  string  $string  yyyy-mm-dd
+     */
+    public static function fromDashed(string $string): self
+    {
+        return new Date(Carbon::createFromFormat('Y-m-d', $string));
+    }
+
+    /**
      * @param  string  $string  dd.mm.yyyy
      */
     public static function fromGermanDate(string $string): self
