@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\BankAccount;
@@ -12,7 +14,7 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Apply all available proposals for a bank account')]
-class ApplyAllProposalsTool extends Tool
+final class ApplyAllProposalsTool extends Tool
 {
     /**
      * Handle the tool request.

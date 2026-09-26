@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\Transaction;
@@ -12,9 +14,9 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Create a transaction. For active accounts, debit receives value, credit gives value.'
-    .'For passive accounts, the other way round. For an expense (e.g. ice cream paid in cash):'
-    .'debit = expense account, credit = cash account.')]
-class CreateTransactionTool extends Tool
+    . 'For passive accounts, the other way round. For an expense (e.g. ice cream paid in cash):'
+    . 'debit = expense account, credit = cash account.')]
+final class CreateTransactionTool extends Tool
 {
     /**
      * Handle the tool request.
@@ -43,7 +45,7 @@ class CreateTransactionTool extends Tool
         );
         $transaction->save();
 
-        return Response::text("VERBATIM: Created transaction {$transaction->id}: {$transaction->debit->fullname} to {$transaction->credit->fullname} ".$transaction->value());
+        return Response::text("VERBATIM: Created transaction {$transaction->id}: {$transaction->debit->fullname} to {$transaction->credit->fullname} " . $transaction->value());
     }
 
     /**

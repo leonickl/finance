@@ -52,7 +52,7 @@ final class ImportCash extends Command
                     ->toArray(),
         );
 
-        $cash_account = Account::find((int)$cash_account_id);
+        $cash_account = Account::find((int) $cash_account_id);
 
         $currencies = Transaction::pluck('currency')
             ->unique()
@@ -63,7 +63,7 @@ final class ImportCash extends Command
 
         foreach ($this->todos() as $todo) {
             if (CashImport::query()->where('uid', $todo->uid)->exists()) {
-                $this->line("Skipped existing ($todo->uid)");
+                $this->line("Skipped existing ({$todo->uid})");
                 $this->newLine();
 
                 continue;
@@ -142,7 +142,7 @@ final class ImportCash extends Command
                 'transaction_id' => $transaction->id,
             ]);
 
-            $this->line("Created transaction $transaction->id and noted imported record $cash_import->id.");
+            $this->line("Created transaction {$transaction->id} and noted imported record {$cash_import->id}.");
             $this->newLine();
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\Account;
@@ -11,7 +13,7 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Create a new account with a name and type.')]
-class CreateAccountTool extends Tool
+final class CreateAccountTool extends Tool
 {
     public function handle(Request $request): Response
     {
@@ -36,7 +38,7 @@ class CreateAccountTool extends Tool
 
     public function schema(JsonSchema $schema): array
     {
-        $accountTypes = AccountType::all()->map(fn ($name, $id) => "$id=$name")->join(', ');
+        $accountTypes = AccountType::all()->map(fn ($name, $id) => "{$id}={$name}")->join(', ');
 
         return [
             'name' => $schema->string()
@@ -44,7 +46,7 @@ class CreateAccountTool extends Tool
                 ->required(),
 
             'type' => $schema->integer()
-                ->description('The account type ID: '.$accountTypes)
+                ->description('The account type ID: ' . $accountTypes)
                 ->required(),
 
             'archived' => $schema->boolean()

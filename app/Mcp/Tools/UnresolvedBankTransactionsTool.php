@@ -1,18 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
+use App\Models\BankProposal;
+use App\Models\BankTransaction;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
+use Illuminate\JsonSchema\Types\Type;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\ResponseFactory;
 use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
-use App\Models\BankTransaction;
-use App\Models\BankProposal;
 
 #[Description('View the next few unresolved bank transactions.')]
-class UnresolvedBankTransactionsTool extends Tool
+final class UnresolvedBankTransactionsTool extends Tool
 {
     /**
      * Handle the tool request.
@@ -33,7 +36,7 @@ class UnresolvedBankTransactionsTool extends Tool
                 'id' => $record->id,
                 'text' => $record->text,
                 'date' => $record->date,
-                'money' => (string)$record->money,
+                'money' => (string) $record->money,
             ]);
 
         return Response::structured([
@@ -44,7 +47,7 @@ class UnresolvedBankTransactionsTool extends Tool
     /**
      * Get the tool's input schema.
      *
-     * @return array<string, \Illuminate\JsonSchema\Types\Type>
+     * @return array<string, Type>
      */
     public function schema(JsonSchema $schema): array
     {
@@ -62,7 +65,7 @@ class UnresolvedBankTransactionsTool extends Tool
     /**
      * Get the tool's output schema.
      *
-     * @return array<string, \Illuminate\JsonSchema\Types\Type>
+     * @return array<string, Type>
      */
     public function outputSchema(JsonSchema $schema): array
     {

@@ -6,10 +6,10 @@ namespace App\Filament\Widgets;
 
 use App\Statistics\Charts\ExpenseBudgetLines;
 use App\Statistics\Charts\Lines;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 use Filament\Widgets\ChartWidget;
 use Filament\Widgets\ChartWidget\Concerns\HasFiltersSchema;
-use Filament\Forms\Components\Toggle;
 
 final class ExpensesBudgetLinesChart extends ChartWidget
 {

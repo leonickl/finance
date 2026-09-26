@@ -119,7 +119,7 @@ enum Color
             '7F636E',
         ];
 
-        $index = hexdec(substr(md5($key), 0, 8)) % count($colors);
+        $index = hexdec(mb_substr(md5($key), 0, 8)) % count($colors);
 
         return '#' . $colors[$index];
     }

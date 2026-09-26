@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\BankTransaction;
@@ -13,10 +15,10 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Create a transaction and link it to a bank transaction. '
-    .'This works like create-transaction-tool but also marks the bank transaction as resolved. '
-    .'For active accounts, debit receives value, credit gives value. '
-    .'For passive accounts, the other way round.')]
-class CreateTransactionForBankTransactionTool extends Tool
+    . 'This works like create-transaction-tool but also marks the bank transaction as resolved. '
+    . 'For active accounts, debit receives value, credit gives value. '
+    . 'For passive accounts, the other way round.')]
+final class CreateTransactionForBankTransactionTool extends Tool
 {
     public function handle(Request $request): Response
     {
@@ -52,7 +54,7 @@ class CreateTransactionForBankTransactionTool extends Tool
         $bankTransaction->transaction_id = $transaction->id;
         $bankTransaction->save();
 
-        return Response::text("VERBATIM: Created transaction {$transaction->id} linked to bank transaction {$bankTransaction->id}: {$transaction->debit->fullname} to {$transaction->credit->fullname} ".$transaction->value());
+        return Response::text("VERBATIM: Created transaction {$transaction->id} linked to bank transaction {$bankTransaction->id}: {$transaction->debit->fullname} to {$transaction->credit->fullname} " . $transaction->value());
     }
 
     public function schema(JsonSchema $schema): array

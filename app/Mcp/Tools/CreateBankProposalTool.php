@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\BankProposal;
@@ -10,7 +12,7 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Create a proposal for a specific bank transaction that can be re-used afterwards.')]
-class CreateBankProposalTool extends Tool
+final class CreateBankProposalTool extends Tool
 {
     /**
      * Handle the tool request.

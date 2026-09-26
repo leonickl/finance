@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\BankTransaction;
@@ -12,7 +14,7 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Link an existing transaction to an unresolved bank transaction. This does NOT create a new transaction, it only sets the link.')]
-class LinkBankTransactionToTransactionTool extends Tool
+final class LinkBankTransactionToTransactionTool extends Tool
 {
     public function handle(Request $request): ResponseFactory
     {

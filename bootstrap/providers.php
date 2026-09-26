@@ -1,10 +1,14 @@
 <?php
 
 declare(strict_types=1);
+use App\Providers\AppServiceProvider;
+use App\Providers\Filament\FinancePanelProvider;
+use App\Providers\MacroProvider;
+use App\Providers\VoltServiceProvider;
 
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\FinancePanelProvider::class,
-    App\Providers\VoltServiceProvider::class,
-    App\Providers\MacroProvider::class,
+    AppServiceProvider::class,
+    FinancePanelProvider::class,
+    VoltServiceProvider::class,
+    MacroProvider::class,
 ];

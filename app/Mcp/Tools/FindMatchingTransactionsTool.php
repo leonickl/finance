@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Models\BankTransaction;
@@ -13,7 +15,7 @@ use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Tool;
 
 #[Description('Find existing transactions that match unresolved bank transactions by amount (exact) and date (within a configurable window, default ±3 days). Shows bank backlinks on matching transactions.')]
-class FindMatchingTransactionsTool extends Tool
+final class FindMatchingTransactionsTool extends Tool
 {
     private const int DEFAULT_DAYS = 3;
 
@@ -48,7 +50,7 @@ class FindMatchingTransactionsTool extends Tool
                 $query->where('credit_id', $bankTransaction->bankAccount->account_id);
             }
 
-            $query->whereNotIn('id', function ($sub) use ($bankTransaction) {
+            $query->whereNotIn('id', function ($sub) use ($bankTransaction): void {
                 $sub->select('transaction_id')
                     ->from('bank_transactions')
                     ->whereNotNull('transaction_id')
