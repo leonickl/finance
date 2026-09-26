@@ -24,6 +24,8 @@ final class BankTransactionResource extends Resource
 {
     protected static ?string $model = BankTransaction::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
