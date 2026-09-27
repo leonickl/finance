@@ -7,6 +7,8 @@ namespace App\Filament\Resources\Accounts\Pages;
 use App\Filament\Resources\Accounts\AccountResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Filament\Actions\Action;
+use App\Models\Account;
 
 final class ViewAccount extends ViewRecord
 {
@@ -16,6 +18,11 @@ final class ViewAccount extends ViewRecord
     {
         return [
             EditAction::make(),
+            Action::make('toggle-archived')
+                ->action(function (Account $account) {
+                    $account->archived = ! $account->archived;
+                    $account->save();
+                }),
         ];
     }
 }
