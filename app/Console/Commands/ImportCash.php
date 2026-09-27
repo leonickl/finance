@@ -22,7 +22,7 @@ final class ImportCash extends Command
 {
     protected $signature = 'cash:import {calendar_id} {--dry}';
 
-    protected $description = 'Command description';
+    protected $description = 'Import cash transactions from a caldav calendar url.';
 
     public function handle(): void
     {
