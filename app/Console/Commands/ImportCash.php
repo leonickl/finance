@@ -149,9 +149,12 @@ final class ImportCash extends Command
 
     private function todos()
     {
+        $uids = CashImport::query()->pluck('uid');
+
         return CalDav::make()
             ->todos($this->argument('calendar_id'))
-            ->filter(fn (array $todo) => @$todo['STATUS'] !== 'COMPLETED')
+            ->filter(fn (array $todo) => @$todo['STATUS'] !== 'COMPLETED'
+                && ! in_array($todo['UID'], $uids->toArray()))
             ->map(function (array $todo) {
                 $uid = $todo['UID'];
 
