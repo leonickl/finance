@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\CalDav;
 use App\Models\Account;
 use App\Models\CashImport;
 use App\Models\Transaction;
@@ -11,7 +12,6 @@ use App\Types\Currency;
 use App\Types\Date\Date;
 use App\Types\Money;
 use Illuminate\Console\Command;
-use App\CalDav;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\search;

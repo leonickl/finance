@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\CalDav;
+use Illuminate\Console\Command;
 
-class ListCalendars extends Command
+final class ListCalendars extends Command
 {
     protected $signature = 'cash:calendars';
 
     protected $description = 'List the remote calendars to select a task list from containing your cash transactions.';
 
-    public function handle()
+    public function handle(): void
     {
         $calendars = CalDav::make()
             ->calendars()
@@ -19,7 +21,7 @@ class ListCalendars extends Command
                 'ID' => $calendar->getCalendarId(),
                 'Name' => $calendar->getDisplayname(),
             ]);
-        
+
         $this->table(['ID', 'Name'], $calendars);
     }
 }
