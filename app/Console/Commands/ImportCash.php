@@ -10,8 +10,8 @@ use App\Models\Transaction;
 use App\Types\Currency;
 use App\Types\Date\Date;
 use App\Types\Money;
-use ICal\ICal;
 use Illuminate\Console\Command;
+use App\CalDav;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\search;
@@ -20,7 +20,7 @@ use function Laravel\Prompts\text;
 
 final class ImportCash extends Command
 {
-    protected $signature = 'app:import-cash {file} {--dry}';
+    protected $signature = 'cash:import {calendar_id} {--dry}';
 
     protected $description = 'Command description';
 
@@ -149,7 +149,9 @@ final class ImportCash extends Command
 
     private function todos()
     {
-        return collect(new ICal($this->argument('file'))->cal['VTODO'])
+        return CalDav::make()
+            ->todos($this->argument('calendar_id'))
+            ->filter(fn (array $todo) => @$todo['STATUS'] !== 'COMPLETED')
             ->map(function (array $todo) {
                 $uid = $todo['UID'];
 
