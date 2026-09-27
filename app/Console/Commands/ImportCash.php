@@ -38,7 +38,7 @@ final class ImportCash extends Command
             return;
         }
 
-        $accounts = Account::all();
+        $accounts = Account::allNotArchived();
 
         $cash_account_id = search(
             label: 'Target Account',
