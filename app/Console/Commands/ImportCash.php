@@ -172,22 +172,22 @@ final class ImportCash extends Command
                 $currency = '';
                 $text = '';
 
-                for ($i = 0; $i < mb_strlen($summary); $i++) {
-                    if ($text === '' && $summary[$i] === '\\') {
+                foreach (mb_str_split($summary) as $char) {
+                    if ($text === '' && $char === '\\') {
                         continue;
                     }
 
-                    if ($text === '' && str_contains('+-1234567890,.\\', $summary[$i])) {
-                        $value .= $summary[$i];
+                    if ($text === '' && str_contains('+-1234567890,.\\', $char)) {
+                        $value .= $char;
 
                         continue;
                     }
 
-                    if ($text === '' && $summary[$i] === ' ') {
+                    if ($text === '' && $char === ' ') {
                         continue;
                     }
 
-                    $text .= $summary[$i];
+                    $text .= $char;
 
                     if (in_array(mb_strtolower($text), ['€', 'eur'])) {
                         $currency = $text;
