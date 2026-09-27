@@ -23,14 +23,16 @@ final class TransactionsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->numeric()
+                    ->numeric(thousandsSeparator: '')
                     ->sortable(),
                 TextColumn::make('debit.name')
+                    ->getStateUsing(fn ($record) => $record->debit->fullname)
                     ->searchable(),
                 TextColumn::make('credit.name')
+                    ->getStateUsing(fn ($record) => $record->credit->fullname)
                     ->searchable(),
                 TextColumn::make('value')
-                    ->numeric()
+                    ->money(fn ($record) => $record->currency->code(), locale: 'de')
                     ->sortable(),
                 TextColumn::make('timestamp')
                     ->date()
