@@ -23,7 +23,8 @@ final class TransactionsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->numeric(),
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('debit.name')
                     ->searchable(),
                 TextColumn::make('credit.name')
