@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Transactions\Pages;
 
 use App\Filament\Resources\Transactions\TransactionResource;
-use Filament\Actions\EditAction;
-use Filament\Actions\Action;
-use Filament\Resources\Pages\ViewRecord;
 use App\Models\Transaction;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
 use Filament\Notifications\Notification;
+use Filament\Resources\Pages\ViewRecord;
 
 final class ViewTransaction extends ViewRecord
 {
@@ -20,7 +20,7 @@ final class ViewTransaction extends ViewRecord
         return [
             EditAction::make(),
             Action::make('swap')
-                ->action(function (Transaction $transaction) {
+                ->action(function (Transaction $transaction): void {
                     $debit_id = $transaction->debit_id;
                     $credit_id = $transaction->credit_id;
 
@@ -33,7 +33,7 @@ final class ViewTransaction extends ViewRecord
                         ->title('Swapped debit and credit account')
                         ->success()
                         ->send();
-                })
+                }),
         ];
     }
 }
